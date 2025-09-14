@@ -11,7 +11,13 @@ export default function About() {
         </Reveal>
 
         <div className="flex flex-col items-center gap-8">
-          
+          <div className="relative flex-shrink-0 mt-12 lg:mt-0">
+            {/* Photo / Avatar */}
+        
+            {/* Abstract elements - for visual richness */}
+            <div className="absolute inset-0 flex items-center justify-center opacity-30 animate-pulse-glow z-0">
+              <div className="h-full w-full rounded-full border border-primary/50 animate-morph-blob" />
+            </div>
           </div>
 
           <div className="max-w-3xl mx-auto space-y-4">
@@ -69,7 +75,7 @@ export default function About() {
             </div>
           </div>
         </div>
-      
+      </div>
     </section>
   );
 }
