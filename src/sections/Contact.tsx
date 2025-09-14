@@ -173,7 +173,7 @@ export default function Contact() {
                 </span>
                   <div>
                     <p className="text-md text-muted-foreground">E-mail</p>
-                    <a href="mailto:maurobernardozibane@gmail.com" className="font-bold text-lg text-foreground hover:underline">mauroberbernardozibane@gmail.com</a>
+                    <a href="mailto:maurobernardozibane@gmail.com" className="font-bold text-lg text-foreground hover:underline">maurobernardozibane@gmail.com</a>
                   </div>
                 </div>
               </Reveal>

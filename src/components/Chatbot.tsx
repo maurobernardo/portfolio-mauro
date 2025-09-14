@@ -25,14 +25,14 @@ export default function Chatbot() {
 
   const respond = (text: string): string => {
     const q = text.toLowerCase();
-    if (/ola|olá|oi|hey|hello/.test(q)) return 'Olá! Posso falar sobre meus Projetos, Habilidades e Colaborações.';
-    if (/projeto|projetos|portifólio|portfólio/.test(q)) return 'Veja meus projetos na seção "Projetos". Quer um link específico?';
+    if (/ola|olá|oi|hey|hello/.test(q)) return 'Olá! Posso falar sobre meus Projetos e Habilidades.';
+    if (/projeto|projetos|projectos|portifólio|portfólio/.test(q)) return 'Veja meus projetos na seção "Projetos". Quer um link específico?';
     if (/skill|habilidade|tecnolog/.test(q)) return 'Trabalho com Java (Spring), React e React Native (TypeScript), Python, entre outras.';
     if (/analise|analista|ciencia|cientista|dados/.test(q)) return 'Sou analista e cientista de dados, trabalho com Python, SQL, Power BI e Excel.';
     if (/contato|contacto|email|e-mail|whats/.test(q)) return 'Você pode usar o formulário em "Contato" ou enviar e-mail direto.';
     if (/ajuda|colaboracao|colaborar|uniao|juntar|juncao/.test(q)) return 'Você pode usar o formulário em "Contato" ou enviar e-mail direto para mais detalhes.';
     if (/experien|trabalh|empres/.test(q)) return 'Tenho experiência em backend Java e frontend com React.';
-    return 'Obrigado pela pergunta! Já já te retorno por aqui ou me chame em "Contato".';
+    return 'Obrigado pela pergunta! Já já te retorno por aqui ou me chame em "Conctato".';
   };
 
   const handleSend = () => {

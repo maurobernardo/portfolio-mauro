@@ -62,7 +62,7 @@ const experiences: ExperienceItem[] = [
     period: "Julho21 2025 — Julho25 2025",
     bullets: [
       "Desenvolvimento de Prototipos.",
-      "Desenvolvimento de demoss.",
+      "Desenvolvimento de demos.",
       "Pesquisa e analise do mercado.",
       "Elevator Pitch.",
     ],
@@ -254,7 +254,7 @@ const certifications = [
     year: "2025",
     period: "Setembro 2025 · Setembro 2025",
     skills :['Inteligência Artificial', 'Machine Learning', 'Deep Learning', 'Ética em IA'],
-    image: '/ia.jpg',
+    image: '/ia2.jpg',
     imageAlt: 'Certificado de Introdução à IA Moderna da Cisco',
   },
   {
@@ -263,7 +263,7 @@ const certifications = [
     year: "2025", 
     period: "Setembro 2025 · Setembro 2025", 
     skills: ["Ciência de Dados", "Análise de Dados", "Estatística", "Visualização de Dados"],
-    image: '/ia.jpg', 
+    image: '/Ciencia.jpg', 
     imageAlt: 'Certificado de Introdução à Ciência de Dados da Cisco',
   },
 ];
