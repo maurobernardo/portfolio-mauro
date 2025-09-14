@@ -56,7 +56,7 @@ export default function Contact() {
       'Atenciosamente,',
       `${firstName} ${lastName}`.trim(),
     ].filter(Boolean).join('\n');
-    const mailto = `mailto:mauroberbernardozibane@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines)}`;
+    const mailto = `mailto:maurobernardozibane@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines)}`;
     window.location.href = mailto;
   };
 
@@ -173,7 +173,7 @@ export default function Contact() {
                 </span>
                   <div>
                     <p className="text-md text-muted-foreground">E-mail</p>
-                    <a href="mailto:mauroberbernardozibane@gmail.com" className="font-bold text-lg text-foreground hover:underline">mauroberbernardozibane@gmail.com</a>
+                    <a href="mailto:maurobernardozibane@gmail.com" className="font-bold text-lg text-foreground hover:underline">mauroberbernardozibane@gmail.com</a>
                   </div>
                 </div>
               </Reveal>
@@ -231,7 +231,7 @@ export default function Contact() {
         {/* Google Map */}
         <Reveal delayMs={700}>
           <div className="mt-12 rounded-xl border border-primary/20 shadow-lg overflow-hidden">
-            <h4 className="text-xl font-bold text-foreground p-4 bg-card text-center">Nossa Localização</h4>
+            <h4 className="text-xl font-bold text-foreground p-4 bg-card text-center">Minha Localização</h4>
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>{/* 16:9 Aspect Ratio */}
               <iframe
                 title="Google Map of Beira, Mozambique"

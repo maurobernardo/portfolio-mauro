@@ -14,7 +14,7 @@ export default function Hero() {
             </Reveal>
             <Reveal delayMs={80}>
               <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl leading-tight">
-                Olá, eu sou <span className="text-primary"><RotatingText phrases={['Mauro Zibane', 'Desenvolvedor Full Stack', 'Engenheiro de Software', 'Estudante de Engenharia de Software']} interval={4000} /></span>
+                Olá, eu sou <span className="text-primary"><RotatingText phrases={['Mauro Zibane', 'Desenvolvedor Full Stack', 'Engenheiro de Software', 'Estudante de Tecnologia de Informação']} interval={4000} /></span>
               </h1>
             </Reveal>
             <Reveal delayMs={160}>

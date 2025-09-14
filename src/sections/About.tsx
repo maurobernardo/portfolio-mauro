@@ -15,20 +15,7 @@ export default function About() {
             {/* Photo / Avatar */}
             <Reveal delayMs={80} className="relative z-10">
               <div className="relative h-48 w-48 rounded-full flex items-center justify-center overflow-hidden border-2 border-primary shadow-xl mx-auto animate-float-slow">
-                <img
-                  src="/profile.JPG"
-                  alt="Foto de perfil de Mauro Zibane"
-                  className="h-full w-full rounded-full object-cover"
-                  onError={(e) => {
-                    const img = e.currentTarget as HTMLImageElement;
-                    if (img.src.endsWith('/profile.jpg')) {
-                      img.onerror = null; // evita loop
-                      img.src = '/profile.JPG';
-                    } else {
-                      img.style.display = 'none';
-                    }
-                  }}
-                />
+             
               </div>
             </Reveal>
             {/* Abstract elements - for visual richness */}
@@ -56,8 +43,8 @@ export default function About() {
               </Reveal>
             </div>
             <Reveal delayMs={560}>
-              <a href="#contato" className="mt-8 inline-flex items-center rounded-full bg-primary px-6 py-3 text-primary-foreground font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-primary/30 active:translate-y-px">
-                Leia Mais
+              <a href="#Skills" className="mt-8 inline-flex items-center rounded-full bg-primary px-6 py-3 text-primary-foreground font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-primary/30 active:translate-y-px">
+                Ver Mais
               </a>
             </Reveal>
           </div>
