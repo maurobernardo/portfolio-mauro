@@ -39,7 +39,7 @@ export default function About() {
               </Reveal>
             </div>
             <Reveal delayMs={560}>
-              <a href="#Skills" className="mt-8 inline-flex items-center rounded-full bg-primary px-6 py-3 text-primary-foreground font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-primary/30 active:translate-y-px">
+              <a href="#skills" className="mt-8 inline-flex items-center rounded-full bg-primary px-6 py-3 text-primary-foreground font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-primary/30 active:translate-y-px">
                 Ver Mais
               </a>
             </Reveal>

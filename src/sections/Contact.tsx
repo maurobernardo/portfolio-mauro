@@ -45,7 +45,7 @@ export default function Contact() {
   };
 
   const openEmail = () => {
-    const subject = 'Contato através do Portfólio';
+    const subject = 'Conctato através do Portfólio';
     const bodyLines = [
       'Olá Mauro, venho através do seu Portfólio,',
       firstName || lastName ? `Meu nome é ${firstName} ${lastName}`.trim() : '',
@@ -80,7 +80,7 @@ export default function Contact() {
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <Reveal>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">Entre em Contato</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">Entre em Conctato</h2>
           </Reveal>
           <Reveal delayMs={80}>
             <p className="max-w-[700px] text-muted-foreground md:text-xl">
@@ -152,7 +152,7 @@ export default function Contact() {
           {/* Info card */}
           <div className="rounded-xl border bg-card p-8 shadow-lg">
             <Reveal delayMs={100}>
-              <h3 className="text-2xl font-bold text-foreground">Informações de Contato</h3>
+              <h3 className="text-2xl font-bold text-foreground">Informações de Conctato</h3>
             </Reveal>
             <div className="mt-8 space-y-6">
               <Reveal delayMs={150}>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Moon, Sun, Home, User2, Briefcase, Wrench, Mail, Layers3, Menu, X, Rocket } from 'lucide-react';
 import cls from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 const sections = [
   { href: '#inicio', label: 'Início', Icon: Home },
@@ -15,6 +16,7 @@ const sections = [
 export default function Navbar() {
   const [isDark, setIsDark] = useState(false);
   const [open, setOpen] = useState(false);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
@@ -56,6 +58,20 @@ export default function Navbar() {
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
+            <button
+              aria-label="Mudar para Inglês"
+              onClick={() => i18n.changeLanguage('en')}
+              className="rounded-full px-3 py-2 text-sm font-medium transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              EN
+            </button>
+            <button
+              aria-label="Mudar para Português"
+              onClick={() => i18n.changeLanguage('pt')}
+              className="rounded-full px-3 py-2 text-sm font-medium transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              PT
+            </button>
           </nav>
           <div className="flex items-center gap-2 md:hidden">
             <button
@@ -64,6 +80,20 @@ export default function Navbar() {
               className="rounded-full p-2 transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button
+              aria-label="Mudar para Inglês"
+              onClick={() => i18n.changeLanguage('en')}
+              className="rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              EN
+            </button>
+            <button
+              aria-label="Mudar para Português"
+              onClick={() => i18n.changeLanguage('pt')}
+              className="rounded-full px-3 py-2 text-sm font-medium transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              PT
             </button>
             <button
               aria-label="Abrir menu"
