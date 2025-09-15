@@ -132,7 +132,7 @@ export default function Contact() {
               </div>
               <label className="grid gap-2">
                 <span className="text-md font-bold leading-none text-foreground">Mensagem</span>
-                <textarea value={message} onChange={(e) => setMessage(sanitize(e.target.value))} className={`${inputBase} min-h-[160px] resize-y ${errors.message ? 'border-destructive ring-destructive' : ''}`} placeholder="Como posso ajudar?" name="user_message" />
+                <textarea value={message} onChange={(e) => setMessage(e.target.value)} className={`${inputBase} min-h-[160px] resize-y ${errors.message ? 'border-destructive ring-destructive' : ''}`} placeholder="Como posso ajudar?" name="user_message" />
                 {errors.message && <span className="text-sm text-destructive-foreground mt-1">{errors.message}</span>}
               </label>
             </div>
