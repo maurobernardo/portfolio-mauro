@@ -10,6 +10,15 @@
       "view_my_work": "Ver Meu Trabalho",
       "scroll_down": "Role para baixo",
       "profile_alt": "Foto de perfil de Mauro Zibane"
+    },
+    "navbar": {
+      "home": "Início",
+      "about": "Sobre",
+      "skills": "Skills",
+      "services": "Serviços",
+      "projects": "Projetos",
+      "experience": "Experiência",
+      "contact": "Contato"
     }
   }
 }

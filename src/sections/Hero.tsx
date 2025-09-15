@@ -4,7 +4,7 @@ import { Facebook, Twitter, Linkedin, Github } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export default function Hero() {
-  const { t } = useTranslation();
+  const { t } = useTranslation('global');
 
   return (
     <section id="inicio" className="relative overflow-hidden min-h-screen flex items-center bg-background py-20 sm:py-28 lg:py-32">

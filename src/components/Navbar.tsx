@@ -3,20 +3,20 @@ import { Moon, Sun, Home, User2, Briefcase, Wrench, Mail, Layers3, Menu, X, Rock
 import cls from 'classnames';
 import { useTranslation } from 'react-i18next';
 
-const sections = [
-  { href: '#inicio', label: 'Início', Icon: Home },
-  { href: '#sobre', label: 'Sobre', Icon: User2 },
-  { href: '#skills', label: 'Skills', Icon: Layers3 },
-  { href: '#servicos', label: 'Serviços', Icon: Rocket }, // Add new Services link
-  { href: '#projetos', label: 'Projetos', Icon: Briefcase },
-  { href: '#experiencia', label: 'Experiência', Icon: Wrench },
-  { href: '#contato', label: 'Contato', Icon: Mail },
-] as const;
-
 export default function Navbar() {
   const [isDark, setIsDark] = useState(false);
   const [open, setOpen] = useState(false);
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const sections = [
+    { href: '#inicio', label: t('navbar.home'), Icon: Home },
+    { href: '#sobre', label: t('navbar.about'), Icon: User2 },
+    { href: '#skills', label: t('navbar.skills'), Icon: Layers3 },
+    { href: '#servicos', label: t('navbar.services'), Icon: Rocket },
+    { href: '#projetos', label: t('navbar.projects'), Icon: Briefcase },
+    { href: '#experiencia', label: t('navbar.experience'), Icon: Wrench },
+    { href: '#contato', label: t('navbar.contact'), Icon: Mail },
+  ] as const;
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');

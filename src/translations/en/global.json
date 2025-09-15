@@ -10,6 +10,15 @@
       "view_my_work": "View My Work",
       "scroll_down": "Scroll down",
       "profile_alt": "Mauro Zibane's profile picture"
+    },
+    "navbar": {
+      "home": "Home",
+      "about": "About",
+      "skills": "Skills",
+      "services": "Services",
+      "projects": "Projects",
+      "experience": "Experience",
+      "contact": "Contact"
     }
   }
 }
