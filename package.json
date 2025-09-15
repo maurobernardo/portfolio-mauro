@@ -8,12 +8,14 @@
     "preview": "vite preview --port 5173"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@google/generative-ai": "^0.24.1",
     "classnames": "^2.5.1",
     "contentful": "^11.7.18",
     "lucide-react": "^0.454.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^7.9.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.14",

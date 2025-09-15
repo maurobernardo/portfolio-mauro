@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Reveal from '../components/Reveal';
-// import WeatherDisplay from '../components/WeatherDisplay'; // Importe o novo componente - REMOVIDO
+import emailjs from '@emailjs/browser'; // Importe o EmailJS
 import { Send, Loader2, CheckCircle2, AlertCircle, Phone, Mail, MapPin, Linkedin, Github, Twitter, Facebook, Youtube, Instagram } from 'lucide-react';
 
 type SubmitStatus = 'idle' | 'loading' | 'success' | 'error';
@@ -13,6 +13,11 @@ export default function Contact() {
   const [message, setMessage] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<SubmitStatus>('idle');
+
+  // Credenciais do EmailJS (substitua pelos seus valores reais)
+  const serviceId = 'service_v9hnd3o'; // Seu Service ID do EmailJS
+  const templateId = 'template_0pmbmx9'; // Seu Template ID do EmailJS
+  const publicKey = 'WYBtiSordr0Zt8IqY'; // Sua Public Key do EmailJS
 
   const sanitize = (s: string) => s.replace(/</g, '&lt;').replace(/>/g, '&gt;').trim();
 
@@ -32,13 +37,21 @@ export default function Contact() {
     e.preventDefault();
     if (!validate()) return;
     setStatus('loading');
+
+    const templateParams = {
+      user_name: `${firstName} ${lastName}`.trim(),
+      user_email: email,
+      user_subject: 'Nova mensagem do portfólio', // Assunto padrão, pode ser um campo do form se desejar
+      user_message: message,
+    };
+
     try {
-      // Simula envio (substituir por API/Firebase se desejar)
-      await new Promise((res) => setTimeout(res, 1500));
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
       setStatus('success');
       setTimeout(() => setStatus('idle'), 1800);
       setFirstName(''); setLastName(''); setEmail(''); setPhone(''); setMessage('');
-    } catch {
+    } catch (error) {
+      console.error('EmailJS failed to send message:', error);
       setStatus('error');
       setTimeout(() => setStatus('idle'), 1800);
     }
@@ -96,32 +109,32 @@ export default function Contact() {
               <div className="grid sm:grid-cols-2 gap-6">
                 <label className="grid gap-2">
                   <span className="text-md font-bold leading-none text-foreground">Nome</span>
-                  <input value={firstName} onChange={(e) => setFirstName(sanitize(e.target.value))} className={`${inputBase} ${errors.firstName ? 'border-destructive ring-destructive' : ''}`} placeholder="Seu Nome" />
+                  <input value={firstName} onChange={(e) => setFirstName(sanitize(e.target.value))} className={`${inputBase} ${errors.firstName ? 'border-destructive ring-destructive' : ''}`} placeholder="Seu Nome" name="user_name_first" />
                   {errors.firstName && <span className="text-sm text-destructive-foreground mt-1">{errors.firstName}</span>}
-          </label>
+                </label>
                 <label className="grid gap-2">
                   <span className="text-md font-bold leading-none text-foreground">Apelido</span>
-                  <input value={lastName} onChange={(e) => setLastName(sanitize(e.target.value))} className={`${inputBase} ${errors.lastName ? 'border-destructive ring-destructive' : ''}`} placeholder="Seu Apelido" />
+                  <input value={lastName} onChange={(e) => setLastName(sanitize(e.target.value))} className={`${inputBase} ${errors.lastName ? 'border-destructive ring-destructive' : ''}`} placeholder="Seu Apelido" name="user_name_last" />
                   {errors.lastName && <span className="text-sm text-destructive-foreground mt-1">{errors.lastName}</span>}
                 </label>
               </div>
               <div className="grid sm:grid-cols-2 gap-6">
                 <label className="grid gap-2">
                   <span className="text-md font-bold leading-none text-foreground">E-mail</span>
-                  <input type="email" value={email} onChange={(e) => setEmail(sanitize(e.target.value))} className={`${inputBase} ${errors.email ? 'border-destructive ring-destructive' : ''}`} placeholder="mauro@gmail.com" />
+                  <input type="email" value={email} onChange={(e) => setEmail(sanitize(e.target.value))} className={`${inputBase} ${errors.email ? 'border-destructive ring-destructive' : ''}`} placeholder="mauro@gmail.com" name="user_email" />
                   {errors.email && <span className="text-sm text-destructive-foreground mt-1">{errors.email}</span>}
-          </label>
+                </label>
                 <label className="grid gap-2">
                   <span className="text-md font-bold leading-none text-foreground">Telefone (opcional)</span>
-                  <input value={phone} onChange={(e) => setPhone(sanitize(e.target.value))} className={`${inputBase} ${errors.phone ? 'border-destructive ring-destructive' : ''}`} placeholder="Ex: +258 84 123 4567" />
+                  <input value={phone} onChange={(e) => setPhone(sanitize(e.target.value))} className={`${inputBase} ${errors.phone ? 'border-destructive ring-destructive' : ''}`} placeholder="Ex: +258 84 123 4567" name="user_phone" />
                   {errors.phone && <span className="text-sm text-destructive-foreground mt-1">{errors.phone}</span>}
                 </label>
               </div>
               <label className="grid gap-2">
                 <span className="text-md font-bold leading-none text-foreground">Mensagem</span>
-                <textarea value={message} onChange={(e) => setMessage(sanitize(e.target.value))} className={`${inputBase} min-h-[160px] resize-y ${errors.message ? 'border-destructive ring-destructive' : ''}`} placeholder="Como posso ajudar?" />
+                <textarea value={message} onChange={(e) => setMessage(sanitize(e.target.value))} className={`${inputBase} min-h-[160px] resize-y ${errors.message ? 'border-destructive ring-destructive' : ''}`} placeholder="Como posso ajudar?" name="user_message" />
                 {errors.message && <span className="text-sm text-destructive-foreground mt-1">{errors.message}</span>}
-          </label>
+              </label>
             </div>
 
             <div className="mt-10 grid gap-5">
@@ -159,7 +172,7 @@ export default function Contact() {
                 <div className="flex items-start gap-5">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0">
                     <Phone size={26} />
-                </span>
+                  </span>
                   <div>
                     <p className="text-md text-muted-foreground">Telefone</p>
                     <a href="tel:+258842767435" className="font-bold text-lg text-foreground hover:underline">+258 84 276 7435</a>
@@ -170,7 +183,7 @@ export default function Contact() {
                 <div className="flex items-start gap-5">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0">
                     <Mail size={26} />
-                </span>
+                  </span>
                   <div>
                     <p className="text-md text-muted-foreground">E-mail</p>
                     <a href="mailto:maurobernardozibane@gmail.com" className="font-bold text-lg text-foreground hover:underline">maurobernardozibane@gmail.com</a>
@@ -181,7 +194,7 @@ export default function Contact() {
                 <div className="flex items-start gap-5">
                   <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0">
                     <MapPin size={26} />
-                </span>
+                  </span>
                   <div>
                     <p className="text-md text-muted-foreground">Localização</p>
                     <p className="font-bold text-lg text-foreground">Beira, Moçambique</p>
