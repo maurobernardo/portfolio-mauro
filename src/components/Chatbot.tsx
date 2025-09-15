@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { MessageCircle, Send, X } from 'lucide-react';
 import Reveal from './Reveal';
+import { sendMessageToGemini } from '../lib/gemini';
 
 type ChatMessage = { id: string; role: 'user' | 'bot'; content: string };
 
@@ -10,6 +11,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<ChatMessage[]>(() => [
     { id: cryptoId(), role: 'bot', content: 'Olá! Sou o assistente do Mauro Zibane. Como posso ajudar?' },
   ]);
+  const [isLoading, setIsLoading] = useState(false); // Novo estado de carregamento
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
@@ -23,27 +25,26 @@ export default function Chatbot() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const respond = (text: string): string => {
-    const q = text.toLowerCase();
-    if (/ola|olá|oi|hey|hello/.test(q)) return 'Olá! Posso falar sobre meus Projetos e Habilidades.';
-    if (/projeto|projetos|projectos|portifólio|portfólio/.test(q)) return 'Veja meus projetos na seção "Projetos". Quer um link específico?';
-    if (/skill|habilidade|tecnolog/.test(q)) return 'Trabalho com Java (Spring), React e React Native (TypeScript), Python, entre outras.';
-    if (/analise|analista|ciencia|cientista|dados/.test(q)) return 'Sou analista e cientista de dados, trabalho com Python, SQL, Power BI e Excel.';
-    if (/contato|contacto|email|e-mail|whats/.test(q)) return 'Você pode usar o formulário em "Contato" ou enviar e-mail direto.';
-    if (/ajuda|colaboracao|colaborar|uniao|juntar|juncao/.test(q)) return 'Você pode usar o formulário em "Contato" ou enviar e-mail direto para mais detalhes.';
-    if (/experien|trabalh|empres/.test(q)) return 'Tenho experiência em backend Java e frontend com React.';
-    return 'Obrigado pela pergunta! Já já te retorno por aqui ou me chame em "Conctato".';
-  };
-
-  const handleSend = () => {
+  const handleSend = async () => {
     const trimmed = input.trim();
     if (!trimmed) return;
+
     const userMsg: ChatMessage = { id: cryptoId(), role: 'user', content: trimmed };
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
+    setIsLoading(true); // Iniciar carregamento
 
-    const botMsg: ChatMessage = { id: cryptoId(), role: 'bot', content: respond(trimmed) };
-    setTimeout(() => setMessages((prev) => [...prev, botMsg]), 300);
+    try {
+      const geminiResponse = await sendMessageToGemini(trimmed);
+      const botMsg: ChatMessage = { id: cryptoId(), role: 'bot', content: geminiResponse };
+      setMessages((prev) => [...prev, botMsg]);
+    } catch (error) {
+      console.error("Error fetching from Gemini API in Chatbot:", error);
+      const errorMsg: ChatMessage = { id: cryptoId(), role: 'bot', content: 'Desculpe, houve um erro ao comunicar com a IA.' };
+      setMessages((prev) => [...prev, errorMsg]);
+    } finally {
+      setIsLoading(false); // Finalizar carregamento
+    }
   };
 
   const buttonTitle = useMemo(() => (open ? 'Fechar chat' : 'Abrir chat'), [open]);
@@ -83,6 +84,15 @@ export default function Chatbot() {
                 </div>
               </Reveal>
             ))}
+            {isLoading && (
+              <Reveal delayMs={messages.length * 50} key="loading">
+                <div className="justify-self-start">
+                  <div className="bg-muted text-foreground rounded-2xl px-4 py-2 text-sm max-w-[85%] break-words rounded-bl-none">
+                    Digitando...
+                  </div>
+                </div>
+              </Reveal>
+            )}
             <div ref={messagesEndRef} />
           </div>
           <div className="px-4 py-3 border-t">
@@ -95,11 +105,13 @@ export default function Chatbot() {
                 rows={1}
                 placeholder="Faça uma pergunta rápida..."
                 className="flex-1 resize-none rounded-md border bg-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                disabled={isLoading} // Desabilitar input enquanto carrega
               />
               <button
                 onClick={handleSend}
                 className="inline-flex items-center justify-center gap-1 rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                 aria-label="Enviar"
+                disabled={isLoading} // Desabilitar botão enquanto carrega
               >
                 <Send size={18} />
                 Enviar
