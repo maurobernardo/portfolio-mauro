@@ -38,6 +38,12 @@ const education: EducationItem[] = [
     period: "2025",
     description: "Curso introdutório que apresenta os conceitos básicos da Ciência de Dados, incluindo coleta, limpeza e análise de dados, fundamentos de estatística, visualização de informações e noções de machine learning. Explora também aplicações práticas da ciência de dados em diferentes setores..",
   },
+    {
+    degree: "Fundamentos de Hardware de Computadores",
+    institution: "Cisco Networking Academy",
+    period: "2025",
+    description: "Curso introdutório que cobre os princípios básicos do hardware de computadores, incluindo componentes essenciais como CPU, memória, armazenamento e periféricos. Aborda a arquitetura de computadores, funcionamento interno, montagem e manutenção de sistemas, além de noções sobre redes e segurança de hardware.",
+  },
 ];
 
 const experiences: ExperienceItem[] = [
@@ -265,5 +271,14 @@ const certifications = [
     skills: ["Ciência de Dados", "Análise de Dados", "Estatística", "Visualização de Dados"],
     image: '/Ciencia.jpg', 
     imageAlt: 'Certificado de Introdução à Ciência de Dados da Cisco',
+  },
+   {
+    title: "Fundamentos de Hardaware de Computadores",
+    issuer: "Cisco",
+    year: "2025", 
+    period: "Setembro 2025 · Setembro 2025", 
+    skills: ["Montagem e desmontagem de computadores.", "Manutenção preventiva e corretiva.", "Diagnóstico e resolução de falhas de hardware."],
+    image: '/Hardware.jpg', 
+    imageAlt: 'Certificado de Fundamentos de Hardaware de Computadores',
   },
 ];
