@@ -10,6 +10,24 @@ type Project = {
 
 const projects: Project[] = [
   {
+    title: 'Sistema Académico UCM-FEG – Plataforma de Acesso à Informação para Estudantes',
+    description: 'Desenvolvi um sistema web para a UCM–FEG com o objetivo de facilitar o acesso às informações acadêmicas e administrativas dos estudantes. A plataforma permite consultar avisos da secretaria, controlar créditos, enviar comprovativos de pagamento de mensalidades diretamente pelo sistema e acompanhar o estado da validação. O projeto também inclui um assistente virtual com voz, capaz de responder às principais dúvidas dos estudantes, tornando o atendimento mais rápido e automatizado.',
+    stack: ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL'],
+    link: '#',
+    repo: '#',
+    image: '/UCM.png',
+    imageAlt: 'Prévia do Sistema Académico UCM-FEG',
+  },
+  {
+    title: 'Portfólio Pessoal – Deyril Marlon',
+    description: 'Desenvolvi um portfólio pessoal moderno e interativo para apresentar meus projetos, habilidades e experiências. A plataforma inclui suporte a tradução em múltiplos idiomas (Português e Inglês), permitindo que visitantes alternem facilmente entre as línguas. O site também oferece modo escuro e modo claro, garantindo melhor conforto visual e personalização da experiência. Além disso, o portfólio integra um chatbot inteligente, capaz de responder perguntas sobre meus projetos, trajetória profissional e informações gerais sobre mim. O objetivo é proporcionar uma navegação mais dinâmica, envolvente e acessível.',
+    stack: ['React', 'TypeScript', 'Tailwind CSS'],
+    link: 'https://deyril-marlon.vercel.app/',
+    repo: '#',
+    image: '/Deyril.png',
+    imageAlt: 'Prévia do Portfólio Pessoal – Deyril Marlon',
+  },
+  {
     title: 'FinEduca aplicativo',
     description: 'Plataforma de educação financeira para ajudar os moçambicanos a melhorar sua literacia financeira, através de modelos interativos, quizes e minigames, módulos educativos, chatbot para dúvidas e sistema de conquista e ranking, e detecção de SMS de burla.',
     stack: ['React Native', 'TypeScript'],
@@ -71,8 +89,11 @@ export default function Projects() {
   };
 
   return (
-    <section id="projetos" className="py-16 lg:py-24">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+    <section id="projetos" className="relative py-16 lg:py-24 overflow-hidden">
+      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
+      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(239, 246, 255, 0.6) 0%, rgba(255, 255, 255, 1) 100%)' }} />
+      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 100%)' }} />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <Reveal>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">Meus Projetos</h2>
@@ -86,24 +107,28 @@ export default function Projects() {
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((p, i) => (
             <Reveal as="article" key={p.title} delayMs={i * 80}>
-              <div className="rounded-xl border bg-card p-6 shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col hover:-translate-y-1">
+              <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 h-full flex flex-col hover:-translate-y-2 overflow-hidden">
+                {/* Gradiente de fundo sutil no hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+                
                 {p.image && (
-                  <a href={p.link || p.repo || '#'} target="_blank" rel="noreferrer" className="block group -mt-3 -mx-3 mb-4 rounded-t-xl overflow-hidden" aria-label={p.imageAlt || p.title}>
-                    <div className="relative aspect-[16/9] overflow-hidden bg-muted">
+                  <a href={p.link || p.repo || '#'} target="_blank" rel="noreferrer" className="block -mt-3 -mx-3 mb-4 rounded-t-xl overflow-hidden" aria-label={p.imageAlt || p.title}>
+                    <div className="relative aspect-[16/9] overflow-hidden bg-muted/50">
+                      <div className="absolute inset-0 bg-gradient-to-t from-card/80 via-transparent to-transparent z-10 group-hover:from-card/60 transition-colors duration-500" />
                       <img
                         src={p.image}
                         alt={p.imageAlt || p.title}
-                        className="h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-[1.03]"
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                         onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none'; }}
                       />
                     </div>
                   </a>
                 )}
-                <h3 className="font-semibold text-xl text-foreground leading-tight">{p.title}</h3>
-                <p className="mt-2 text-muted-foreground flex-1 text-sm">{p.description}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
+                <h3 className="font-bold text-xl text-foreground leading-tight mb-3 relative z-10 group-hover:text-primary transition-colors duration-300">{p.title}</h3>
+                <p className="mt-2 text-muted-foreground flex-1 text-sm leading-relaxed relative z-10">{p.description}</p>
+                <div className="mt-5 flex flex-wrap gap-2 relative z-10">
                   {p.stack.map((t) => (
-                    <span key={t} className="inline-flex items-center gap-1.5 text-xs bg-primary/10 border border-primary/20 px-2.5 py-1 rounded-full text-primary">
+                    <span key={t} className="inline-flex items-center gap-1.5 text-xs bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-full text-primary font-medium transition-all duration-300 hover:bg-primary/20 hover:border-primary/40 hover:scale-105">
                       {iconMap[t] && (
                         <img src={iconMap[t]} alt={t} className="h-4 w-4 object-contain" />
                       )}
@@ -111,16 +136,16 @@ export default function Projects() {
                     </span>
                   ))}
                 </div>
-                <div className="mt-6 flex flex-wrap gap-3 pt-4 border-t border-border/70">
+                <div className="mt-6 flex flex-wrap gap-3 pt-5 border-t border-border/50 relative z-10">
                   {p.link && (
-                    <a className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline hover:text-primary/80 transition-colors" href={p.link} target="_blank" rel="noreferrer">
-                      <Link2 size={16} />
+                    <a className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary/80 transition-all duration-300 hover:gap-2 group/link" href={p.link} target="_blank" rel="noreferrer">
+                      <Link2 size={16} className="transition-transform duration-300 group-hover/link:rotate-[-45deg]" />
                       Demo
                     </a>
                   )}
                   {p.repo && (
-                    <a className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline hover:text-primary/80 transition-colors" href={p.repo} target="_blank" rel="noreferrer">
-                      <Github size={16} />
+                    <a className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary/80 transition-all duration-300 hover:gap-2 group/link" href={p.repo} target="_blank" rel="noreferrer">
+                      <Github size={16} className="transition-transform duration-300 group-hover/link:scale-110" />
                       Código
                     </a>
                   )}

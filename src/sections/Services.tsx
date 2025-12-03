@@ -42,8 +42,11 @@ const services: Service[] = [
 
 export default function Services() {
   return (
-    <section id="servicos" className="py-16 lg:py-24 bg-background">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+    <section id="servicos" className="relative py-16 lg:py-24 overflow-hidden">
+      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
+      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(239, 246, 255, 0.7) 100%)' }} />
+      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(2, 6, 23) 0%, rgb(15, 23, 42) 100%)' }} />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <Reveal>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">Meus Serviços</h2>
@@ -58,12 +61,15 @@ export default function Services() {
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, i) => (
             <Reveal as="div" key={service.title} delayMs={i * 100 + 160}>
-              <div className="rounded-xl border bg-card p-6 shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col items-center text-center hover:-translate-y-1">
-                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary mb-4">
-                  <service.icon size={30} />
+              <div className="group relative rounded-2xl border border-border/50 bg-card p-8 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 h-full flex flex-col items-center text-center hover:-translate-y-2 overflow-hidden">
+                {/* Gradiente de fundo no hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-primary/2 to-transparent pointer-events-none" />
+                
+                <span className="relative z-10 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary mb-6 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg group-hover:shadow-primary/30">
+                  <service.icon size={32} className="transition-transform duration-500 group-hover:scale-110" />
                 </span>
-                <h3 className="text-xl font-semibold text-foreground mb-2">{service.title}</h3>
-                <p className="text-muted-foreground flex-1">{service.description}</p>
+                <h3 className="relative z-10 text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">{service.title}</h3>
+                <p className="relative z-10 text-muted-foreground flex-1 leading-relaxed">{service.description}</p>
               </div>
             </Reveal>
           ))}

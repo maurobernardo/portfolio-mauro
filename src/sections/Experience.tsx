@@ -83,8 +83,11 @@ import { Award, MapPin, BookOpen, Briefcase } from "lucide-react";
 
 export default function Experience() {
   return (
-    <section id="experiencia" className="py-16 lg:py-24">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+    <section id="experiencia" className="relative py-16 lg:py-24 overflow-hidden">
+      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
+      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 0.9) 100%)' }} />
+      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(2, 6, 23) 0%, rgb(15, 23, 42) 100%)' }} />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <Reveal>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">Minha Jornada</h2>
@@ -109,13 +112,14 @@ export default function Experience() {
                     <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-8 ring-background">
                       <BookOpen size={16} className="text-primary-foreground" />
                     </span>
-                    <div className="rounded-lg border bg-card p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold text-foreground">{edu.degree}</h3>
+                    <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 relative z-10">
+                        <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300">{edu.degree}</h3>
                         <time className="text-sm font-medium text-muted-foreground">{edu.period}</time>
                       </div>
-                      <p className="text-muted-foreground">{edu.institution}</p>
-                      <p className="mt-2 text-sm text-muted-foreground">{edu.description}</p>
+                      <p className="text-muted-foreground relative z-10">{edu.institution}</p>
+                      <p className="mt-2 text-sm text-muted-foreground leading-relaxed relative z-10">{edu.description}</p>
                     </div>
                   </Reveal>
                 </li>
@@ -135,18 +139,19 @@ export default function Experience() {
                     <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-8 ring-background">
                       <Briefcase size={16} className="text-primary-foreground" />
                     </span>
-                    <div className="rounded-lg border bg-card p-6 shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2">
-                        <h3 className="text-lg font-semibold text-foreground">{exp.role}</h3>
+                    <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+                      <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 relative z-10">
+                        <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300">{exp.role}</h3>
                         <time className="text-sm font-medium text-muted-foreground">{exp.period}</time>
                       </div>
-                      <p className="text-muted-foreground">{exp.company}</p>
+                      <p className="text-muted-foreground relative z-10">{exp.company}</p>
                       {exp.location && (
-                        <p className="mt-1 text-sm text-muted-foreground flex items-center gap-1">
+                        <p className="mt-1 text-sm text-muted-foreground flex items-center gap-1 relative z-10">
                           <MapPin size={14} /> {exp.location}
                         </p>
                       )}
-                      <ul className="mt-4 list-disc pl-5 text-muted-foreground space-y-2">
+                      <ul className="mt-4 list-disc pl-5 text-muted-foreground space-y-2 relative z-10">
                         {exp.bullets.map((bullet, idx) => (
                           <li key={idx}>{bullet}</li>
                         ))}
@@ -174,23 +179,24 @@ export default function Experience() {
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {certifications.map((c, i) => (
               <Reveal key={c.title + i} delayMs={i * 100 + 520}>
-                <div className="rounded-xl border bg-card p-6 shadow-md hover:shadow-lg transition-all duration-300 h-full flex flex-col hover:-translate-y-1">
-                  <div className="flex items-center gap-3 text-foreground mb-3">
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 h-full flex flex-col hover:-translate-y-2 overflow-hidden">
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+                  <div className="flex items-center gap-3 text-foreground mb-3 relative z-10">
+                    <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                       <Award size={20} />
                     </span>
-                    <p className="font-semibold text-lg leading-tight text-foreground">{c.title}</p>
+                    <p className="font-bold text-lg leading-tight text-foreground group-hover:text-primary transition-colors duration-300">{c.title}</p>
                   </div>
-                  <p className="text-muted-foreground">{c.issuer} · {c.year}</p>
+                  <p className="text-muted-foreground relative z-10">{c.issuer} · {c.year}</p>
               {c.period && (
-                    <p className="mt-1 text-sm text-muted-foreground">{c.period}</p>
+                    <p className="mt-1 text-sm text-muted-foreground relative z-10">{c.period}</p>
               )}
               {Array.isArray(c.skills) && c.skills.length > 0 && (
-                    <div className="mt-4 flex flex-wrap gap-2">
+                    <div className="mt-4 flex flex-wrap gap-2 relative z-10">
                   {c.skills.map((s: string) => (
                     <span
                       key={s}
-                          className="inline-flex items-center rounded-full border bg-primary/10 px-3 py-1 text-xs font-medium text-primary"
+                          className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary transition-all duration-300 hover:bg-primary/20 hover:scale-105"
                     >
                       {s}
                     </span>
@@ -202,7 +208,7 @@ export default function Experience() {
                   href={c.link}
                   target="_blank"
                   rel="noreferrer"
-                      className="mt-4 inline-block text-sm text-primary hover:underline self-start"
+                      className="mt-4 inline-block text-sm font-semibold text-primary hover:underline self-start relative z-10 transition-all duration-300 hover:gap-2 group/link"
                 >
                   Ver credencial
                 </a>
@@ -211,7 +217,7 @@ export default function Experience() {
                     <img
                       src={c.image}
                       alt={c.imageAlt}
-                      className="mt-4 w-full h-auto object-contain rounded-md"
+                      className="mt-4 w-full h-auto object-contain rounded-md relative z-10 transition-transform duration-500 group-hover:scale-[1.02]"
                     />
                   )}
             </div>

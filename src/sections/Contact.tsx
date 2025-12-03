@@ -89,8 +89,11 @@ export default function Contact() {
   const inputBase = 'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50';
 
   return (
-    <section id="contato" className="py-16 lg:py-24">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+    <section id="contato" className="relative py-16 lg:py-24 overflow-hidden">
+      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
+      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 1) 100%)' }} />
+      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 100%)' }} />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <Reveal>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">Entre em Conctato</h2>

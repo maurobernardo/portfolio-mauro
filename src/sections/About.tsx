@@ -4,8 +4,11 @@ import { CalendarDays, MapPin, GraduationCap, Languages } from 'lucide-react';
 
 export default function About() {
   return (
-    <section id="sobre" className="py-16 lg:py-24 text-center">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+    <section id="sobre" className="relative py-16 lg:py-24 text-center overflow-hidden">
+      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
+      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 1) 100%)' }} />
+      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 100%)' }} />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <Reveal delayMs={0}>
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground mb-12">Sobre Mim</h2>
         </Reveal>
@@ -83,12 +86,13 @@ export default function About() {
 function Badge({ icon, title, value, className, delayMs = 0 }: { icon: React.ReactNode; title: string; value: string; className?: string; delayMs?: number }) {
   return (
     <Reveal delayMs={delayMs}>
-      <div className={["rounded-xl border bg-card p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/20", className ?? ''].join(' ')}>
-        <div className="flex items-center gap-2 text-muted-foreground">
-          <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary">{icon}</span>
+      <div className={["group relative rounded-2xl border border-border/50 bg-card p-5 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden", className ?? ''].join(' ')}>
+        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+        <div className="flex items-center gap-2 text-muted-foreground relative z-10">
+          <span className="grid h-8 w-8 place-items-center rounded-full bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">{icon}</span>
           <span className="text-sm font-medium text-muted-foreground">{title}:</span>
         </div>
-        <p className="mt-1 text-base font-semibold text-foreground">{value}</p>
+        <p className="mt-1 text-base font-semibold text-foreground relative z-10">{value}</p>
       </div>
     </Reveal>
   );

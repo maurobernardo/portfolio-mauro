@@ -18,8 +18,11 @@ import Reveal from '../components/Reveal';
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-16 lg:py-24">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
+    <section id="skills" className="relative py-16 lg:py-24 overflow-hidden">
+      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
+      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(219, 234, 254, 0.5) 0%, rgba(255, 255, 255, 1) 100%)' }} />
+      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 100%)' }} />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <Reveal>
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">Minhas Habilidades</h2>
@@ -36,14 +39,17 @@ export default function Skills() {
               as="li"
               key={skill.name}
               delayMs={i * 50}
-              className="group flex flex-col items-center justify-center gap-4 rounded-xl border bg-card p-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/20"
+              className="group relative flex flex-col items-center justify-center gap-4 rounded-2xl border border-border/50 bg-card p-6 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10 overflow-hidden"
             >
-              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-transform duration-300 group-hover:scale-110">
-                <img src={skill.svg} alt={skill.name} className="h-8 w-8 object-contain" />
+              {/* Gradiente sutil no hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+              
+              <span className="relative z-10 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/15 to-primary/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 group-hover:shadow-lg group-hover:shadow-primary/20">
+                <img src={skill.svg} alt={skill.name} className="h-8 w-8 object-contain transition-transform duration-500 group-hover:scale-110" />
               </span>
-              <div className="text-center">
-                <p className="font-medium text-foreground">{skill.name}</p>
-                <p className="text-xs text-muted-foreground">{skill.level}</p>
+              <div className="relative z-10 text-center">
+                <p className="font-bold text-foreground group-hover:text-primary transition-colors duration-300">{skill.name}</p>
+                <p className="text-xs text-muted-foreground mt-1">{skill.level}</p>
               </div>
             </Reveal>
           ))}
