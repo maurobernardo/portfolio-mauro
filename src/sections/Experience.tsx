@@ -84,9 +84,14 @@ import { Award, MapPin, BookOpen, Briefcase } from "lucide-react";
 export default function Experience() {
   return (
     <section id="experiencia" className="relative py-16 lg:py-24 overflow-hidden">
-      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
-      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(248, 250, 252, 0.9) 100%)' }} />
-      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(2, 6, 23) 0%, rgb(15, 23, 42) 100%)' }} />
+      {/* Gradiente de fundo idêntico ao Hero - Modo Claro */}
+      <div className="absolute inset-0 z-0 dark:hidden" style={{ background: 'linear-gradient(to right, rgba(219, 234, 254, 1) 0%, rgba(239, 246, 255, 0.8) 30%, rgba(248, 250, 252, 0.6) 60%, rgba(255, 255, 255, 1) 100%)' }} />
+      {/* Gradiente de fundo idêntico ao Hero - Modo Escuro */}
+      <div className="absolute inset-0 z-0 hidden dark:block" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 50%, rgb(0, 0, 0) 100%)' }} />
+      {/* Padrão geométrico sutil - modo claro */}
+      <div className="absolute inset-0 opacity-[0.03] dark:hidden z-0" style={{ backgroundImage: 'url(\'/patterns/hero-network.svg\')', backgroundRepeat: 'repeat', backgroundSize: '400px' }} />
+      {/* Padrões abstratos emanando do lado direito - modo escuro */}
+      <div className="absolute inset-0 opacity-[0.08] hidden dark:block z-0" style={{ backgroundImage: 'radial-gradient(ellipse at right, rgba(59, 130, 246, 0.15) 0%, transparent 70%)' }} />
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <Reveal>
