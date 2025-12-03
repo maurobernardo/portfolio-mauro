@@ -28,15 +28,6 @@ const projects: Project[] = [
     imageAlt: 'Prévia do Portfólio Pessoal – Deyril Marlon',
   },
   {
-    title: 'FinEduca aplicativo',
-    description: 'Plataforma de educação financeira para ajudar os moçambicanos a melhorar sua literacia financeira, através de modelos interativos, quizes e minigames, módulos educativos, chatbot para dúvidas e sistema de conquista e ranking, e detecção de SMS de burla.',
-    stack: ['React Native', 'TypeScript'],
-    link: '#',
-    repo: '#',
-    image: '/Fin.jpg',
-    imageAlt: 'Prévia do Aplicativo FinEduca',
-  },
-  {
     title: 'Gestão de Projeto de Fim do Curso (Laravel/PHP)',
     description: 'Desenvolvimento de um sistema web para gestão de projetos de fim de curso do Departamento de Arquitetura da UCM-FEG, facilitando o acompanhamento e a organização.',
     stack: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
@@ -44,6 +35,15 @@ const projects: Project[] = [
     repo: '#', // Adicione o link do repositório aqui
     image: '/Feg.png', // Imagem placeholder, adicione a imagem real se tiver
     imageAlt: 'Prévia do Projeto de Gestão de Fim de Curso',
+  },
+  {
+    title: 'FinEduca aplicativo',
+    description: 'Plataforma de educação financeira para ajudar os moçambicanos a melhorar sua literacia financeira, através de modelos interativos, quizes e minigames, módulos educativos, chatbot para dúvidas e sistema de conquista e ranking, e detecção de SMS de burla.',
+    stack: ['React Native', 'TypeScript'],
+    link: '#',
+    repo: '#',
+    image: '/Fin.jpg',
+    imageAlt: 'Prévia do Aplicativo FinEduca',
   },
 
   {
