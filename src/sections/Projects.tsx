@@ -12,7 +12,7 @@ const projects: Project[] = [
   {
     title: 'Sistema Académico UCM-FEG',
     description: 'Sistema web para facilitar o acesso às informações acadêmicas dos estudantes. Permite consultar avisos, controlar créditos, enviar comprovativos de pagamento e acompanhar validações. Inclui assistente virtual com voz para responder dúvidas.',
-    stack: ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL'],
+    stack: ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
     link: '#',
     repo: '#',
     image: '/UCM.png',
@@ -21,7 +21,7 @@ const projects: Project[] = [
   {
     title: 'Portfólio Pessoal – Deyril Marlon',
     description: 'Portfólio pessoal moderno e interativo com suporte a múltiplos idiomas (PT/EN), modo escuro/claro e chatbot inteligente para responder perguntas sobre projetos e trajetória profissional.',
-    stack: ['React', 'TypeScript', 'Tailwind CSS'],
+    stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     link: 'https://deyril-marlon.vercel.app/',
     repo: '#',
     image: '/Deyril.png',
@@ -75,6 +75,7 @@ export default function Projects() {
   const iconMap: Record<string, string> = {
     React: '/icons/react.svg',
     'React Native': '/icons/react.svg',
+    'Next.js': '/icons/react.svg',
     TypeScript: '/icons/typescript.svg',
     'Tailwind CSS': '/icons/tailwindcss.svg',
     Java: '/icons/java.svg',
