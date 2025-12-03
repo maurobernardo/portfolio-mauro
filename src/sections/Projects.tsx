@@ -75,7 +75,7 @@ export default function Projects() {
   const iconMap: Record<string, string> = {
     React: '/icons/react.svg',
     'React Native': '/icons/react.svg',
-    'Next.js': '/icons/react.svg',
+    'Next.js': '/icons/nextjs.svg',
     TypeScript: '/icons/typescript.svg',
     'Tailwind CSS': '/icons/tailwindcss.svg',
     Java: '/icons/java.svg',
