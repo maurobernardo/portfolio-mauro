@@ -10,8 +10,8 @@ type Project = {
 
 const projects: Project[] = [
   {
-    title: 'Sistema Académico UCM-FEG – Plataforma de Acesso à Informação para Estudantes',
-    description: 'Desenvolvi um sistema web para a UCM–FEG com o objetivo de facilitar o acesso às informações acadêmicas e administrativas dos estudantes. A plataforma permite consultar avisos da secretaria, controlar créditos, enviar comprovativos de pagamento de mensalidades diretamente pelo sistema e acompanhar o estado da validação. O projeto também inclui um assistente virtual com voz, capaz de responder às principais dúvidas dos estudantes, tornando o atendimento mais rápido e automatizado.',
+    title: 'Sistema Académico UCM-FEG',
+    description: 'Sistema web para facilitar o acesso às informações acadêmicas dos estudantes. Permite consultar avisos, controlar créditos, enviar comprovativos de pagamento e acompanhar validações. Inclui assistente virtual com voz para responder dúvidas.',
     stack: ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL'],
     link: '#',
     repo: '#',
@@ -20,7 +20,7 @@ const projects: Project[] = [
   },
   {
     title: 'Portfólio Pessoal – Deyril Marlon',
-    description: 'Desenvolvi um portfólio pessoal moderno e interativo para apresentar meus projetos, habilidades e experiências. A plataforma inclui suporte a tradução em múltiplos idiomas (Português e Inglês), permitindo que visitantes alternem facilmente entre as línguas. O site também oferece modo escuro e modo claro, garantindo melhor conforto visual e personalização da experiência. Além disso, o portfólio integra um chatbot inteligente, capaz de responder perguntas sobre meus projetos, trajetória profissional e informações gerais sobre mim. O objetivo é proporcionar uma navegação mais dinâmica, envolvente e acessível.',
+    description: 'Portfólio pessoal moderno e interativo com suporte a múltiplos idiomas (PT/EN), modo escuro/claro e chatbot inteligente para responder perguntas sobre projetos e trajetória profissional.',
     stack: ['React', 'TypeScript', 'Tailwind CSS'],
     link: 'https://deyril-marlon.vercel.app/',
     repo: '#',
