@@ -11,7 +11,7 @@ export default function Hero() {
     : ['Mauro Zibane', 'Full Stack Developer', 'Systems and Networks Administrator'];
   
   return (
-    <section id="inicio" className="relative overflow-hidden min-h-screen flex items-center py-20 sm:py-28 lg:py-32">
+    <section id="inicio" className="relative overflow-hidden min-h-screen flex items-start pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-20">
       {/* Gradiente de fundo idêntico às imagens - Modo Claro: azul claro à esquerda para branco à direita */}
       <div 
         className="absolute inset-0 z-0 dark:hidden" 
@@ -115,7 +115,7 @@ export default function Hero() {
           </div>
 
           {/* Right content: Photo / Avatar and vertical social bar */}
-          <div className="relative flex-shrink-0 mt-12 lg:mt-0">
+          <div className="relative flex-shrink-0 mt-8 lg:mt-0 -mt-4 lg:-mt-8">
             {/* Photo / Avatar */}
             <Reveal delayMs={480} className="relative z-10">
               <div className="relative group">
