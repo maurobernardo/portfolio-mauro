@@ -1,8 +1,15 @@
 import Reveal from '../components/Reveal';
 import RotatingText from '../components/RotatingText';
 import { Facebook, Twitter, Linkedin, Github } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Hero() {
+  const { t, language } = useLanguage();
+  
+  const rotatingPhrases = language === 'pt' 
+    ? ['Mauro Zibane', 'Desenvolvedor Full Stack', 'Administrador de Sistemas e Redes']
+    : ['Mauro Zibane', 'Full Stack Developer', 'Systems and Networks Administrator'];
+  
   return (
     <section id="inicio" className="relative overflow-hidden min-h-screen flex items-center py-20 sm:py-28 lg:py-32">
       {/* Gradiente de fundo idêntico às imagens - Modo Claro: azul claro à esquerda para branco à direita */}
@@ -32,36 +39,50 @@ export default function Hero() {
       <div
         className="absolute inset-0 opacity-[0.08] hidden dark:block z-0"
         style={{
-          backgroundImage: 'radial-gradient(ellipse at right, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
+          backgroundImage: 'radial-gradient(ellipse at right, rgba(0, 217, 255, 0.15) 0%, transparent 70%)',
         }}
       />
+      
+      {/* Partículas animadas no Hero */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#00D9FF] rounded-full opacity-20 animate-float" style={{ animationDelay: '0s', animationDuration: '8s' }} />
+        <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-[#00D9FF] rounded-full opacity-25 animate-float" style={{ animationDelay: '1.5s', animationDuration: '10s' }} />
+        <div className="absolute bottom-1/4 left-1/3 w-2.5 h-2.5 bg-[#00D9FF] rounded-full opacity-20 animate-float" style={{ animationDelay: '3s', animationDuration: '9s' }} />
+        <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-[#00D9FF] rounded-full opacity-30 animate-float" style={{ animationDelay: '4.5s', animationDuration: '7s' }} />
+      </div>
+      
+      {/* Gradientes animados */}
+      <div className="absolute inset-0 z-0 opacity-30 dark:opacity-20">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDuration: '6s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '3s', animationDuration: '8s' }} />
+      </div>
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
           {/* Left content: text and buttons */}
           <div className="flex-1 text-center lg:text-left">
             <Reveal delayMs={0}>
-              <p className="text-lg font-medium text-primary mb-2">Bem-Vindo ao Meu Portfólio!</p>
+              <p className="text-lg font-medium text-primary mb-2">{t('hero.welcome')}</p>
             </Reveal>
             <Reveal delayMs={80}>
               <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl" style={{ lineHeight: '1.3' }}>
-                Olá, eu sou{' '}
+                {t('hero.greeting')}{' '}
                 <span className="text-primary inline-block relative" style={{ display: 'inline-block', verticalAlign: 'top' }}>
-                  <RotatingText phrases={['Mauro Zibane', 'Desenvolvedor Full Stack', 'Engenheiro de Software', 'Estudante de Tecnologia de Informação']} intervalMs={4000} />
+                  <RotatingText phrases={rotatingPhrases} intervalMs={4000} />
                 </span>
               </h1>
             </Reveal>
             <Reveal delayMs={160}>
               <p className="mt-4 max-w-2xl text-xl text-muted-foreground mx-auto lg:mx-0">
-                Desenvolvedor Full Stack em formação com paixão por criar soluções modernas e escaláveis.
+                {t('hero.description')}
               </p>
             </Reveal>
             <Reveal delayMs={240}>
               <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4">
                 <a href="/path-to-your-cv.pdf" download className="rounded-full bg-primary px-8 py-4 text-primary-foreground font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl hover:-translate-y-px active:translate-y-px">
-                  Download CV
+                  {t('hero.downloadCV')}
                 </a>
                 <a href="#projetos" className="rounded-full border border-input px-8 py-4 font-semibold text-foreground transition-all hover:bg-muted hover:text-primary hover:shadow-sm hover:-translate-y-px">
-                  Ver Meu Trabalho
+                  {t('hero.viewWork')}
                 </a>
               </div>
             </Reveal>
@@ -71,7 +92,7 @@ export default function Hero() {
                 <span className="h-8 w-8 flex items-center justify-center rounded-full border border-muted-foreground/30 text-sm animate-bounce">
                   0
                 </span>
-                <span>Scroll down</span>
+                <span>{t('hero.scrollDown')}</span>
               </div>
             </Reveal>
             {/* Social icons */}
@@ -97,22 +118,25 @@ export default function Hero() {
           <div className="relative flex-shrink-0 mt-12 lg:mt-0">
             {/* Photo / Avatar */}
             <Reveal delayMs={480} className="relative z-10">
-              <div className="relative h-80 w-80 rounded-full flex items-center justify-center overflow-hidden border-2 border-primary shadow-xl mx-auto animate-float-slow">
-                <img
-                  src="/profile.JPG"
-                  alt="Foto de perfil de Mauro Zibane"
-                  className="h-full w-full rounded-full object-cover"
-                  onError={(e) => {
-                    const img = e.currentTarget as HTMLImageElement;
-                    if (img.src.endsWith('/profile.jpg')) {
-                      img.onerror = null; // evita loop
-                      img.src = '/profile.JPG';
-                    }
-                    else {
-                      img.style.display = 'none';
-                    }
-                  }}
-                />
+              <div className="relative group">
+                <div className="absolute -inset-2 bg-gradient-to-r from-primary via-[#00D9FF] to-primary rounded-full opacity-75 blur-lg group-hover:opacity-100 transition-opacity duration-500 animate-pulse-glow"></div>
+                <div className="relative rounded-full border-4 border-primary/50 shadow-2xl shadow-primary/30 overflow-hidden">
+                  <img
+                    src="/profile.JPG"
+                    alt="Foto de perfil de Mauro Zibane"
+                    className="h-80 w-80 lg:h-96 lg:w-96 object-cover rounded-full transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => {
+                      const img = e.currentTarget as HTMLImageElement;
+                      if (img.src.endsWith('/profile.jpg')) {
+                        img.onerror = null; // evita loop
+                        img.src = '/profile.JPG';
+                      }
+                      else {
+                        img.style.display = 'none';
+                      }
+                    }}
+                  />
+                </div>
               </div>
             </Reveal>
             {/* Abstract elements - for visual richness */}

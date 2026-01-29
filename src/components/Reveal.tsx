@@ -37,7 +37,7 @@ export default function Reveal({ children, className, as = 'div', delayMs = 0 }:
       ref={ref}
       className={[
         'transition-all duration-700 ease-out',
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4',
+        visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95',
         className ?? '',
       ].join(' ').trim()}
     >

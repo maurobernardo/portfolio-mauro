@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import Reveal from '../components/Reveal';
-import emailjs from '@emailjs/browser'; // Importe o EmailJS
+import emailjs from '@emailjs/browser'; 
 import { Send, Loader2, CheckCircle2, AlertCircle, Phone, Mail, MapPin, Linkedin, Github, Twitter, Facebook, Youtube, Instagram } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 type SubmitStatus = 'idle' | 'loading' | 'success' | 'error';
 
 export default function Contact() {
+  const { t } = useLanguage();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -14,21 +16,21 @@ export default function Contact() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<SubmitStatus>('idle');
 
-  // Credenciais do EmailJS (substitua pelos seus valores reais)
-  const serviceId = 'service_v9hnd3o'; // Seu Service ID do EmailJS
-  const templateId = 'template_0pmbmx9'; // Seu Template ID do EmailJS
-  const publicKey = 'WYBtiSordr0Zt8IqY'; // Sua Public Key do EmailJS
+
+  const serviceId = 'service_v9hnd3o'; 
+  const templateId = 'template_0pmbmx9'; 
+  const publicKey = 'WYBtiSordr0Zt8IqY'; 
 
   const sanitize = (s: string) => s.replace(/</g, '&lt;').replace(/>/g, '&gt;').trim();
 
   const validate = () => {
     const next: Record<string, string> = {};
-    if (!firstName.trim()) next.firstName = 'Informe seu nome';
-    if (!lastName.trim()) next.lastName = 'Informe seu apelido';
+    if (!firstName.trim()) next.firstName = t('contact.nameError');
+    if (!lastName.trim()) next.lastName = t('contact.lastNameError');
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (!email.trim() || !emailOk) next.email = 'E-mail inválido';
-    if (phone && !/^\+?[0-9\-()\s.]{6,}$/.test(phone)) next.phone = 'Telefone inválido';
-    if (!message.trim()) next.message = 'Escreva sua mensagem';
+    if (!email.trim() || !emailOk) next.email = t('contact.emailError');
+    if (phone && !/^\+?[0-9\-()\s.]{6,}$/.test(phone)) next.phone = t('contact.phoneError');
+    if (!message.trim()) next.message = t('contact.messageError');
     setErrors(next);
     return Object.keys(next).length === 0;
   };
@@ -90,159 +92,184 @@ export default function Contact() {
 
   return (
     <section id="contato" className="relative py-16 lg:py-24 overflow-hidden">
-      {/* Gradiente de fundo idêntico ao Hero - Modo Claro */}
-      <div className="absolute inset-0 z-0 dark:hidden" style={{ background: 'linear-gradient(to right, rgba(219, 234, 254, 1) 0%, rgba(239, 246, 255, 0.8) 30%, rgba(248, 250, 252, 0.6) 60%, rgba(255, 255, 255, 1) 100%)' }} />
-      {/* Gradiente de fundo idêntico ao Hero - Modo Escuro */}
-      <div className="absolute inset-0 z-0 hidden dark:block" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 50%, rgb(0, 0, 0) 100%)' }} />
-      {/* Padrão geométrico sutil - modo claro */}
-      <div className="absolute inset-0 opacity-[0.03] dark:hidden z-0" style={{ backgroundImage: 'url(\'/patterns/hero-network.svg\')', backgroundRepeat: 'repeat', backgroundSize: '400px' }} />
-      {/* Padrões abstratos emanando do lado direito - modo escuro */}
-      <div className="absolute inset-0 opacity-[0.08] hidden dark:block z-0" style={{ backgroundImage: 'radial-gradient(ellipse at right, rgba(59, 130, 246, 0.15) 0%, transparent 70%)' }} />
+      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
+      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 1) 100%)' }} />
+      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 100%)' }} />
+      
+      {/* Partículas animadas */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute top-24 left-20 w-2 h-2 bg-[#00D9FF] rounded-full opacity-30 animate-float" style={{ animationDelay: '2s', animationDuration: '8s' }} />
+        <div className="absolute top-1/2 right-20 w-1.5 h-1.5 bg-[#00D9FF] rounded-full opacity-25 animate-float" style={{ animationDelay: '4s', animationDuration: '9s' }} />
+        <div className="absolute bottom-32 left-1/3 w-2.5 h-2.5 bg-[#00D9FF] rounded-full opacity-20 animate-float" style={{ animationDelay: '6s', animationDuration: '7s' }} />
+        <div className="absolute top-2/3 right-1/4 w-1 h-1 bg-[#00D9FF] rounded-full opacity-35 animate-float" style={{ animationDelay: '8s', animationDuration: '10s' }} />
+      </div>
+      
+      {/* Gradientes animados */}
+      <div className="absolute inset-0 z-0 opacity-25 dark:opacity-15">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDuration: '7s' }} />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '4s', animationDuration: '9s' }} />
+      </div>
+      
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
           <Reveal>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">Entre em Conctato</h2>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">{t('contact.title')}</h2>
           </Reveal>
           <Reveal delayMs={80}>
             <p className="max-w-[700px] text-muted-foreground md:text-xl">
-              Estou sempre aberto a novas oportunidades e colaborações. Envie uma mensagem ou conecte-se pelas redes sociais.
+              {t('contact.subtitle')}
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_1fr] justify-items-center lg:justify-items-stretch">
+        <div className="mt-8 grid gap-6 md:gap-8 lg:grid-cols-[1fr_1fr] justify-items-center lg:justify-items-stretch">
           {/* Form card */}
-          <form onSubmit={handleSubmit} className="relative rounded-xl border bg-card p-10 shadow-lg w-full max-w-2xl">
-            <div className="grid gap-8">
-              <div className="grid sm:grid-cols-2 gap-6">
+          <form onSubmit={handleSubmit} className="relative rounded-xl border bg-card p-6 md:p-8 lg:p-10 shadow-lg w-full max-w-xl mx-auto overflow-hidden">
+            {/* Borda vertical azul ciano na esquerda */}
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
+            
+            {/* Efeito de brilho animado na borda */}
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
+            
+            <div className="grid gap-5 md:gap-6 lg:gap-7 relative z-10">
+              <div className="grid sm:grid-cols-2 gap-4">
                 <label className="grid gap-2">
-                  <span className="text-md font-bold leading-none text-foreground">Nome</span>
-                  <input value={firstName} onChange={(e) => setFirstName(sanitize(e.target.value))} className={`${inputBase} ${errors.firstName ? 'border-destructive ring-destructive' : ''}`} placeholder="Seu Nome" name="user_name_first" />
-                  {errors.firstName && <span className="text-sm text-destructive-foreground mt-1">{errors.firstName}</span>}
+                  <span className="text-sm font-semibold leading-none text-foreground">{t('contact.firstName')}</span>
+                  <input value={firstName} onChange={(e) => setFirstName(sanitize(e.target.value))} className={`${inputBase} transition-all duration-300 ${errors.firstName ? 'border-destructive ring-destructive' : 'hover:border-primary/50'}`} placeholder={t('contact.firstName')} name="user_name_first" />
+                  {errors.firstName && <span className="text-xs text-destructive-foreground mt-1 animate-in fade-in slide-in-from-top-1">{errors.firstName}</span>}
                 </label>
                 <label className="grid gap-2">
-                  <span className="text-md font-bold leading-none text-foreground">Apelido</span>
-                  <input value={lastName} onChange={(e) => setLastName(sanitize(e.target.value))} className={`${inputBase} ${errors.lastName ? 'border-destructive ring-destructive' : ''}`} placeholder="Seu Apelido" name="user_name_last" />
-                  {errors.lastName && <span className="text-sm text-destructive-foreground mt-1">{errors.lastName}</span>}
+                  <span className="text-sm font-semibold leading-none text-foreground">{t('contact.lastName')}</span>
+                  <input value={lastName} onChange={(e) => setLastName(sanitize(e.target.value))} className={`${inputBase} transition-all duration-300 ${errors.lastName ? 'border-destructive ring-destructive' : 'hover:border-primary/50'}`} placeholder={t('contact.lastName')} name="user_name_last" />
+                  {errors.lastName && <span className="text-xs text-destructive-foreground mt-1 animate-in fade-in slide-in-from-top-1">{errors.lastName}</span>}
                 </label>
               </div>
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-2 gap-4">
                 <label className="grid gap-2">
-                  <span className="text-md font-bold leading-none text-foreground">E-mail</span>
-                  <input type="email" value={email} onChange={(e) => setEmail(sanitize(e.target.value))} className={`${inputBase} ${errors.email ? 'border-destructive ring-destructive' : ''}`} placeholder="mauro@gmail.com" name="user_email" />
-                  {errors.email && <span className="text-sm text-destructive-foreground mt-1">{errors.email}</span>}
+                  <span className="text-sm font-semibold leading-none text-foreground">{t('contact.email')}</span>
+                  <input type="email" value={email} onChange={(e) => setEmail(sanitize(e.target.value))} className={`${inputBase} transition-all duration-300 ${errors.email ? 'border-destructive ring-destructive' : 'hover:border-primary/50'}`} placeholder={t('contact.emailPlaceholder')} name="user_email" />
+                  {errors.email && <span className="text-xs text-destructive-foreground mt-1 animate-in fade-in slide-in-from-top-1">{errors.email}</span>}
                 </label>
                 <label className="grid gap-2">
-                  <span className="text-md font-bold leading-none text-foreground">Telefone (opcional)</span>
-                  <input value={phone} onChange={(e) => setPhone(sanitize(e.target.value))} className={`${inputBase} ${errors.phone ? 'border-destructive ring-destructive' : ''}`} placeholder="Ex: +258 84 123 4567" name="user_phone" />
-                  {errors.phone && <span className="text-sm text-destructive-foreground mt-1">{errors.phone}</span>}
+                  <span className="text-sm font-semibold leading-none text-foreground">{t('contact.phone')} (opcional)</span>
+                  <input value={phone} onChange={(e) => setPhone(sanitize(e.target.value))} className={`${inputBase} transition-all duration-300 ${errors.phone ? 'border-destructive ring-destructive' : 'hover:border-primary/50'}`} placeholder={t('contact.phonePlaceholder')} name="user_phone" />
+                  {errors.phone && <span className="text-xs text-destructive-foreground mt-1 animate-in fade-in slide-in-from-top-1">{errors.phone}</span>}
                 </label>
               </div>
               <label className="grid gap-2">
-                <span className="text-md font-bold leading-none text-foreground">Mensagem</span>
-                <textarea value={message} onChange={(e) => setMessage(e.target.value)} className={`${inputBase} min-h-[160px] resize-y ${errors.message ? 'border-destructive ring-destructive' : ''}`} placeholder="Como posso ajudar?" name="user_message" />
-                {errors.message && <span className="text-sm text-destructive-foreground mt-1">{errors.message}</span>}
+                <span className="text-sm font-semibold leading-none text-foreground">{t('contact.message')}</span>
+                <textarea value={message} onChange={(e) => setMessage(e.target.value)} className={`${inputBase} min-h-[140px] resize-y transition-all duration-300 ${errors.message ? 'border-destructive ring-destructive' : 'hover:border-primary/50'}`} placeholder={t('contact.messagePlaceholder')} name="user_message" />
+                {errors.message && <span className="text-xs text-destructive-foreground mt-1 animate-in fade-in slide-in-from-top-1">{errors.message}</span>}
               </label>
             </div>
 
-            <div className="mt-10 grid gap-5">
-              <button type="submit" disabled={status === 'loading'} className="group inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-4 text-primary-foreground font-bold shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed">
-                {status === 'idle' && <Send size={24} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />}
-                {status === 'loading' && <Loader2 size={24} className="animate-spin" />}
-                {status === 'success' && <CheckCircle2 size={24} />}
-                {status === 'error' && <AlertCircle size={24} />}
-                <span className="text-xl">
-                  {status === 'idle' && 'Enviar Mensagem'}
-                  {status === 'loading' && 'Enviando...'}
-                  {status === 'success' && 'Enviado com sucesso!'}
-                  {status === 'error' && 'Erro ao enviar'}
+            <div className="mt-6 md:mt-8 lg:mt-10 grid gap-4 md:gap-5">
+              <button type="submit" disabled={status === 'loading'} className="group relative inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-primary-foreground font-semibold shadow-lg transition-all duration-300 hover:bg-primary/90 hover:shadow-xl hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 overflow-hidden">
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r from-primary/20 via-transparent to-transparent" />
+                {status === 'idle' && <Send size={20} className="relative z-10 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5" />}
+                {status === 'loading' && <Loader2 size={20} className="relative z-10 animate-spin" />}
+                {status === 'success' && <CheckCircle2 size={20} className="relative z-10" />}
+                {status === 'error' && <AlertCircle size={20} className="relative z-10" />}
+                <span className="relative z-10 text-base">
+                  {status === 'idle' && t('contact.send')}
+                  {status === 'loading' && t('contact.sending')}
+                  {status === 'success' && t('contact.success')}
+                  {status === 'error' && t('contact.error')}
                 </span>
               </button>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <button type="button" onClick={openEmail} className="inline-flex items-center justify-center gap-2 rounded-xl border border-input bg-background px-6 py-3 text-foreground font-semibold transition-colors hover:bg-muted/50 hover:shadow-sm">
-                  <Mail size={20} className="text-primary" /> <span className="text-md">Enviar E-mail</span>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <button type="button" onClick={openEmail} className="group inline-flex items-center justify-center gap-2 rounded-xl border border-input bg-background px-5 py-2.5 text-foreground font-medium transition-all duration-300 hover:bg-muted/50 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/30">
+                  <Mail size={18} className="text-primary transition-transform duration-300 group-hover:scale-110" /> 
+                  <span className="text-sm">{t('contact.emailButton')}</span>
                 </button>
-                <button type="button" onClick={openWhatsApp} className="inline-flex items-center justify-center gap-2 rounded-xl border border-input bg-background px-6 py-3 text-foreground font-semibold transition-colors hover:bg-muted/50 hover:shadow-sm">
-                  <img src="/icons/brands/whatsapp.svg" alt="WhatsApp" className="h-5 w-5" /> <span className="text-md">WhatsApp</span>
+                <button type="button" onClick={openWhatsApp} className="group inline-flex items-center justify-center gap-2 rounded-xl border border-input bg-background px-5 py-2.5 text-foreground font-medium transition-all duration-300 hover:bg-muted/50 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/30">
+                  <img src="/icons/brands/whatsapp.svg" alt="WhatsApp" className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" /> 
+                  <span className="text-sm">{t('contact.whatsappButton')}</span>
                 </button>
               </div>
             </div>
           </form>
 
           {/* Info card */}
-          <div className="rounded-xl border bg-card p-8 shadow-lg">
+          <div className="relative rounded-xl border bg-card p-6 md:p-8 lg:p-10 shadow-lg transition-all duration-500 hover:shadow-xl overflow-hidden w-full max-w-lg mx-auto">
+            {/* Borda vertical azul ciano na esquerda */}
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
+            
+            {/* Efeito de brilho animado na borda */}
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
+            
             <Reveal delayMs={100}>
-              <h3 className="text-2xl font-bold text-foreground">Informações de Conctato</h3>
+              <h3 className="text-2xl font-bold text-foreground relative z-10">{t('contact.infoTitle')}</h3>
             </Reveal>
-            <div className="mt-8 space-y-6">
+            <div className="mt-6 md:mt-8 lg:mt-10 space-y-5 md:space-y-6 lg:space-y-7 relative z-10">
               <Reveal delayMs={150}>
-                <div className="flex items-start gap-5">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0">
-                    <Phone size={26} />
+                <div className="group flex items-start gap-5 transition-all duration-300 hover:translate-x-1">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20">
+                    <Phone size={26} className="transition-transform duration-300 group-hover:scale-110" />
                   </span>
                   <div>
-                    <p className="text-md text-muted-foreground">Telefone</p>
-                    <a href="tel:+258842767435" className="font-bold text-lg text-foreground hover:underline">+258 84 276 7435</a>
+                    <p className="text-md text-muted-foreground">{t('contact.phone')}</p>
+                    <a href="tel:+258842767435" className="font-bold text-lg text-foreground hover:text-primary transition-colors duration-300">+258 84 276 7435</a>
                   </div>
                 </div>
               </Reveal>
               <Reveal delayMs={200}>
-                <div className="flex items-start gap-5">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0">
-                    <Mail size={26} />
+                <div className="group flex items-start gap-5 transition-all duration-300 hover:translate-x-1">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20">
+                    <Mail size={26} className="transition-transform duration-300 group-hover:scale-110" />
                   </span>
                   <div>
-                    <p className="text-md text-muted-foreground">E-mail</p>
-                    <a href="mailto:maurobernardozibane@gmail.com" className="font-bold text-lg text-foreground hover:underline">maurobernardozibane@gmail.com</a>
+                    <p className="text-md text-muted-foreground">{t('contact.email')}</p>
+                    <a href="mailto:maurobernardozibane@gmail.com" className="font-bold text-lg text-foreground hover:text-primary transition-colors duration-300">zibanejr@gmail.com</a>
                   </div>
                 </div>
               </Reveal>
               <Reveal delayMs={250}>
-                <div className="flex items-start gap-5">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0">
-                    <MapPin size={26} />
+                <div className="group flex items-start gap-5 transition-all duration-300 hover:translate-x-1">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-primary flex-shrink-0 transition-all duration-300 group-hover:scale-110 group-hover:bg-primary/20 group-hover:shadow-lg group-hover:shadow-primary/20">
+                    <MapPin size={26} className="transition-transform duration-300 group-hover:scale-110" />
                   </span>
                   <div>
-                    <p className="text-md text-muted-foreground">Localização</p>
-                    <p className="font-bold text-lg text-foreground">Beira, Moçambique</p>
+                    <p className="text-md text-muted-foreground">{t('contact.location')}</p>
+                    <p className="font-bold text-lg text-foreground group-hover:text-primary transition-colors duration-300">{t('contact.locationValue')}</p>
                   </div>
                 </div>
               </Reveal>
             </div>
 
             <Reveal delayMs={300}>
-              <h4 className="mt-10 text-2xl font-bold text-foreground text-center">Redes Sociais</h4>
+              <h4 className="mt-8 md:mt-10 lg:mt-12 text-xl md:text-2xl font-bold text-foreground text-center">{t('contact.socialMedia')}</h4>
             </Reveal>
-            <div className="mt-6 flex flex-wrap gap-4 justify-center">
+            <div className="mt-5 md:mt-6 lg:mt-8 flex flex-wrap gap-3 md:gap-4 justify-center">
               <Reveal delayMs={350}>
-                <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="LinkedIn">
-                  <Linkedin size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="LinkedIn">
+                  <Linkedin size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
               <Reveal delayMs={400}>
-                <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="GitHub">
-                  <Github size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="GitHub">
+                  <Github size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
               <Reveal delayMs={450}>
-                <a href="https://twitter.com/MauroZiban7" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="Twitter">
-                  <Twitter size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                <a href="https://twitter.com/MauroZiban7" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="Twitter">
+                  <Twitter size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
               <Reveal delayMs={500}>
-                <a href="https://www.facebook.com/mauroutall.mbz" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="Facebook">
-                  <Facebook size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                <a href="https://www.facebook.com/mauroutall.mbz" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="Facebook">
+                  <Facebook size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
               <Reveal delayMs={600}>
-                <a href="https://www.youtube.com/@ZibaneUpdatee026" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="YouTube">
-                  <Youtube size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                <a href="https://www.youtube.com/@ZibaneUpdatee026" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="YouTube">
+                  <Youtube size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
               <Reveal delayMs={650}>
-                <a href="https://www.instagram.com/_mauro_zibane10_/" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="Instagram">
-                  <Instagram size={20} className="text-primary group-hover:scale-110 transition-transform" />
+                <a href="https://www.instagram.com/_mauro_zibane10_/" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="Instagram">
+                  <Instagram size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
             </div>
@@ -252,7 +279,7 @@ export default function Contact() {
         {/* Google Map */}
         <Reveal delayMs={700}>
           <div className="mt-12 rounded-xl border border-primary/20 shadow-lg overflow-hidden">
-            <h4 className="text-xl font-bold text-foreground p-4 bg-card text-center">Minha Localização</h4>
+            <h4 className="text-xl font-bold text-foreground p-4 bg-card text-center">{t('contact.mapTitle')}</h4>
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>{/* 16:9 Aspect Ratio */}
               <iframe
                 title="Google Map of Beira, Mozambique"
