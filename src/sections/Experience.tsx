@@ -15,9 +15,10 @@ const experiencesData = [
     bulletCount: 1,
   },
   {
-    company: "Vodacom Mocambique",
+    company: "Uanicode",
     periodKey: "experience.1.period",
-    bulletCount: 4,
+    locationKey: "experience.1.location",
+    bulletCount: 1,
   },
   {
     company: "Anantara Bazaruto Island Resort and SPA",
