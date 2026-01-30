@@ -1,5 +1,5 @@
 import Reveal from '../components/Reveal';
-import { Code, LayoutDashboard, Smartphone, ShieldCheck, PieChart, Database } from 'lucide-react';
+import { Code, Smartphone, Server } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface Service {
@@ -15,29 +15,14 @@ const services: Service[] = [
     icon: Code,
   },
   {
-    titleKey: 'services.frontend',
-    descriptionKey: 'services.frontendDesc',
-    icon: LayoutDashboard,
-  },
-  {
     titleKey: 'services.mobile',
     descriptionKey: 'services.mobileDesc',
     icon: Smartphone,
   },
   {
-    titleKey: 'services.consulting',
-    descriptionKey: 'services.consultingDesc',
-    icon: ShieldCheck,
-  },
-  {
-    titleKey: 'services.dataAnalysis',
-    descriptionKey: 'services.dataAnalysisDesc',
-    icon: PieChart,
-  },
-  {
-    titleKey: 'services.database',
-    descriptionKey: 'services.databaseDesc',
-    icon: Database,
+    titleKey: 'services.networkAdmin',
+    descriptionKey: 'services.networkAdminDesc',
+    icon: Server,
   },
 ];
 
