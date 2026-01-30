@@ -113,17 +113,11 @@ export default function Projects() {
             const description = t(`projects.${i}.description`);
             return (
               <Reveal as="article" key={i} delayMs={i * 80}>
-                <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 h-full flex flex-col hover:-translate-y-2 overflow-hidden">
-                  {/* Borda vertical azul ciano na esquerda */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
-                  
-                  {/* Efeito de brilho animado na borda */}
-                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
-                  
-                  {/* Gradiente de fundo sutil no hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-                  {/* Brilho sutil no hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-primary/5 to-transparent pointer-events-none" />
+                <div className="group mz-card mz-card-md h-full flex flex-col">
+                  <div className="mz-card-accent" />
+                  <div className="mz-card-accent-pulse" />
+                  <div className="mz-card-hover-bg" />
+                  <div className="mz-card-hover-shine" />
                   
                   {p.image && (
                     <a href={p.link || p.repo || '#'} target="_blank" rel="noreferrer" className="block -mt-3 -mx-3 mb-4 rounded-t-xl overflow-hidden" aria-label={title}>

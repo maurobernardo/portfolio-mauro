@@ -75,6 +75,42 @@
   }
 }
 
+@layer components {
+  /* Card padrão (mesma identidade dos cards de Serviços) */
+  .mz-card {
+    @apply relative overflow-hidden rounded-2xl border-2 border-primary/50 bg-card shadow-2xl shadow-primary/20 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/20;
+  }
+
+  /* Padding padrão (cards médios) */
+  .mz-card-md {
+    @apply p-6 md:p-8 lg:p-10;
+  }
+
+  /* Padding grande (como em Serviços) */
+  .mz-card-lg {
+    @apply p-10 lg:p-12;
+  }
+
+  /* Padding pequeno (tiles / cards compactos) */
+  .mz-card-sm {
+    @apply p-4 md:p-5;
+  }
+
+  /* Acessórios visuais padrão */
+  .mz-card-accent {
+    @apply absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)];
+  }
+  .mz-card-accent-pulse {
+    @apply absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse;
+  }
+  .mz-card-hover-bg {
+    @apply absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-primary/20 to-transparent pointer-events-none;
+  }
+  .mz-card-hover-shine {
+    @apply absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-primary/10 to-transparent pointer-events-none animate-pulse;
+  }
+}
+
 /* Smooth scrolling for anchor links */
 html {
   scroll-behavior: smooth;

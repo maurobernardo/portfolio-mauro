@@ -124,12 +124,11 @@ export default function Contact() {
 
         <div className="mt-8 grid gap-6 md:gap-8 lg:grid-cols-[1fr_1fr] justify-items-center lg:justify-items-stretch">
           {/* Form card */}
-          <form onSubmit={handleSubmit} className="relative rounded-xl border bg-card p-6 md:p-8 lg:p-10 shadow-lg w-full max-w-xl mx-auto overflow-hidden">
-            {/* Borda vertical azul ciano na esquerda */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
-            
-            {/* Efeito de brilho animado na borda */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
+          <form onSubmit={handleSubmit} className="group mz-card mz-card-md w-full max-w-xl mx-auto">
+            <div className="mz-card-accent" />
+            <div className="mz-card-accent-pulse" />
+            <div className="mz-card-hover-bg" />
+            <div className="mz-card-hover-shine" />
             
             <div className="grid gap-5 md:gap-6 lg:gap-7 relative z-10">
               <div className="grid sm:grid-cols-2 gap-4">
@@ -192,12 +191,11 @@ export default function Contact() {
           </form>
 
           {/* Info card */}
-          <div className="relative rounded-xl border bg-card p-6 md:p-8 lg:p-10 shadow-lg transition-all duration-500 hover:shadow-xl overflow-hidden w-full max-w-lg mx-auto">
-            {/* Borda vertical azul ciano na esquerda */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
-            
-            {/* Efeito de brilho animado na borda */}
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
+          <div className="group mz-card mz-card-md w-full max-w-lg mx-auto">
+            <div className="mz-card-accent" />
+            <div className="mz-card-accent-pulse" />
+            <div className="mz-card-hover-bg" />
+            <div className="mz-card-hover-shine" />
             
             <Reveal delayMs={100}>
               <h3 className="text-2xl font-bold text-foreground relative z-10">{t('contact.infoTitle')}</h3>

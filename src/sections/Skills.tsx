@@ -74,17 +74,12 @@ export default function Skills() {
                     as="li"
                     key={skill.name}
                     delayMs={i * 50 + 200}
-                    className="group relative flex flex-col items-center justify-center gap-3 rounded-xl border border-border/50 bg-card p-4 shadow-md transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-blue-500/10 overflow-hidden"
+                    className="group mz-card mz-card-sm flex flex-col items-center justify-center gap-3"
                   >
-                    {/* Borda vertical azul ciano na esquerda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_8px_rgba(0,217,255,0.4)]" />
-                    
-                    {/* Efeito de brilho animado na borda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-50 animate-pulse" />
-                    
-                    {/* Gradiente sutil no hover */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-blue-500/5 via-transparent to-transparent pointer-events-none" />
-                    
+                    <div className="mz-card-accent" />
+                    <div className="mz-card-accent-pulse" />
+                    <div className="mz-card-hover-bg" />
+                    <div className="mz-card-hover-shine" />
                     <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/15 to-blue-500/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-md group-hover:shadow-blue-500/20">
                       <img src={skill.svg} alt={skill.name} className="h-6 w-6 object-contain transition-transform duration-500 group-hover:scale-110" />
                     </span>
@@ -112,17 +107,12 @@ export default function Skills() {
                     as="li"
                     key={skill.name}
                     delayMs={i * 50 + 440}
-                    className="group relative flex flex-col items-center justify-center gap-3 rounded-xl border border-border/50 bg-card p-4 shadow-md transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-green-500/10 overflow-hidden"
+                    className="group mz-card mz-card-sm flex flex-col items-center justify-center gap-3"
                   >
-                    {/* Borda vertical azul ciano na esquerda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_8px_rgba(0,217,255,0.4)]" />
-                    
-                    {/* Efeito de brilho animado na borda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-50 animate-pulse" />
-                    
-                    {/* Gradiente sutil no hover */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-green-500/5 via-transparent to-transparent pointer-events-none" />
-                    
+                    <div className="mz-card-accent" />
+                    <div className="mz-card-accent-pulse" />
+                    <div className="mz-card-hover-bg" />
+                    <div className="mz-card-hover-shine" />
                     <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/15 to-green-500/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-md group-hover:shadow-green-500/20">
                       <img src={skill.svg} alt={skill.name} className="h-6 w-6 object-contain transition-transform duration-500 group-hover:scale-110" />
                     </span>
@@ -150,17 +140,12 @@ export default function Skills() {
                     as="li"
                     key={skill.name}
                     delayMs={i * 50 + 680}
-                    className="group relative flex flex-col items-center justify-center gap-3 rounded-xl border border-border/50 bg-card p-4 shadow-md transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#00D9FF]/10 overflow-hidden"
+                    className="group mz-card mz-card-sm flex flex-col items-center justify-center gap-3"
                   >
-                    {/* Borda vertical azul ciano na esquerda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_8px_rgba(0,217,255,0.4)]" />
-                    
-                    {/* Efeito de brilho animado na borda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-50 animate-pulse" />
-                    
-                    {/* Gradiente sutil no hover */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-[#00D9FF]/5 via-transparent to-transparent pointer-events-none" />
-                    
+                    <div className="mz-card-accent" />
+                    <div className="mz-card-accent-pulse" />
+                    <div className="mz-card-hover-bg" />
+                    <div className="mz-card-hover-shine" />
                     <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#00D9FF]/15 to-[#00D9FF]/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-md group-hover:shadow-[#00D9FF]/20">
                       <img src={skill.svg} alt={skill.name} className="h-6 w-6 object-contain transition-transform duration-500 group-hover:scale-110" />
                     </span>

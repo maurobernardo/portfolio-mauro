@@ -101,6 +101,14 @@ export const translations = {
     'experience.ai': 'Introdução à IA Moderna',
     'experience.dataScience': 'Introdução à Ciência de Dados',
     'experience.hardware': 'Fundamentos de Hardware de Computadores',
+    'experience.awsCourses': 'Cursos AWS Educate',
+    'experience.awsInstitution': 'AWS Educate',
+    'experience.awsCompleted': 'Cursos concluídos:',
+    'experience.aws.compute': 'AWS Educate Getting Started with Compute',
+    'experience.aws.storage': 'AWS Educate Getting Started with Storage',
+    'experience.aws.cloud101': 'AWS Educate Introduction to Cloud 101',
+    'experience.aws.genai': 'AWS Educate Introduction to Generative AI',
+    'experience.aws.ml': 'AWS Educate Machine Learning Foundations',
     
     // Skills
     'skills.title': 'Minhas Habilidades',
@@ -147,6 +155,11 @@ export const translations = {
     'experience.1.bullet1': 'Desenvolvimento de demos.',
     'experience.1.bullet2': 'Pesquisa e analise do mercado.',
     'experience.1.bullet3': 'Elevator Pitch.',
+    'experience.2.role': 'Administrador de Redes e Sistemas',
+    'experience.2.company': 'Anantara Bazaruto Island Resort and SPA',
+    'experience.2.period': 'Jan 2026 — Presente',
+    'experience.2.location': 'Vilankulo, Inhambane — Presencial',
+    'experience.2.bullet0': 'Atuação como Administrador de Redes e Sistemas, responsável pelo gerenciamento da infraestrutura de TI, monitoramento de servidores, redes e serviços em nuvem, garantindo alta disponibilidade, segurança e desempenho dos sistemas da organização.',
     
     // Certifications
     'certifications.0.title': 'M-Pesa da Vodacom',
@@ -289,6 +302,14 @@ export const translations = {
     'experience.ai': 'Introduction to Modern AI',
     'experience.dataScience': 'Introduction to Data Science',
     'experience.hardware': 'Computer Hardware Fundamentals',
+    'experience.awsCourses': 'AWS Educate Courses',
+    'experience.awsInstitution': 'AWS Educate',
+    'experience.awsCompleted': 'Completed courses:',
+    'experience.aws.compute': 'AWS Educate Getting Started with Compute',
+    'experience.aws.storage': 'AWS Educate Getting Started with Storage',
+    'experience.aws.cloud101': 'AWS Educate Introduction to Cloud 101',
+    'experience.aws.genai': 'AWS Educate Introduction to Generative AI',
+    'experience.aws.ml': 'AWS Educate Machine Learning Foundations',
     
     // Skills
     'skills.title': 'Skills',
@@ -335,6 +356,11 @@ export const translations = {
     'experience.1.bullet1': 'Demo Development.',
     'experience.1.bullet2': 'Market Research and Analysis.',
     'experience.1.bullet3': 'Elevator Pitch.',
+    'experience.2.role': 'Systems and Networks Administrator',
+    'experience.2.company': 'Anantara Bazaruto Island Resort and SPA',
+    'experience.2.period': 'Jan 2026 — Present',
+    'experience.2.location': 'Vilankulo, Inhambane — On-site',
+    'experience.2.bullet0': 'Working as a Systems and Networks Administrator, responsible for managing the IT infrastructure, monitoring servers, networks and cloud services, ensuring high availability, security and performance of the organization\'s systems.',
     
     // Certifications
     'certifications.0.title': 'M-Pesa from Vodacom',

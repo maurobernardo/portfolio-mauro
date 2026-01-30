@@ -19,6 +19,12 @@ const experiencesData = [
     periodKey: "experience.1.period",
     bulletCount: 4,
   },
+  {
+    company: "Anantara Bazaruto Island Resort and SPA",
+    periodKey: "experience.2.period",
+    locationKey: "experience.2.location",
+    bulletCount: 1,
+  },
 ];
 
 import Reveal from "../components/Reveal";
@@ -77,15 +83,11 @@ export default function Experience() {
                       <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-8 ring-background">
                         <BookOpen size={16} className="text-primary-foreground" />
                       </span>
-                      <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                        {/* Borda vertical azul ciano na esquerda */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
-                        
-                        {/* Efeito de brilho animado na borda */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
-                        
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-primary/5 to-transparent pointer-events-none" />
+                      <div className="group mz-card mz-card-md">
+                        <div className="mz-card-accent" />
+                        <div className="mz-card-accent-pulse" />
+                        <div className="mz-card-hover-bg" />
+                        <div className="mz-card-hover-shine" />
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 relative z-10">
                           <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300">{degree}</h3>
                           <time className="text-sm font-medium text-muted-foreground">{period}</time>
@@ -104,15 +106,11 @@ export default function Experience() {
                   <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-8 ring-background">
                     <Award size={16} className="text-primary-foreground" />
                   </span>
-                  <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                    {/* Borda vertical azul ciano na esquerda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
-                    
-                    {/* Efeito de brilho animado na borda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
-                    
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-primary/5 to-transparent pointer-events-none" />
+                  <div className="group mz-card mz-card-md">
+                    <div className="mz-card-accent" />
+                    <div className="mz-card-accent-pulse" />
+                    <div className="mz-card-hover-bg" />
+                    <div className="mz-card-hover-shine" />
                     <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 relative z-10">
                         <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300">{t('experience.ciscoCourses')}</h3>
                         <time className="text-sm font-medium text-muted-foreground">2025</time>
@@ -142,6 +140,57 @@ export default function Experience() {
                   </div>
                 </Reveal>
               </li>
+
+              {/* Card de cursos AWS Educate */}
+              <li className="mb-10 ml-6">
+                <Reveal delayMs={360}>
+                  <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-8 ring-background">
+                    <Award size={16} className="text-primary-foreground" />
+                  </span>
+                  <div className="group mz-card mz-card-md">
+                    <div className="mz-card-accent" />
+                    <div className="mz-card-accent-pulse" />
+                    <div className="mz-card-hover-bg" />
+                    <div className="mz-card-hover-shine" />
+                    <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 relative z-10">
+                      <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                        {t('experience.awsCourses')}
+                      </h3>
+                      <time className="text-sm font-medium text-muted-foreground">2025</time>
+                    </div>
+                    <p className="text-muted-foreground relative z-10 mb-4">
+                      {t('experience.awsInstitution')}
+                    </p>
+                    <div className="relative z-10 space-y-2">
+                      <p className="text-sm font-semibold text-foreground mb-2">
+                        {t('experience.awsCompleted')}
+                      </p>
+                      <ul className="space-y-2 text-sm text-muted-foreground">
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{t('experience.aws.compute')}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{t('experience.aws.storage')}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{t('experience.aws.cloud101')}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{t('experience.aws.genai')}</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary mt-1">•</span>
+                          <span>{t('experience.aws.ml')}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </Reveal>
+              </li>
             </ol>
           </div>
 
@@ -163,15 +212,11 @@ export default function Experience() {
                       <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-8 ring-background">
                         <Briefcase size={16} className="text-primary-foreground" />
                       </span>
-                      <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/20 transition-all duration-500 hover:-translate-y-2 overflow-hidden">
-                        {/* Borda vertical azul ciano na esquerda */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
-                        
-                        {/* Efeito de brilho animado na borda */}
-                        <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
-                        
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-primary/5 to-transparent pointer-events-none" />
+                      <div className="group mz-card mz-card-md">
+                        <div className="mz-card-accent" />
+                        <div className="mz-card-accent-pulse" />
+                        <div className="mz-card-hover-bg" />
+                        <div className="mz-card-hover-shine" />
                         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-2 relative z-10">
                           <h3 className="text-lg font-bold text-foreground group-hover:text-primary transition-colors duration-300">{role}</h3>
                           <time className="text-sm font-medium text-muted-foreground">{period}</time>
@@ -217,14 +262,11 @@ export default function Experience() {
               const skills = Array.from({ length: c.skillCount }, (_, idx) => t(`certifications.${i}.skill${idx}`));
               return (
                 <Reveal key={i} delayMs={i * 100 + 520}>
-                  <div className="group relative rounded-2xl border border-border/50 bg-card p-6 shadow-lg hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 h-full flex flex-col hover:-translate-y-2 overflow-hidden">
-                    {/* Borda vertical azul ciano na esquerda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-100 shadow-[0_0_10px_rgba(0,217,255,0.5)]" />
-                    
-                    {/* Efeito de brilho animado na borda */}
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-60 animate-pulse" />
-                    
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
+                  <div className="group mz-card mz-card-md h-full flex flex-col">
+                    <div className="mz-card-accent" />
+                    <div className="mz-card-accent-pulse" />
+                    <div className="mz-card-hover-bg" />
+                    <div className="mz-card-hover-shine" />
                     <div className="flex items-center gap-3 text-foreground mb-3 relative z-10">
                       <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/10 text-primary transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                         <Award size={20} />

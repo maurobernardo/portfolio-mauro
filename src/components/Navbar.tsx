@@ -61,13 +61,13 @@ export default function Navbar() {
               >
                 <Languages size={18} />
               </button>
-              <button
-                aria-label="Alternar tema"
-                onClick={toggleTheme}
-                className="rounded-full p-2 transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              >
-                {isDark ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
+            <button
+              aria-label="Alternar tema"
+              onClick={toggleTheme}
+              className="rounded-full p-2 transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
             </div>
           </nav>
           <div className="flex items-center gap-2 md:hidden">
