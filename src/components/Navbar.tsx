@@ -20,8 +20,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const enable = saved ? saved === 'dark' : prefersDark;
+    const enable = saved ? saved === 'dark' : true; // Modo escuro como padrão
     document.documentElement.classList.toggle('dark', enable);
     setIsDark(enable);
   }, []);
