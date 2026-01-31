@@ -37,7 +37,11 @@ export default function Navbar() {
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
         <div className="flex h-16 items-center justify-between">
           <a href="#inicio" className="relative -m-1.5 p-1.5 text-lg font-bold transition-colors hover:text-primary flex items-center gap-2">
-            <img src="/profile.PNG" alt="Avatar" className="h-8 w-8 rounded-full object-cover" />
+            <img 
+              src={isDark ? "/profile.PNG" : "/profile1.PNG"} 
+              alt="Avatar" 
+              className="h-8 w-8 rounded-full object-cover transition-all duration-300" 
+            />
             Mauro Zibane
           </a>
           <nav aria-label="Global" className="hidden items-center gap-4 md:flex">
