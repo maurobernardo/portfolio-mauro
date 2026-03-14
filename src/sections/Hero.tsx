@@ -96,7 +96,7 @@ export default function Hero() {
             </Reveal>
             <Reveal delayMs={240}>
               <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                <a href="/path-to-your-cv.pdf" download className="rounded-full bg-primary px-8 py-4 text-primary-foreground font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl hover:-translate-y-px active:translate-y-px">
+                <a href="/Mauro_Zibane.pdf" download className="rounded-full bg-primary px-8 py-4 text-primary-foreground font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl hover:-translate-y-px active:translate-y-px">
                   {t('hero.downloadCV')}
                 </a>
                 <a href="#projetos" className="rounded-full border border-input px-8 py-4 font-semibold text-foreground transition-all hover:bg-muted hover:text-primary hover:shadow-sm hover:-translate-y-px">
