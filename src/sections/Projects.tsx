@@ -10,55 +10,71 @@ type Project = {
 
 const projectsData = [
   {
+    stack: ['React', 'TypeScript', 'Tailwind CSS'],
+    link: 'https://agro-tech-mozambique.vercel.app/',
+    repo: '#',
+    image: '/Agro.png',
+    imageAltKey: 'projects.0.title',
+  },
+  {
+    stack: ['React', 'TypeScript', 'Tailwind CSS'],
+    link: 'https://bioclean-environment.vercel.app/pt',
+    repo: '#',
+    image: '/Bio.png',
+    imageAltKey: 'projects.1.title',
+  },
+  {
     stack: ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
     link: '#',
     repo: '#',
     image: '/UCM.png',
-    imageAltKey: 'projects.0.title',
+    imageAltKey: 'projects.2.title',
   },
   {
     stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     link: 'https://deyril-marlon.vercel.app/',
     repo: '#',
     image: '/Deyril.png',
-    imageAltKey: 'projects.1.title',
+    imageAltKey: 'projects.3.title',
   },
   {
     stack: ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
     link: '#',
     repo: '#',
     image: '/Feg.png',
-    imageAltKey: 'projects.2.title',
+    imageAltKey: 'projects.4.title',
   },
   {
     stack: ['React Native', 'TypeScript'],
     link: '#',
     repo: '#',
     image: '/Fin.jpg',
-    imageAltKey: 'projects.3.title',
+    imageAltKey: 'projects.5.title',
   },
   {
     stack: ['React', 'TypeScript', 'Tailwind CSS'],
     link: '#',
     repo: 'https://github.com/maurobernardo/portfolio-mauro',
     image: '/projecto.png',
-    imageAltKey: 'projects.4.title',
+    imageAltKey: 'projects.6.title',
   },
   {
     stack: ['React Native', 'TypeScript', 'Expo'],
     link: '#',
     repo: 'https://github.com/maurobernardo/mobile-app',
     image: '/Confia.png',
-    imageAltKey: 'projects.5.title',
+    imageAltKey: 'projects.7.title',
   },
 ];
 
 import Reveal from '../components/Reveal';
 import { Github, Link2 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useState } from 'react';
 
 export default function Projects() {
   const { t } = useLanguage();
+  const [showAll, setShowAll] = useState(false);
   const iconMap: Record<string, string> = {
     React: '/icons/react.svg',
     'React Native': '/icons/react.svg',
@@ -108,7 +124,7 @@ export default function Projects() {
           </Reveal>
         </div>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projectsData.map((p, i) => {
+          {(showAll ? projectsData : projectsData.slice(0, 6)).map((p, i) => {
             const title = t(`projects.${i}.title`);
             const description = t(`projects.${i}.description`);
             return (
@@ -163,6 +179,17 @@ export default function Projects() {
             );
           })}
         </div>
+        {projectsData.length > 6 && (
+          <div className="mt-8 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAll((prev) => !prev)}
+              className="inline-flex items-center justify-center rounded-full border border-input px-6 py-2.5 text-sm font-semibold text-foreground bg-background hover:bg-muted hover:text-primary transition-all duration-300 hover:-translate-y-px hover:shadow-sm hover:shadow-primary/20"
+            >
+              {showAll ? t('projects.showLess') : t('projects.showMore')}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
