@@ -38,7 +38,7 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between">
           <a href="#inicio" className="relative -m-1.5 p-1.5 text-lg font-bold transition-colors hover:text-primary flex items-center gap-2">
             <img 
-              src={isDark ? "/profile.PNG" : "/profile1.PNG"} 
+              src={isDark ? "/profile.png" : "/profile.png"} 
               alt="Avatar" 
               className="h-8 w-8 rounded-full object-cover transition-all duration-300" 
             />

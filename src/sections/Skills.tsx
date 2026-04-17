@@ -5,7 +5,6 @@ const frontendSkills: Skill[] = [
   { name: 'React Native', svg: '/icons/react.svg' },
   { name: 'HTML5', svg: '/icons/tech/html.svg' },
   { name: 'CSS3', svg: '/icons/tech/css.svg' },
-  { name: 'Tailwind CSS', svg: '/icons/tailwindcss.svg' },
 ];
 
 const backendSkills: Skill[] = [
