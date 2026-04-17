@@ -140,14 +140,14 @@ export default function Hero() {
                 <div className="absolute -inset-2 bg-gradient-to-r from-primary via-[#00D9FF] to-primary rounded-full opacity-75 blur-lg group-hover:opacity-100 transition-opacity duration-500 animate-pulse-glow"></div>
                 <div className="relative rounded-full border-4 border-primary/50 shadow-2xl shadow-primary/30 overflow-hidden">
                 <img
-                  src={isDark ? "/profile.png" : "/profile.png"}
+                  src={isDark ? "/profile10.png" : "/profile10.png"}
                   alt="Foto de perfil de Mauro Zibane"
                     className="h-80 w-80 lg:h-96 lg:w-96 object-cover rounded-full transition-all duration-500 group-hover:scale-105"
                   onError={(e) => {
                     const img = e.currentTarget as HTMLImageElement;
-                    if (img.src.endsWith('/profile.png') || img.src.endsWith('/profile.png')) {
+                    if (img.src.endsWith('/profile10.png') || img.src.endsWith('/profile10.png')) {
                       img.onerror = null; // evita loop
-                      img.src = isDark ? '/profile.png' : '/profile.png';
+                      img.src = isDark ? '/profile10.png' : '/profile10.png';
                     }
                     else {
                       img.style.display = 'none';
