@@ -22,6 +22,7 @@ const fullStackSkills: Skill[] = [
 ];
 
 import Reveal from '../components/Reveal';
+import SectionHeader from '../components/SectionHeader';
 import { Code2, Server, Layers } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -45,17 +46,7 @@ export default function Skills() {
         <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '2.5s', animationDuration: '7s' }} />
       </div>
       
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
-          <Reveal>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">{t('skills.title')}</h2>
-          </Reveal>
-          <Reveal delayMs={80}>
-            <p className="max-w-[700px] text-muted-foreground md:text-xl">
-              {t('skills.subtitle')}
-            </p>
-          </Reveal>
-        </div>
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow="Stack" title={t('skills.title')} subtitle={t('skills.subtitle')} />
 
         <div className="grid gap-8 lg:grid-cols-3 lg:gap-8">
           {/* Frontend Section - Esquerda */}
@@ -161,3 +152,5 @@ export default function Skills() {
     </section>
   );
 }
+
+

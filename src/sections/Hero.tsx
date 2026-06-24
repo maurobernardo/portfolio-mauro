@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import Reveal from '../components/Reveal';
-import RotatingText from '../components/RotatingText';
 import { Facebook, Twitter, Linkedin, Github } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Hero() {
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const [isDark, setIsDark] = useState(true);
   
   useEffect(() => {
@@ -24,9 +23,6 @@ export default function Hero() {
     return () => observer.disconnect();
   }, []);
   
-  const rotatingPhrases = language === 'pt' 
-    ? ['Mauro Zibane', 'Desenvolvedor Full Stack', 'Administrador de Sistemas e Redes']
-    : ['Mauro Zibane', 'Full Stack Developer', 'Systems and Networks Administrator'];
   
   return (
     <section id="inicio" className="relative overflow-hidden min-h-screen flex items-start pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-20">
@@ -85,7 +81,7 @@ export default function Hero() {
               <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl" style={{ lineHeight: '1.3' }}>
                 {t('hero.greeting')}{' '}
                 <span className="text-primary inline-block relative" style={{ display: 'inline-block', verticalAlign: 'top' }}>
-                  <RotatingText phrases={rotatingPhrases} intervalMs={4000} />
+                  Full Stack Developer
                 </span>
               </h1>
             </Reveal>
@@ -169,3 +165,4 @@ export default function Hero() {
     </section>
   );
 }
+

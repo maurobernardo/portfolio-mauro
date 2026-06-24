@@ -1,4 +1,5 @@
 import Reveal from '../components/Reveal';
+import SectionHeader from '../components/SectionHeader';
 import { CalendarDays, MapPin, GraduationCap, Languages, BookOpen } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -24,17 +25,7 @@ export default function About() {
         <div className="absolute top-0 left-0 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDuration: '4s' }} />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '2s', animationDuration: '5s' }} />
       </div>
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-16">
-        <Reveal delayMs={0}>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">{t('about.title')}</h2>
-        </Reveal>
-          <Reveal delayMs={80}>
-            <p className="max-w-[700px] text-muted-foreground md:text-xl">
-              {t('about.subtitle')}
-            </p>
-            </Reveal>
-          </div>
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow="Perfil" title={t('about.title')} subtitle={t('about.subtitle')} />
           
         {/* Conteúdo principal com card de informações pessoais e texto */}
         <div className="max-w-6xl mx-auto mb-20">
@@ -166,5 +157,7 @@ function QuoteCard() {
     </div>
   );
 }
+
+
 
 

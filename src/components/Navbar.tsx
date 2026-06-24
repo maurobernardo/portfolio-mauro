@@ -1,15 +1,13 @@
 import { useEffect, useState } from 'react';
-import { Moon, Sun, Home, User2, Briefcase, Wrench, Mail, Layers3, Menu, X, Rocket, Languages } from 'lucide-react';
-import cls from 'classnames';
+import { Moon, Sun, Home, User2, Briefcase, Wrench, Mail, Menu, X, Award, Send, Languages } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const sections = [
   { href: '#inicio', labelKey: 'nav.home', Icon: Home },
   { href: '#sobre', labelKey: 'nav.about', Icon: User2 },
-  { href: '#skills', labelKey: 'nav.skills', Icon: Layers3 },
-  { href: '#servicos', labelKey: 'nav.services', Icon: Rocket },
   { href: '#projetos', labelKey: 'nav.projects', Icon: Briefcase },
   { href: '#experiencia', labelKey: 'nav.experience', Icon: Wrench },
+  { href: '#certificados', label: 'Certificados', Icon: Award },
   { href: '#contato', labelKey: 'nav.contact', Icon: Mail },
 ] as const;
 
@@ -20,7 +18,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
-    const enable = saved ? saved === 'dark' : true; // Modo escuro como padrão
+    const enable = saved ? saved === 'dark' : true;
     document.documentElement.classList.toggle('dark', enable);
     setIsDark(enable);
   }, []);
@@ -32,92 +30,112 @@ export default function Navbar() {
     localStorage.setItem('theme', next ? 'dark' : 'light');
   };
 
+  const toggleLanguage = () => setLanguage(language === 'pt' ? 'en' : 'pt');
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-background/40 bg-background/80 backdrop-blur-lg">
+    <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-primary/10 bg-background/90 shadow-[0_12px_40px_rgba(124,58,237,0.12)] backdrop-blur-xl">
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <a href="#inicio" className="relative -m-1.5 p-1.5 text-lg font-bold transition-colors hover:text-primary flex items-center gap-2">
-            <img 
-              src={isDark ? "/profile10.png" : "/profile10.png"} 
-              alt="Avatar" 
-              className="h-8 w-8 rounded-full object-cover transition-all duration-300" 
+        <div className="flex h-20 items-center justify-between gap-4">
+          <a
+            href="#inicio"
+            aria-label="Mauro Zibane"
+            className="grid h-12 w-12 place-items-center overflow-hidden rounded-full transition-transform duration-300 hover:-translate-y-px"
+          >
+            <img
+              src="/profile10.png"
+              alt="Mauro Zibane"
+              className="h-full w-full rounded-full object-cover"
             />
-            Mauro Zibane
           </a>
-          <nav aria-label="Global" className="hidden items-center gap-4 md:flex">
+
+          <nav aria-label="Global" className="hidden items-center gap-1 rounded-full border border-primary/20 bg-background/65 px-4 py-3 shadow-sm backdrop-blur md:flex">
             {sections.map((s) => (
               <a
                 key={s.href}
                 href={s.href}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground transition-all duration-300 hover:text-primary hover:-translate-y-px hover:shadow-sm hover:shadow-primary/20"
+                className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary/10 hover:-translate-y-px"
               >
-                {s.Icon && <s.Icon size={16} />}
-                {t(s.labelKey)}
+                <s.Icon size={16} strokeWidth={2.2} />
+                {'labelKey' in s ? t(s.labelKey) : s.label}
               </a>
             ))}
-            <div className="flex items-center gap-2 ml-2">
-              <button
-                aria-label="Alternar idioma"
-                onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
-                className="rounded-full p-2 transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                title={language === 'pt' ? 'Switch to English' : 'Mudar para Português'}
-              >
-                <Languages size={18} />
-              </button>
+          </nav>
+
+          <div className="hidden items-center gap-3 md:flex">
             <button
+              aria-label="Mudar idioma"
+              title={language === 'pt' ? 'Switch to English' : 'Mudar para Portugues'}
+              onClick={toggleLanguage}
+              className="grid h-12 w-12 place-items-center rounded-2xl border border-primary/20 bg-background/65 text-primary shadow-sm transition-all duration-300 hover:bg-primary/10 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              <Languages size={20} />
+            </button>            <button
               aria-label="Alternar tema"
               onClick={toggleTheme}
-              className="rounded-full p-2 transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="grid h-12 w-12 place-items-center rounded-2xl border border-primary/20 bg-background/65 text-primary shadow-sm transition-all duration-300 hover:bg-primary/10 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
-              {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              {isDark ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            </div>
-          </nav>
+            <a
+              href="#contato"
+              className="inline-flex h-12 items-center gap-2 rounded-full bg-primary px-6 text-sm font-bold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:bg-primary/90 hover:-translate-y-px"
+            >
+              <Send size={17} />
+              Contactar
+            </a>
+          </div>
+
           <div className="flex items-center gap-2 md:hidden">
             <button
-              aria-label="Alternar idioma"
-              onClick={() => setLanguage(language === 'pt' ? 'en' : 'pt')}
-              className="rounded-full p-2 transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-              title={language === 'pt' ? 'Switch to English' : 'Mudar para Português'}
+              aria-label="Mudar idioma"
+              onClick={toggleLanguage}
+              className="grid h-10 w-10 place-items-center rounded-xl border border-primary/20 text-primary transition-all duration-300 hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               <Languages size={18} />
-            </button>
-            <button
+            </button>            <button
               aria-label="Alternar tema"
               onClick={toggleTheme}
-              className="rounded-full p-2 transition-all duration-300 hover:bg-muted hover:shadow-md hover:shadow-primary/20 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-primary/20 text-primary transition-all duration-300 hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <button
               aria-label="Abrir menu"
               onClick={() => setOpen(!open)}
-              className="rounded-full p-2 transition-colors hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              className="grid h-10 w-10 place-items-center rounded-xl border border-primary/20 text-primary transition-colors hover:bg-primary/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
-              {open ? <X size={24} /> : <Menu size={24} />}
+              {open ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
       </div>
+
       {open && (
-        <div className="md:hidden border-t border-background/40 bg-background/90">
-          <nav className="mx-auto w-full max-w-7xl px-4 py-4 grid gap-3" aria-label="Mobile">
+        <div className="md:hidden border-t border-primary/10 bg-background/95 shadow-lg backdrop-blur-xl">
+          <nav className="mx-auto grid w-full max-w-7xl gap-2 px-4 py-4" aria-label="Mobile">
             {sections.map((s) => (
               <a
                 key={s.href}
                 href={s.href}
                 onClick={() => setOpen(false)}
-                className="inline-flex items-center gap-2 py-2 text-foreground transition-all duration-300 rounded-md px-3 -mx-3 hover:bg-muted hover:text-primary"
+                className="inline-flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary/10"
               >
-                {s.Icon && <s.Icon size={16} />}
-                {t(s.labelKey)}
+                <s.Icon size={16} />
+                {'labelKey' in s ? t(s.labelKey) : s.label}
               </a>
             ))}
+            <a
+              href="#contato"
+              onClick={() => setOpen(false)}
+              className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-bold text-primary-foreground"
+            >
+              <Send size={17} />
+              Contactar
+            </a>
           </nav>
         </div>
       )}
     </header>
   );
 }
-
 

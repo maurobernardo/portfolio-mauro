@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Github, Link2, ExternalLink } from 'lucide-react';
 import Reveal from '../components/Reveal';
+import SectionHeader from '../components/SectionHeader';
 import { useLanguage } from '../contexts/LanguageContext';
 
 type FilterKey = 'all' | 'web' | 'mobile' | 'fullstack';
@@ -143,7 +144,7 @@ export default function Projects() {
   return (
     <section id="projetos" className="relative py-16 lg:py-28 overflow-hidden">
 
-      {/* ── Backgrounds ── */}
+      {/* -- Backgrounds -- */}
       <div
         className="absolute inset-0 z-0 dark:hidden opacity-50"
         style={{ background: 'linear-gradient(to right, rgba(239,246,255,0.6) 0%, rgba(255,255,255,1) 100%)' }}
@@ -185,7 +186,7 @@ export default function Projects() {
         ))}
       </div>
 
-      {/* ── Content ── */}
+      {/* -- Content -- */}
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
 
         {/* Header */}
@@ -278,7 +279,7 @@ export default function Projects() {
                       />
                     )}
 
-                    {/* Placeholder — visible when no image or image fails */}
+                    {/* Placeholder - visible when no image or image fails */}
                     <div
                       className={`pj-placeholder absolute inset-0 bg-gradient-to-br ${p.placeholder.gradient} items-center justify-center transition-transform duration-700 group-hover:scale-105`}
                       style={{ display: p.image ? 'none' : 'flex' }}
@@ -395,3 +396,4 @@ export default function Projects() {
     </section>
   );
 }
+

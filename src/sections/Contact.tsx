@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Reveal from '../components/Reveal';
+import SectionHeader from '../components/SectionHeader';
 import emailjs from '@emailjs/browser'; 
 import { Send, Loader2, CheckCircle2, AlertCircle, Phone, Mail, MapPin, Linkedin, Github, Twitter, Facebook, Youtube, Instagram } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -110,17 +111,7 @@ export default function Contact() {
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '4s', animationDuration: '9s' }} />
       </div>
       
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
-          <Reveal>
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl text-foreground">{t('contact.title')}</h2>
-          </Reveal>
-          <Reveal delayMs={80}>
-            <p className="max-w-[700px] text-muted-foreground md:text-xl">
-              {t('contact.subtitle')}
-            </p>
-          </Reveal>
-        </div>
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow="Contacto" title={t('contact.title')} subtitle={t('contact.subtitle')} />
 
         <div className="mt-8 grid gap-6 md:gap-8 lg:grid-cols-[1fr_1fr] justify-items-center lg:justify-items-stretch">
           {/* Form card */}
@@ -305,5 +296,7 @@ export default function Contact() {
     </section>
   );
 }
+
+
 
 
