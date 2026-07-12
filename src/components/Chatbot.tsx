@@ -1,134 +1,129 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { MessageCircle, Send, X } from 'lucide-react';
-import Reveal from './Reveal';
-import { sendMessageToGemini } from '../lib/gemini';
+import { useEffect, useState } from 'react';
+import { MessageCircle, X, Sparkles } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
-type ChatMessage = { id: string; role: 'user' | 'bot'; content: string };
+const WHATSAPP_PHONE = '258842767435';
+const WHATSAPP_MESSAGE =
+  'Olá Mauro! Tenho uma ideia, projeto ou solução em mente e gostaria de conversar contigo.';
 
 export default function Chatbot() {
-  const [open, setOpen] = useState(false);
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState<ChatMessage[]>(() => [
-    { id: cryptoId(), role: 'bot', content: 'Olá! Sou o assistente do Mauro Zibane. Como posso ajudar?' },
-  ]);
-  const [isLoading, setIsLoading] = useState(false); // Novo estado de carregamento
-  const inputRef = useRef<HTMLTextAreaElement | null>(null);
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+  const { t } = useLanguage();
+  const [visible, setVisible] = useState(false);
+  const [closing, setClosing] = useState(false);
+
+  const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
   useEffect(() => {
-    if (open) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }, [open]);
+    const timer = setTimeout(() => setVisible(true), 900);
+    return () => clearTimeout(timer);
+  }, []);
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  const handleSend = async () => {
-    const trimmed = input.trim();
-    if (!trimmed) return;
-
-    const userMsg: ChatMessage = { id: cryptoId(), role: 'user', content: trimmed };
-    setMessages((prev) => [...prev, userMsg]);
-    setInput('');
-    setIsLoading(true); // Iniciar carregamento
-
-    try {
-      const geminiResponse = await sendMessageToGemini(trimmed);
-      const botMsg: ChatMessage = { id: cryptoId(), role: 'bot', content: geminiResponse };
-      setMessages((prev) => [...prev, botMsg]);
-    } catch (error) {
-      console.error("Error fetching from Gemini API in Chatbot:", error);
-      const errorMsg: ChatMessage = { id: cryptoId(), role: 'bot', content: 'Desculpe, houve um erro ao comunicar com a IA.' };
-      setMessages((prev) => [...prev, errorMsg]);
-    } finally {
-      setIsLoading(false); // Finalizar carregamento
-    }
+  const handleClose = () => {
+    setClosing(true);
+    setTimeout(() => {
+      setVisible(false);
+      setClosing(false);
+    }, 280);
   };
 
-  const buttonTitle = useMemo(() => (open ? 'Fechar chat' : 'Abrir chat'), [open]);
-
   return (
-    <div className="fixed bottom-5 right-5 z-[60]">
+    <>
+      {visible && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6">
+          <button
+            type="button"
+            aria-label={t('popup.close')}
+            className={`absolute inset-0 bg-black/45 backdrop-blur-md ${
+              closing ? 'animate-popup-overlay-out' : 'animate-popup-overlay-in'
+            }`}
+            onClick={handleClose}
+          />
 
-      <button
-        aria-label={buttonTitle}
-        title={buttonTitle}
-        onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-      >
-        {open ? <X size={24} /> : <MessageCircle size={26} />}
-      </button>
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="popup-title"
+            className={`relative w-full max-w-lg overflow-hidden rounded-[2rem] border border-primary/20 bg-card/90 shadow-[0_24px_80px_-12px_rgba(0,217,255,0.25)] backdrop-blur-2xl ${
+              closing ? 'animate-popup-modal-out' : 'animate-popup-modal-in'
+            }`}
+          >
+            <div className="pointer-events-none absolute -top-20 -right-16 h-48 w-48 rounded-full bg-[#00D9FF]/15 blur-3xl" />
+            <div className="pointer-events-none absolute -bottom-16 -left-12 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
 
-      {open && (
-        <div className="absolute bottom-16 right-0 w-[min(92vw,360px)] rounded-xl border bg-card shadow-xl animate-fade-in-up">
-          <div className="flex items-center justify-between px-4 py-3 border-b">
-            <p className="font-semibold text-foreground">Assistente do Mauro</p>
-            <button onClick={() => setOpen(false)} aria-label="Fechar" className="rounded-full p-2 transition-colors hover:bg-muted">
-              <X size={20} />
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <div className="absolute inset-0 animate-popup-shine bg-gradient-to-r from-transparent via-primary/8 to-transparent" />
+            </div>
+
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#00D9FF] via-primary to-[#00D9FF]/40" />
+
+            <button
+              onClick={handleClose}
+              aria-label={t('popup.close')}
+              className="absolute right-4 top-4 z-10 rounded-full border border-primary/15 bg-background/60 p-2 text-muted-foreground transition-all duration-300 hover:border-primary/30 hover:bg-background hover:text-primary hover:rotate-90"
+            >
+              <X size={18} />
             </button>
-          </div>
-          <div className="h-72 overflow-y-auto px-4 py-3 grid gap-3" style={{ scrollBehavior: 'smooth' }}>
-            {messages.map((m, i) => (
-              <Reveal key={m.id} delayMs={i * 50}>
-                <div className={m.role === 'user' ? 'justify-self-end' : 'justify-self-start'}>
-                  <div className={[
-                    'rounded-2xl px-4 py-2 text-sm max-w-[85%] break-words',
-                    m.role === 'user'
-                      ? 'bg-primary text-primary-foreground rounded-br-none'
-                      : 'bg-muted text-foreground rounded-bl-none',
-                  ].join(' ')}>
-                    {m.content}
-                  </div>
+
+            <div className="relative z-10 px-7 pb-7 pt-8 sm:px-9 sm:pb-9 sm:pt-10">
+              <div className="mb-6 flex items-center gap-3">
+                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary shadow-inner">
+                  <Sparkles size={20} />
+                </span>
+                <div>
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#00D9FF]">
+                    {t('popup.eyebrow')}
+                  </p>
+                  <h2 id="popup-title" className="text-xl font-bold text-foreground sm:text-2xl">
+                    {t('popup.title')}
+                  </h2>
                 </div>
-              </Reveal>
-            ))}
-            {isLoading && (
-              <Reveal delayMs={messages.length * 50} key="loading">
-                <div className="justify-self-start">
-                  <div className="bg-muted text-foreground rounded-2xl px-4 py-2 text-sm max-w-[85%] break-words rounded-bl-none">
-                    Digitando...
-                  </div>
-                </div>
-              </Reveal>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
-          <div className="px-4 py-3 border-t">
-            <div className="flex items-end gap-2">
-              <textarea
-                ref={inputRef}
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
-                rows={1}
-                placeholder="Faça uma pergunta rápida..."
-                className="flex-1 resize-none rounded-md border bg-input px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                disabled={isLoading} // Desabilitar input enquanto carrega
-              />
-              <button
-                onClick={handleSend}
-                className="inline-flex items-center justify-center gap-1 rounded-md bg-primary text-primary-foreground px-4 py-2 text-sm font-medium transition-colors hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                aria-label="Enviar"
-                disabled={isLoading} // Desabilitar botão enquanto carrega
-              >
-                <Send size={18} />
-                Enviar
-              </button>
+              </div>
+
+              <div className="space-y-4">
+                <p className="animate-fade-in-up text-[15px] leading-relaxed text-foreground/90 sm:text-base [animation-delay:120ms] [animation-fill-mode:both] opacity-0">
+                  {t('popup.message1')}
+                </p>
+                <p className="animate-fade-in-up text-sm leading-relaxed text-muted-foreground sm:text-[15px] [animation-delay:220ms] [animation-fill-mode:both] opacity-0">
+                  {t('popup.message2')}
+                </p>
+              </div>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center animate-fade-in-up [animation-delay:320ms] [animation-fill-mode:both] opacity-0">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={handleClose}
+                  className="group relative inline-flex w-full items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-primary to-primary/80 px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/30 sm:flex-1"
+                >
+                  <span className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
+                  <span className="relative">{t('popup.whatsappButton')}</span>
+                </a>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  className="inline-flex w-full items-center justify-center rounded-full border border-primary/15 bg-background/50 px-6 py-3.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-primary/25 hover:bg-background hover:text-foreground sm:w-auto"
+                >
+                  {t('popup.later')}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
-    </div>
+
+      <div className="fixed bottom-5 right-5 z-[60]">
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={t('popup.whatsappButton')}
+          title={t('popup.whatsappButton')}
+          className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+        >
+          <MessageCircle size={26} />
+        </a>
+      </div>
+    </>
   );
 }
-
-function cryptoId() {
-  if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) return (crypto as any).randomUUID();
-  return Math.random().toString(36).slice(2);
-}
-
-
-
-

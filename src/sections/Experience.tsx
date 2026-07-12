@@ -9,27 +9,19 @@ const educationData = [
 
 const experiencesData = [
   {
-    company: "BioClen",
-    periodKey: "experience.3.period",
-    locationKey: "experience.3.location",
+    translationKey: 'experience.3',
     bulletCount: 1,
   },
   {
-    company: "Anantara Bazaruto Island Resort and SPA",
-    periodKey: "experience.0.period",
-    locationKey: "experience.0.location",
+    translationKey: 'experience.0',
     bulletCount: 1,
   },
   {
-    company: "Uanicode",
-    periodKey: "experience.1.period",
-    locationKey: "experience.1.location",
+    translationKey: 'experience.1',
     bulletCount: 1,
   },
   {
-    company: "Anantara Bazaruto Island Resort and SPA",
-    periodKey: "experience.2.period",
-    locationKey: "experience.2.location",
+    translationKey: 'experience.2',
     bulletCount: 1,
   },
 ];
@@ -199,11 +191,12 @@ export default function Experience() {
         </Reveal>
             <ol className="relative border-l border-muted-foreground/30 ml-4 md:ml-12 lg:ml-0 lg:text-left">
               {experiencesData.map((exp, i) => {
-                const role = t(`experience.${i}.role`);
-                const company = t(`experience.${i}.company`);
-                const period = t(`experience.${i}.period`);
-                const location = exp.locationKey ? t(exp.locationKey) : null;
-                const bullets = Array.from({ length: exp.bulletCount }, (_, idx) => t(`experience.${i}.bullet${idx}`));
+                const key = exp.translationKey;
+                const role = t(`${key}.role`);
+                const company = t(`${key}.company`);
+                const period = t(`${key}.period`);
+                const location = t(`${key}.location`);
+                const bullets = Array.from({ length: exp.bulletCount }, (_, idx) => t(`${key}.bullet${idx}`));
                 return (
                   <li key={i} className="mb-10 ml-6">
                     <Reveal delayMs={i * 100 + 280}>

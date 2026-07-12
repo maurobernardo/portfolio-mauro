@@ -1,6 +1,6 @@
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
-import { CalendarDays, MapPin, GraduationCap, Languages, BookOpen } from 'lucide-react';
+import { MapPin, GraduationCap, Languages, BookOpen } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function About() {
@@ -45,7 +45,6 @@ export default function About() {
                     {t('about.personalInfo')}
                   </h3>
                   <div className="grid gap-4">
-                    <Badge icon={<CalendarDays size={20} />} title={t('about.age')} value={t('about.ageValue')} delayMs={0} />
                     <Badge icon={<MapPin size={20} />} title={t('about.location')} value={t('about.locationValue')} delayMs={0} />
                     <Badge icon={<GraduationCap size={20} />} title={t('about.education')} value={t('about.educationValue')} delayMs={0} />
                     <Badge icon={<Languages size={20} />} title={t('about.languages')} value={t('about.languagesValue')} delayMs={0} />

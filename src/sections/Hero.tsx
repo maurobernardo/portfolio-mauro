@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Reveal from '../components/Reveal';
-import { Facebook, Twitter, Linkedin, Github } from 'lucide-react';
+import { Facebook, Linkedin, Github } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function Hero() {
@@ -80,10 +80,13 @@ export default function Hero() {
             <Reveal delayMs={80}>
               <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl" style={{ lineHeight: '1.3' }}>
                 {t('hero.greeting')}{' '}
-                <span className="text-primary inline-block relative" style={{ display: 'inline-block', verticalAlign: 'top' }}>
-                  Full Stack Developer
-                </span>
+                <span className="text-primary">{t('hero.name')}</span>
               </h1>
+            </Reveal>
+            <Reveal delayMs={120}>
+              <p className="mt-4 text-2xl font-semibold text-primary mx-auto lg:mx-0">
+                {t('hero.role1')}
+              </p>
             </Reveal>
             <Reveal delayMs={160}>
               <p className="mt-4 max-w-2xl text-xl text-muted-foreground mx-auto lg:mx-0">
@@ -114,9 +117,6 @@ export default function Hero() {
               <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
                 <a href="https://www.facebook.com/mauroutall.mbz" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-blue-500/50 hover:border-blue-500 hover:shadow-md hover:shadow-blue-500/20 transition-all duration-300" aria-label="Facebook">
                   <Facebook size={20} className="text-blue-400 group-hover:scale-110 transition-transform" />
-                </a>
-                <a href="https://twitter.com/MauroZiban7" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-sky-500/50 hover:border-sky-500 hover:shadow-md hover:shadow-sky-500/20 transition-all duration-300" aria-label="Twitter">
-                  <Twitter size={20} className="text-sky-400 group-hover:scale-110 transition-transform" />
                 </a>
                 <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-blue-500/50 hover:border-blue-500 hover:shadow-md hover:shadow-blue-500/20 transition-all duration-300" aria-label="LinkedIn">
                   <Linkedin size={20} className="text-blue-400 group-hover:scale-110 transition-transform" />

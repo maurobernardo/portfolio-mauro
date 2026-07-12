@@ -3,22 +3,22 @@ type Skill = { name: string; svg: string };
 const frontendSkills: Skill[] = [
   { name: 'Next.js', svg: '/icons/nextjs.svg' },
   { name: 'React Native', svg: '/icons/react.svg' },
-  { name: 'HTML5', svg: '/icons/tech/html.svg' },
-  { name: 'CSS3', svg: '/icons/tech/css.svg' },
+  { name: 'Angular', svg: '/icons/tech/angular.svg' },
+  { name: 'Flutter', svg: '/icons/flutter.svg' },
 ];
 
 const backendSkills: Skill[] = [
   { name: 'Java', svg: '/icons/java.svg' },
-  { name: 'Spring Boot', svg: '/icons/spring.svg' },
-  { name: 'MySQL', svg: '/icons/mysql.svg' },
-  { name: 'PostgreSQL', svg: '/icons/postgresql.svg' },
+  { name: 'Node.js', svg: '/icons/nodejs.svg' },
+  { name: 'Golang', svg: '/icons/golang.svg' },
+  { name: 'MySQL / PostgreSQL', svg: '/icons/mysql-postgresql.svg' },
 ];
 
 const fullStackSkills: Skill[] = [
-  { name: 'Node.js', svg: '/icons/nodejs.svg' },
-  { name: 'TypeScript', svg: '/icons/typescript.svg' },
+  { name: 'Python', svg: '/icons/python.svg' },
+  { name: 'PHP', svg: '/icons/php.svg' },
   { name: 'JavaScript', svg: '/icons/tech/js.svg' },
-  { name: 'REST APIs', svg: '/icons/cicd.svg' },
+  { name: 'Dart', svg: '/icons/dart.svg' },
 ];
 
 import Reveal from '../components/Reveal';

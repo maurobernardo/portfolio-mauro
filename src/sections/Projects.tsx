@@ -42,6 +42,14 @@ const FILTER_LABELS: Record<FilterKey, string> = {
 
 const projectsMeta: ProjectMeta[] = [
   {
+    stack:    ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'PostgreSQL'],
+    image:    '/Data.png',
+    filter:   'fullstack',
+    status:   'live',
+    category: 'Dados Abertos · Moçambique',
+    placeholder: { gradient: 'from-[#001a30] to-[#003060]', iconColor: '#00D9FF' },
+  },
+  {
     stack:    ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'],
     link:     'https://agro-tech-mozambique.vercel.app/',
     image:    '/Agro.png',
@@ -58,6 +66,14 @@ const projectsMeta: ProjectMeta[] = [
     status:   'live',
     category: 'Ambiente · Bilíngue PT/EN',
     placeholder: { gradient: 'from-[#0c2a1a] to-[#0c4724]', iconColor: '#2da05a' },
+  },
+  {
+    stack:    ['React', 'TypeScript', 'Tailwind CSS'],
+    image:    '/metri.png',
+    filter:   'web',
+    status:   'live',
+    category: 'Consultoria · MEAL',
+    placeholder: { gradient: 'from-[#0d1b2a] to-[#1a3050]', iconColor: '#0096ff' },
   },
   {
     stack:    ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
@@ -91,24 +107,6 @@ const projectsMeta: ProjectMeta[] = [
     status:   'dev',
     category: 'Fintech · Mobile',
     placeholder: { gradient: 'from-[#001a2a] to-[#003a5a]', iconColor: '#00b4ff' },
-  },
-  {
-    stack:    ['React', 'TypeScript', 'Tailwind CSS'],
-    repo:     'https://github.com/maurobernardo/portfolio-mauro',
-    image:    '/projecto.png',
-    filter:   'web',
-    status:   'live',
-    category: 'Portfólio · Mauro Zibane',
-    placeholder: { gradient: 'from-[#001830] to-[#002a50]', iconColor: '#00D9FF' },
-  },
-  {
-    stack:    ['React Native', 'TypeScript', 'Expo'],
-    repo:     'https://github.com/maurobernardo/mobile-app',
-    image:    '/Confia.png',
-    filter:   'mobile',
-    status:   'dev',
-    category: 'Social · Mobile',
-    placeholder: { gradient: 'from-[#1a0a00] to-[#3a1500]', iconColor: '#ff8c00' },
   },
 ];
 

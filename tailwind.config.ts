@@ -52,6 +52,26 @@ export default {
           '0%, 49%': { opacity: '1' },
           '50%, 100%': { opacity: '0' },
         },
+        popupOverlayIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        popupOverlayOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+        popupModalIn: {
+          '0%': { opacity: '0', transform: 'translateY(24px) scale(0.94)' },
+          '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+        },
+        popupModalOut: {
+          '0%': { opacity: '1', transform: 'translateY(0) scale(1)' },
+          '100%': { opacity: '0', transform: 'translateY(16px) scale(0.96)' },
+        },
+        popupShine: {
+          '0%': { transform: 'translateX(-120%)' },
+          '100%': { transform: 'translateX(120%)' },
+        },
       },
       animation: {
         'fade-in-up': 'fadeInUp 700ms ease-out forwards',
@@ -63,6 +83,11 @@ export default {
         'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
         typewriter: 'typewriter 1s steps(40, end) forwards',
         blink: 'blink 750ms step-end infinite',
+        'popup-overlay-in': 'popupOverlayIn 400ms ease-out forwards',
+        'popup-overlay-out': 'popupOverlayOut 280ms ease-in forwards',
+        'popup-modal-in': 'popupModalIn 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        'popup-modal-out': 'popupModalOut 280ms ease-in forwards',
+        'popup-shine': 'popupShine 2.8s ease-in-out infinite',
       },
       fontFamily: {
         sans: [
