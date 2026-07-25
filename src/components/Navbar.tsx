@@ -38,7 +38,7 @@ export default function Navbar() {
         <div className="flex h-20 items-center justify-between gap-4">
           <a
             href="#inicio"
-            aria-label="Mauro Zibane"
+            aria-label=""
             className="grid h-12 w-12 place-items-center overflow-hidden rounded-full transition-transform duration-300 hover:-translate-y-px"
           >
             <img
