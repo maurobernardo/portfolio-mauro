@@ -1,10 +1,10 @@
 {
-  "name": "Portfólio — Mauro Zibane",
-  "short_name": "Mauro",
+  "name": "Mauro Zibane Portfolio",
+  "short_name": "Mauro Zibane",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#2563eb",
+  "background_color": "#faf3e8",
+  "theme_color": "#faf3e8",
   "icons": [
     {
       "src": "/profile.JPG",
@@ -20,5 +20,3 @@
     }
   ]
 }
-
-
