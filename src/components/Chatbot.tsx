@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { MessageCircle, X, Sparkles } from 'lucide-react';
+import { MessageCircle, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const WHATSAPP_PHONE = '258842767435';
@@ -43,18 +43,18 @@ export default function Chatbot() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="popup-title"
-            className={`relative w-full max-w-lg overflow-hidden rounded-[2rem] border border-primary/20 bg-card/90 shadow-[0_24px_80px_-12px_rgba(0,217,255,0.25)] backdrop-blur-2xl ${
+            className={`relative w-full max-w-lg overflow-hidden rounded-[2rem] border border-primary/20 bg-card/90 shadow-[0_24px_80px_-12px_rgba(255,107,74,0.25)] backdrop-blur-2xl ${
               closing ? 'animate-popup-modal-out' : 'animate-popup-modal-in'
             }`}
           >
-            <div className="pointer-events-none absolute -top-20 -right-16 h-48 w-48 rounded-full bg-[#00D9FF]/15 blur-3xl" />
+            <div className="pointer-events-none absolute -top-20 -right-16 h-48 w-48 rounded-full bg-[#FF6B4A]/15 blur-3xl" />
             <div className="pointer-events-none absolute -bottom-16 -left-12 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
 
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
               <div className="absolute inset-0 animate-popup-shine bg-gradient-to-r from-transparent via-primary/8 to-transparent" />
             </div>
 
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#00D9FF] via-primary to-[#00D9FF]/40" />
+            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FF6B4A] via-primary to-[#FF6B4A]/40" />
 
             <button
               onClick={handleClose}
@@ -65,18 +65,13 @@ export default function Chatbot() {
             </button>
 
             <div className="relative z-10 px-7 pb-7 pt-8 sm:px-9 sm:pb-9 sm:pt-10">
-              <div className="mb-6 flex items-center gap-3">
-                <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/10 text-primary shadow-inner">
-                  <Sparkles size={20} />
-                </span>
-                <div>
-                  <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#00D9FF]">
-                    {t('popup.eyebrow')}
-                  </p>
-                  <h2 id="popup-title" className="text-xl font-bold text-foreground sm:text-2xl">
-                    {t('popup.title')}
-                  </h2>
-                </div>
+              <div className="mb-6">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#FF6B4A]">
+                  {t('popup.eyebrow')}
+                </p>
+                <h2 id="popup-title" className="text-xl font-bold text-foreground sm:text-2xl">
+                  {t('popup.title')}
+                </h2>
               </div>
 
               <div className="space-y-4">

@@ -90,44 +90,24 @@ export default function Contact() {
   };
 
   const inputBase =
-    'flex w-full rounded-2xl border border-primary/15 bg-background/70 dark:bg-card/60 px-4 py-3 text-sm shadow-sm backdrop-blur-sm transition-all duration-300 placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:border-primary/40 focus-visible:ring-2 focus-visible:ring-primary/20 focus-visible:bg-background disabled:cursor-not-allowed disabled:opacity-50';
+    'flex w-full rounded-xl border border-border bg-background px-4 py-3 text-sm shadow-sm transition-all duration-200 placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:border-primary/50 focus-visible:ring-2 focus-visible:ring-primary/15 disabled:cursor-not-allowed disabled:opacity-50';
 
   const inputError = 'border-destructive/70 ring-2 ring-destructive/20';
-  const inputNormal = 'hover:border-primary/30 hover:bg-background/90';
+  const inputNormal = 'hover:border-primary/30';
 
   const contactCard =
-    'group relative w-full overflow-hidden rounded-3xl border border-primary/20 bg-card/80 shadow-xl shadow-primary/10 backdrop-blur-md transition-all duration-500 hover:border-primary/35 hover:shadow-2xl hover:shadow-primary/15';
+    'group relative w-full overflow-hidden rounded-3xl border border-border/70 bg-card shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-black/5';
 
   const fieldLabel = 'text-sm font-medium text-muted-foreground';
 
   return (
-    <section id="contato" className="relative py-16 lg:py-24 overflow-hidden">
-      {/* Gradiente de fundo horizontal sutil - similar ao Hero */}
-      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(248, 250, 252, 0.8) 0%, rgba(255, 255, 255, 1) 100%)' }} />
-      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 100%)' }} />
-      
-      {/* Partículas animadas */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-24 left-20 w-2 h-2 bg-[#00D9FF] rounded-full opacity-30 animate-float" style={{ animationDelay: '2s', animationDuration: '8s' }} />
-        <div className="absolute top-1/2 right-20 w-1.5 h-1.5 bg-[#00D9FF] rounded-full opacity-25 animate-float" style={{ animationDelay: '4s', animationDuration: '9s' }} />
-        <div className="absolute bottom-32 left-1/3 w-2.5 h-2.5 bg-[#00D9FF] rounded-full opacity-20 animate-float" style={{ animationDelay: '6s', animationDuration: '7s' }} />
-        <div className="absolute top-2/3 right-1/4 w-1 h-1 bg-[#00D9FF] rounded-full opacity-35 animate-float" style={{ animationDelay: '8s', animationDuration: '10s' }} />
-      </div>
-      
-      {/* Gradientes animados */}
-      <div className="absolute inset-0 z-0 opacity-25 dark:opacity-15">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDuration: '7s' }} />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '4s', animationDuration: '9s' }} />
-      </div>
-      
+    <section id="contato" className="relative border-t border-border/70 bg-card/60 py-16 lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow="Contacto" title={t('contact.title')} subtitle={t('contact.subtitle')} />
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1fr] justify-items-center lg:justify-items-stretch">
           {/* Form card */}
           <form onSubmit={handleSubmit} className={`${contactCard} max-w-xl mx-auto p-6 md:p-8 lg:p-10`}>
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-80 shadow-[0_0_12px_rgba(0,217,255,0.45)]" />
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-            
+
             <div className="grid gap-5 md:gap-6 relative z-10">
               <div className="grid sm:grid-cols-2 gap-4 md:gap-5">
                 <label className="grid gap-2.5">
@@ -176,12 +156,12 @@ export default function Contact() {
               </button>
 
               <div className="grid sm:grid-cols-2 gap-3">
-                <button type="button" onClick={openEmail} className="group inline-flex items-center justify-center gap-2 rounded-2xl border border-primary/15 bg-background/70 px-5 py-3 text-foreground font-medium transition-all duration-300 hover:bg-primary/5 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/30">
-                  <Mail size={18} className="text-primary transition-transform duration-300 group-hover:scale-110" /> 
+                <button type="button" onClick={openEmail} className="group inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background px-5 py-3 text-foreground font-medium transition-all duration-200 hover:border-primary/30 hover:bg-secondary">
+                  <Mail size={18} className="text-primary transition-transform duration-300 group-hover:scale-110" />
                   <span className="text-sm">{t('contact.emailButton')}</span>
                 </button>
-                <button type="button" onClick={openWhatsApp} className="group inline-flex items-center justify-center gap-2 rounded-2xl border border-primary/15 bg-background/70 px-5 py-3 text-foreground font-medium transition-all duration-300 hover:bg-primary/5 hover:shadow-md hover:-translate-y-0.5 hover:border-primary/30">
-                  <img src="/icons/brands/whatsapp.svg" alt="WhatsApp" className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" /> 
+                <button type="button" onClick={openWhatsApp} className="group inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background px-5 py-3 text-foreground font-medium transition-all duration-200 hover:border-primary/30 hover:bg-secondary">
+                  <img src="/icons/brands/whatsapp.svg" alt="WhatsApp" className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                   <span className="text-sm">{t('contact.whatsappButton')}</span>
                 </button>
               </div>
@@ -190,15 +170,12 @@ export default function Contact() {
 
           {/* Info card */}
           <div className={`${contactCard} max-w-lg mx-auto p-6 md:p-8 lg:p-10`}>
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#00D9FF] opacity-80 shadow-[0_0_12px_rgba(0,217,255,0.45)]" />
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
-            
             <Reveal delayMs={100}>
               <h3 className="text-2xl font-bold text-foreground relative z-10">{t('contact.infoTitle')}</h3>
             </Reveal>
             <div className="mt-8 space-y-6 relative z-10">
               <Reveal delayMs={150}>
-                <div className="group flex items-start gap-4 rounded-2xl border border-primary/10 bg-background/50 p-4 transition-all duration-300 hover:border-primary/25 hover:bg-background/80">
+                <div className="group flex items-start gap-4 rounded-xl border border-border/70 bg-background p-4 transition-all duration-200 hover:border-primary/30">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:bg-primary/15">
                     <Phone size={22} />
                   </span>
@@ -209,7 +186,7 @@ export default function Contact() {
                 </div>
               </Reveal>
               <Reveal delayMs={200}>
-                <div className="group flex items-start gap-4 rounded-2xl border border-primary/10 bg-background/50 p-4 transition-all duration-300 hover:border-primary/25 hover:bg-background/80">
+                <div className="group flex items-start gap-4 rounded-xl border border-border/70 bg-background p-4 transition-all duration-200 hover:border-primary/30">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:bg-primary/15">
                     <Mail size={22} />
                   </span>
@@ -220,14 +197,14 @@ export default function Contact() {
                 </div>
               </Reveal>
               <Reveal delayMs={250}>
-                <div className="group flex items-start gap-4 rounded-2xl border border-primary/10 bg-background/50 p-4 transition-all duration-300 hover:border-primary/25 hover:bg-background/80">
+                <div className="group flex items-start gap-4 rounded-xl border border-border/70 bg-background p-4 transition-all duration-200 hover:border-primary/30">
                   <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-primary flex-shrink-0 transition-all duration-300 group-hover:scale-105 group-hover:bg-primary/15">
                     <MapPin size={22} />
                   </span>
                   <div>
                     <p className="text-sm text-muted-foreground">{t('contact.location')}</p>
                     <a
-                      href="https://www.google.com/maps/place/5R4X%2BV84,+Correia+De+Brito+Rua,+Beira/@-19.8427155,34.8480764,51m/data=!3m1!1e3!4m9!1m2!7m1!2e1!3m5!1s0x1f2a6a96f940e04b:0x7d7c9b4fad390f4e!8m2!3d-19.8428372!4d34.8481456!16s%2Fg%2F11lmpmrl1v?entry=ttu"
+                      href="https://www.google.com/maps/place/Pintauto+Beira/@-19.8428372,34.8479847,49m/data=!3m1!1e3!4m6!3m5!1s0x1f2a6b004c52f7a1:0xb2595ee1421727ec!8m2!3d-19.8428136!4d34.8480491!16s%2Fg%2F11xs9tpbvf?entry=ttu"
                       target="_blank"
                       rel="noreferrer"
                       className="font-bold text-base text-foreground hover:text-primary transition-colors duration-300"
@@ -244,22 +221,22 @@ export default function Contact() {
             </Reveal>
             <div className="mt-5 md:mt-6 lg:mt-8 flex flex-wrap gap-3 md:gap-4 justify-center">
               <Reveal delayMs={350}>
-                <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="LinkedIn">
+                <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-border bg-background hover:border-primary/50 hover:shadow-md hover:-translate-y-1 transition-all duration-300" aria-label="LinkedIn">
                   <Linkedin size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
               <Reveal delayMs={400}>
-                <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="GitHub">
+                <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-border bg-background hover:border-primary/50 hover:shadow-md hover:-translate-y-1 transition-all duration-300" aria-label="GitHub">
                   <Github size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
               <Reveal delayMs={450}>
-                <a href="https://www.facebook.com/mauroutall.mbz" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="Facebook">
+                <a href="https://www.facebook.com/mauroutall.mbz" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-border bg-background hover:border-primary/50 hover:shadow-md hover:-translate-y-1 transition-all duration-300" aria-label="Facebook">
                   <Facebook size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
               <Reveal delayMs={500}>
-                <a href="https://www.instagram.com/_mauro_zibane10_/" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-primary/50 hover:border-primary hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-1 transition-all duration-300 bg-background/50 hover:bg-primary/5" aria-label="Instagram">
+                <a href="https://www.instagram.com/_mauro_zibane10_/" target="_blank" rel="noreferrer" className="group flex h-12 w-12 items-center justify-center rounded-full border border-border bg-background hover:border-primary/50 hover:shadow-md hover:-translate-y-1 transition-all duration-300" aria-label="Instagram">
                   <Instagram size={20} className="text-primary group-hover:scale-125 transition-transform duration-300" />
                 </a>
               </Reveal>
@@ -269,14 +246,14 @@ export default function Contact() {
 
         {/* Google Map */}
         <Reveal delayMs={700}>
-          <div className="mt-12 rounded-3xl border border-primary/20 bg-card/80 shadow-xl shadow-primary/10 overflow-hidden backdrop-blur-md">
-            <h4 className="text-xl font-bold text-primary p-5 bg-card/90 text-center tracking-wide">
+          <div className="mt-12 rounded-3xl border border-border/70 bg-card shadow-sm overflow-hidden">
+            <h4 className="text-xl font-bold text-primary p-5 bg-card text-center tracking-wide">
               {t('contact.mapTitle')}
             </h4>
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 title="Localização do Mauro Zibane"
-                src="https://maps.google.com/maps?q=-19.8428372,34.8481456&hl=pt&z=18&output=embed"
+                src="https://maps.google.com/maps?q=-19.8428136,34.8480491&hl=pt&z=17&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0, position: 'absolute', top: 0, left: 0 }}
@@ -284,31 +261,6 @@ export default function Contact() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
-
-              {/* Marcador personalizado com pin vermelho e nome */}
-              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-                <div className="flex flex-col items-center -translate-y-6 sm:-translate-y-8">
-                  <div className="relative flex flex-col items-center">
-                    <svg
-                      width="42"
-                      height="54"
-                      viewBox="0 0 42 54"
-                      fill="none"
-                      aria-hidden="true"
-                      className="drop-shadow-lg"
-                    >
-                      <path
-                        d="M21 0C11.06 0 3 8.06 3 18c0 13.5 18 36 18 36s18-22.5 18-36C39 8.06 30.94 0 21 0z"
-                        fill="#EA4335"
-                      />
-                      <circle cx="21" cy="18" r="7" fill="white" />
-                    </svg>
-                    <span className="mt-1 rounded-full bg-white/95 px-3 py-1 text-sm font-bold text-primary shadow-md border border-primary/20 whitespace-nowrap">
-                      Mauro Zibane
-                    </span>
-                  </div>
-                </div>
-              </div>
             </div>
          </div>
         </Reveal>

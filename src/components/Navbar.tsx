@@ -1,13 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Moon, Sun, Home, User2, Briefcase, Wrench, Mail, Menu, X, Award, Send, Languages } from 'lucide-react';
+import { Moon, Sun, Home, User2, Briefcase, Wrench, Code2, Mail, Menu, X, Award, Send, Languages } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import CommandPalette from './CommandPalette';
 
 const sections = [
   { href: '#inicio', labelKey: 'nav.home', Icon: Home },
   { href: '#sobre', labelKey: 'nav.about', Icon: User2 },
+  { href: '#skills', labelKey: 'nav.skills', Icon: Code2 },
   { href: '#projetos', labelKey: 'nav.projects', Icon: Briefcase },
   { href: '#experiencia', labelKey: 'nav.experience', Icon: Wrench },
-  { href: '#certificados', label: 'Certificados', Icon: Award },
+  { href: '#certificados', labelKey: 'nav.certificates', Icon: Award },
   { href: '#contato', labelKey: 'nav.contact', Icon: Mail },
 ] as const;
 
@@ -33,7 +35,7 @@ export default function Navbar() {
   const toggleLanguage = () => setLanguage(language === 'pt' ? 'en' : 'pt');
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-primary/10 bg-background/90 shadow-[0_12px_40px_rgba(124,58,237,0.12)] backdrop-blur-xl">
+    <header className="fixed inset-x-0 top-0 z-50 w-full border-b border-primary/10 bg-background/90 shadow-[0_12px_40px_rgba(255,107,74,0.10)] backdrop-blur-xl">
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8">
         <div className="flex h-20 items-center justify-between gap-4">
           <a
@@ -48,20 +50,20 @@ export default function Navbar() {
             />
           </a>
 
-          <nav aria-label="Global" className="hidden items-center gap-1 rounded-full border border-primary/20 bg-background/65 px-4 py-3 shadow-sm backdrop-blur md:flex">
+          <nav aria-label="Global" className="hidden items-center gap-0.5 rounded-full border border-primary/20 bg-background/65 px-2 py-2.5 shadow-sm backdrop-blur xl:flex">
             {sections.map((s) => (
               <a
                 key={s.href}
                 href={s.href}
-                className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary/10 hover:-translate-y-px"
+                className="inline-flex items-center rounded-full px-3 py-1.5 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary/10 hover:-translate-y-px whitespace-nowrap"
               >
-                <s.Icon size={16} strokeWidth={2.2} />
-                {'labelKey' in s ? t(s.labelKey) : s.label}
+                {t(s.labelKey)}
               </a>
             ))}
           </nav>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 xl:flex">
+            <CommandPalette />
             <button
               aria-label="Mudar idioma"
               title={language === 'pt' ? 'Switch to English' : 'Mudar para Portugues'}
@@ -85,7 +87,7 @@ export default function Navbar() {
             </a>
           </div>
 
-          <div className="flex items-center gap-2 md:hidden">
+          <div className="flex items-center gap-2 xl:hidden">
             <button
               aria-label="Mudar idioma"
               onClick={toggleLanguage}
@@ -111,7 +113,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="md:hidden border-t border-primary/10 bg-background/95 shadow-lg backdrop-blur-xl">
+        <div className="xl:hidden border-t border-primary/10 bg-background/95 shadow-lg backdrop-blur-xl">
           <nav className="mx-auto grid w-full max-w-7xl gap-2 px-4 py-4" aria-label="Mobile">
             {sections.map((s) => (
               <a
@@ -121,7 +123,7 @@ export default function Navbar() {
                 className="inline-flex items-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary/10"
               >
                 <s.Icon size={16} />
-                {'labelKey' in s ? t(s.labelKey) : s.label}
+                {t(s.labelKey)}
               </a>
             ))}
             <a

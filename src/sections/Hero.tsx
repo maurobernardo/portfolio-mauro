@@ -27,17 +27,17 @@ export default function Hero() {
   return (
     <section id="inicio" className="relative overflow-hidden min-h-screen flex items-start pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-20">
       {/* Gradiente de fundo idêntico às imagens - Modo Claro: azul claro à esquerda para branco à direita */}
-      <div 
-        className="absolute inset-0 z-0 dark:hidden" 
+      <div
+        className="absolute inset-0 z-0 dark:hidden"
         style={{
-          background: 'linear-gradient(to right, rgba(219, 234, 254, 1) 0%, rgba(239, 246, 255, 0.8) 30%, rgba(248, 250, 252, 0.6) 60%, rgba(255, 255, 255, 1) 100%)'
+          background: 'linear-gradient(to right, rgba(219, 234, 254, 1) 0%, rgba(239, 246, 255, 0.85) 30%, rgba(250, 244, 231, 0.8) 65%, rgba(251, 240, 217, 0.7) 100%)'
         }}
       />
       {/* Gradiente de fundo idêntico às imagens - Modo Escuro: azul escuro para preto com padrões */}
-      <div 
-        className="absolute inset-0 z-0 hidden dark:block" 
+      <div
+        className="absolute inset-0 z-0 hidden dark:block"
         style={{
-          background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 50%, rgb(0, 0, 0) 100%)'
+          background: 'linear-gradient(to right, rgb(26, 20, 15) 0%, rgb(16, 12, 9) 45%, rgb(6, 4, 3) 100%)'
         }}
       />
       {/* Padrão geométrico sutil - modo claro */}
@@ -53,25 +53,16 @@ export default function Hero() {
       <div
         className="absolute inset-0 opacity-[0.08] hidden dark:block z-0"
         style={{
-          backgroundImage: 'radial-gradient(ellipse at right, rgba(0, 217, 255, 0.15) 0%, transparent 70%)',
+          backgroundImage: 'radial-gradient(ellipse at right, rgba(255, 107, 74, 0.15) 0%, transparent 70%)',
         }}
       />
       
-      {/* Partículas animadas no Hero */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-3 h-3 bg-[#00D9FF] rounded-full opacity-20 animate-float" style={{ animationDelay: '0s', animationDuration: '8s' }} />
-        <div className="absolute top-1/3 right-1/4 w-2 h-2 bg-[#00D9FF] rounded-full opacity-25 animate-float" style={{ animationDelay: '1.5s', animationDuration: '10s' }} />
-        <div className="absolute bottom-1/4 left-1/3 w-2.5 h-2.5 bg-[#00D9FF] rounded-full opacity-20 animate-float" style={{ animationDelay: '3s', animationDuration: '9s' }} />
-        <div className="absolute top-1/2 right-1/3 w-1.5 h-1.5 bg-[#00D9FF] rounded-full opacity-30 animate-float" style={{ animationDelay: '4.5s', animationDuration: '7s' }} />
-      </div>
-      
-      {/* Gradientes animados */}
-      <div className="absolute inset-0 z-0 opacity-30 dark:opacity-20">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDuration: '6s' }} />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '3s', animationDuration: '8s' }} />
+      {/* Glow único de assinatura, atrás da foto */}
+      <div className="absolute inset-0 z-0 opacity-15 dark:opacity-[0.07]">
+        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-primary rounded-full blur-3xl animate-pulse-glow" style={{ animationDuration: '6s' }} />
       </div>
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-10">
+        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10">
           {/* Left content: text and buttons */}
           <div className="flex-1 text-center lg:text-left">
             <Reveal delayMs={0}>
@@ -105,8 +96,8 @@ export default function Hero() {
             </Reveal>
             {/* Scroll Down Indicator */}
             <Reveal delayMs={320}>
-              <div className="mt-12 flex items-center justify-center lg:justify-start gap-2 text-muted-foreground">
-                <span className="h-8 w-8 flex items-center justify-center rounded-full border border-muted-foreground/30 text-sm animate-bounce">
+              <div className="mt-12 flex items-center justify-center lg:justify-start gap-2 text-primary">
+                <span className="h-8 w-8 flex items-center justify-center rounded-full border border-primary/40 text-sm animate-bounce">
                   0
                 </span>
                 <span>{t('hero.scrollDown')}</span>
@@ -115,25 +106,25 @@ export default function Hero() {
             {/* Social icons */}
             <Reveal delayMs={400}>
               <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                <a href="https://www.facebook.com/mauroutall.mbz" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-blue-500/50 hover:border-blue-500 hover:shadow-md hover:shadow-blue-500/20 transition-all duration-300" aria-label="Facebook">
-                  <Facebook size={20} className="text-blue-400 group-hover:scale-110 transition-transform" />
+                <a href="https://www.facebook.com/mauroutall.mbz" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="Facebook">
+                  <Facebook size={20} className="text-primary group-hover:scale-110 transition-transform" />
                 </a>
-                <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-blue-500/50 hover:border-blue-500 hover:shadow-md hover:shadow-blue-500/20 transition-all duration-300" aria-label="LinkedIn">
-                  <Linkedin size={20} className="text-blue-400 group-hover:scale-110 transition-transform" />
+                <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="LinkedIn">
+                  <Linkedin size={20} className="text-primary group-hover:scale-110 transition-transform" />
                 </a>
-                <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-gray-500/50 hover:border-gray-500 hover:shadow-md hover:shadow-gray-500/20 transition-all duration-300" aria-label="GitHub">
-                  <Github size={20} className="text-gray-400 group-hover:scale-110 transition-transform" />
+                <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="GitHub">
+                  <Github size={20} className="text-primary group-hover:scale-110 transition-transform" />
                 </a>
               </div>
             </Reveal>
           </div>
 
           {/* Right content: Photo / Avatar and vertical social bar */}
-          <div className="relative flex-shrink-0 mt-8 lg:mt-0 -mt-4 lg:-mt-8">
+          <div className="relative flex-shrink-0 mt-8 lg:mt-4">
             {/* Photo / Avatar */}
             <Reveal delayMs={480} className="relative z-10">
               <div className="relative group">
-                <div className="absolute -inset-2 bg-gradient-to-r from-primary via-[#00D9FF] to-primary rounded-full opacity-75 blur-lg group-hover:opacity-100 transition-opacity duration-500 animate-pulse-glow"></div>
+                <div className="absolute -inset-1.5 bg-primary rounded-full opacity-30 blur-md group-hover:opacity-50 transition-opacity duration-500"></div>
                 <div className="relative rounded-full border-4 border-primary/50 shadow-2xl shadow-primary/30 overflow-hidden">
                 <img
                   src={isDark ? "/profile10.png" : "/profile10.png"}

@@ -10,8 +10,8 @@ export default function SectionHeader({ eyebrow, title, subtitle }: SectionHeade
   return (
     <div className="flex flex-col items-center text-center gap-4 mb-12">
       <Reveal>
-        <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-[#00D9FF] px-4 py-1.5 rounded-full border border-[#00D9FF]/30 bg-[#00D9FF]/5 backdrop-blur-sm mb-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#00D9FF] animate-pulse" />
+        <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-[#FF6B4A] px-4 py-1.5 rounded-full border border-[#FF6B4A]/30 bg-[#FF6B4A]/5 backdrop-blur-sm mb-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B4A] animate-pulse" />
           {eyebrow}
         </span>
       </Reveal>

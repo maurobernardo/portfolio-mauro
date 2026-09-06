@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Github, Link2, ExternalLink } from 'lucide-react';
+import { Github, Link2, ExternalLink, X, Target, Lightbulb } from 'lucide-react';
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -15,6 +15,7 @@ type ProjectMeta = {
   category: string;
   filter: FilterKey;
   status: StatusKey;
+  caseStudy?: boolean;
   placeholder: {
     gradient: string;
     iconColor: string;
@@ -45,9 +46,10 @@ const projectsMeta: ProjectMeta[] = [
     stack:    ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'PostgreSQL'],
     image:    '/Data.png',
     filter:   'fullstack',
-    status:   'live',
+    status:   'dev',
     category: 'Dados Abertos · Moçambique',
-    placeholder: { gradient: 'from-[#001a30] to-[#003060]', iconColor: '#00D9FF' },
+    caseStudy: true,
+    placeholder: { gradient: 'from-[#001a30] to-[#003060]', iconColor: '#FF6B4A' },
   },
   {
     stack:    ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'],
@@ -56,7 +58,8 @@ const projectsMeta: ProjectMeta[] = [
     filter:   'web',
     status:   'live',
     category: 'Agritech · Nampula',
-    placeholder: { gradient: 'from-[#0a3a1a] to-[#1a7a43]', iconColor: '#00D9FF' },
+    caseStudy: true,
+    placeholder: { gradient: 'from-[#0a3a1a] to-[#1a7a43]', iconColor: '#FF6B4A' },
   },
   {
     stack:    ['Next.js', 'TypeScript', 'Framer Motion', 'next-intl', 'Tailwind CSS'],
@@ -65,6 +68,7 @@ const projectsMeta: ProjectMeta[] = [
     filter:   'web',
     status:   'live',
     category: 'Ambiente · Bilíngue PT/EN',
+    caseStudy: true,
     placeholder: { gradient: 'from-[#0c2a1a] to-[#0c4724]', iconColor: '#2da05a' },
   },
   {
@@ -133,6 +137,7 @@ export default function Projects() {
   const { t } = useLanguage();
   const [showAll, setShowAll] = useState(false);
   const [activeFilter, setActiveFilter] = useState<FilterKey>('all');
+  const [caseStudyIdx, setCaseStudyIdx] = useState<number | null>(null);
 
   const filtered = projectsMeta.filter(
     (p) => activeFilter === 'all' || p.filter === activeFilter
@@ -140,49 +145,16 @@ export default function Projects() {
   const visible = showAll ? filtered : filtered.slice(0, INITIAL_VISIBLE);
 
   return (
-    <section id="projetos" className="relative py-16 lg:py-28 overflow-hidden">
+    <section id="projetos" className="relative border-t border-border/70 bg-card/60 py-16 overflow-hidden lg:py-28">
 
-      {/* -- Backgrounds -- */}
+      {/* Orb de assinatura, único e discreto */}
       <div
-        className="absolute inset-0 z-0 dark:hidden opacity-50"
-        style={{ background: 'linear-gradient(to right, rgba(239,246,255,0.6) 0%, rgba(255,255,255,1) 100%)' }}
-      />
-      <div
-        className="absolute inset-0 z-0 hidden dark:block opacity-40"
-        style={{ background: 'linear-gradient(to right, rgb(15,23,42) 0%, rgb(2,6,23) 100%)' }}
-      />
-
-      {/* Orbs */}
-      <div
-        className="absolute -top-16 -right-24 w-[420px] h-[420px] rounded-full pointer-events-none z-0 opacity-20"
+        className="absolute -top-16 -right-24 w-[420px] h-[420px] rounded-full pointer-events-none z-0 opacity-10"
         style={{
-          background: 'radial-gradient(circle, rgba(0,217,255,0.35) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255, 107, 74, 0.35) 0%, transparent 70%)',
           filter: 'blur(80px)',
         }}
       />
-      <div
-        className="absolute bottom-24 -left-20 w-[320px] h-[320px] rounded-full pointer-events-none z-0 opacity-15"
-        style={{
-          background: 'radial-gradient(circle, rgba(130,80,255,0.4) 0%, transparent 70%)',
-          filter: 'blur(80px)',
-        }}
-      />
-
-      {/* Floating particles */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        {[
-          { top: '15%',    right:  '8%',  animationDelay: '1.5s', animationDuration: '8s'  },
-          { top: '50%',    left:   '6%',  animationDelay: '3.5s', animationDuration: '9s'  },
-          { bottom: '20%', right: '25%',  animationDelay: '5.5s', animationDuration: '7s'  },
-          { top: '70%',    left:  '35%',  animationDelay: '7s',   animationDuration: '10s' },
-        ].map((s, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-[#00D9FF] rounded-full opacity-25 animate-float"
-            style={s}
-          />
-        ))}
-      </div>
 
       {/* -- Content -- */}
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
@@ -190,8 +162,8 @@ export default function Projects() {
         {/* Header */}
         <div className="flex flex-col items-center text-center gap-4 mb-12">
           <Reveal>
-            <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-[#00D9FF] px-4 py-1.5 rounded-full border border-[#00D9FF]/30 bg-[#00D9FF]/5 mb-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#00D9FF] animate-pulse" />
+            <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-[#FF6B4A] px-4 py-1.5 rounded-full border border-[#FF6B4A]/30 bg-[#FF6B4A]/5 mb-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B4A] animate-pulse" />
               Portfólio
             </span>
           </Reveal>
@@ -219,8 +191,8 @@ export default function Projects() {
                   className={[
                     'text-xs font-medium px-4 py-2 rounded-full border transition-all duration-200 outline-none',
                     activeFilter === key
-                      ? 'bg-[#00D9FF]/10 border-[#00D9FF]/50 text-[#00D9FF]'
-                      : 'bg-background border-border text-muted-foreground hover:border-[#00D9FF]/30 hover:text-foreground hover:bg-[#00D9FF]/5',
+                      ? 'bg-[#FF6B4A]/10 border-[#FF6B4A]/50 text-[#FF6B4A]'
+                      : 'bg-background border-border text-muted-foreground hover:border-[#FF6B4A]/30 hover:text-foreground hover:bg-[#FF6B4A]/5',
                   ].join(' ')}
                 >
                   {FILTER_LABELS[key]}
@@ -245,7 +217,7 @@ export default function Projects() {
                 delayMs={i * 70}
                 className={isFeatured ? 'sm:col-span-2' : ''}
               >
-                <div className="group relative h-full flex flex-col rounded-2xl border border-border/60 bg-card overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-[#00D9FF]/35 hover:shadow-xl hover:shadow-[#00D9FF]/5">
+                <div className="group relative h-full flex flex-col rounded-3xl border border-border/70 bg-card shadow-sm overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-black/5">
 
                   {/* Image area */}
                   <a
@@ -260,7 +232,7 @@ export default function Projects() {
                     onClick={(e) => { if (!p.link && !p.repo) e.preventDefault(); }}
                   >
                     {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-card/70 via-transparent to-transparent z-10 transition-opacity duration-500 group-hover:from-card/50" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-10" />
 
                     {/* Real image */}
                     {p.image && (
@@ -290,32 +262,34 @@ export default function Projects() {
                     </div>
 
                     {/* Status badge */}
-                    <span className={`absolute top-3 right-3 z-20 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full ${STATUS_STYLES[p.status]}`}>
+                    <span className={`absolute top-3 right-3 z-20 inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full backdrop-blur-sm ${STATUS_STYLES[p.status]}`}>
+                      <span className="h-1.5 w-1.5 rounded-full bg-current" />
                       {STATUS_LABELS[p.status]}
                     </span>
+
+                    {/* Categoria sobre a imagem */}
+                    <p className="absolute bottom-3 left-4 z-20 text-[10px] font-semibold tracking-[0.12em] uppercase text-white/90 drop-shadow">
+                      {p.category}
+                    </p>
                   </a>
 
                   {/* Body */}
                   <div className="flex flex-col flex-1 p-5">
 
-                    <p className="text-[10px] font-semibold tracking-[0.12em] uppercase text-[#00D9FF] mb-1.5">
-                      {p.category}
-                    </p>
-
-                    <h3 className="font-bold text-lg leading-snug text-foreground mb-2 transition-colors duration-200 group-hover:text-[#00D9FF]">
+                    <h3 className="font-bold text-lg leading-snug text-foreground mb-2 transition-colors duration-200 group-hover:text-primary">
                       {title}
                     </h3>
 
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1 font-light mb-4">
+                    <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4">
                       {description}
                     </p>
 
                     {/* Stack tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-5">
+                    <div className="flex flex-wrap gap-1.5 mb-4">
                       {p.stack.map((tech) => (
                         <span
                           key={tech}
-                          className="inline-flex items-center gap-1.5 text-[10px] font-medium bg-primary/8 border border-primary/15 px-2.5 py-1 rounded-full text-muted-foreground transition-all duration-200 hover:bg-primary/15 hover:border-primary/30"
+                          className="inline-flex items-center gap-1.5 text-[10px] font-medium bg-secondary px-2.5 py-1 rounded-full text-muted-foreground"
                         >
                           {iconMap[tech] && (
                             <img src={iconMap[tech]} alt={tech} className="h-3 w-3 object-contain" />
@@ -325,21 +299,32 @@ export default function Projects() {
                       ))}
                     </div>
 
+                    {p.caseStudy && (
+                      <button
+                        type="button"
+                        onClick={() => setCaseStudyIdx(originalIdx)}
+                        className="mb-5 inline-flex items-center gap-1.5 self-start text-xs font-semibold text-primary hover:underline"
+                      >
+                        <Lightbulb size={13} />
+                        {t('projects.viewCaseStudy')}
+                      </button>
+                    )}
+
                     {/* Footer */}
-                    <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                    <div className="flex items-center justify-between pt-4 border-t border-border/60">
                       <div className="flex items-center gap-4">
                         {p.link && p.link !== '#' ? (
                           <a
                             href={p.link}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-[#00D9FF] transition-colors duration-200 group/link"
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors duration-200 group/link"
                           >
                             <ExternalLink size={13} className="transition-transform duration-200 group-hover/link:-rotate-12" />
                             {t('projects.demo')}
                           </a>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/30 cursor-default">
+                          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/40 cursor-default">
                             <Link2 size={13} />
                             {p.status === 'private' ? 'Privado' : 'Em breve'}
                           </span>
@@ -350,7 +335,7 @@ export default function Projects() {
                             href={p.repo}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-[#00D9FF] transition-colors duration-200 group/link"
+                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors duration-200 group/link"
                           >
                             <Github size={13} className="transition-transform duration-200 group-hover/link:scale-110" />
                             {t('projects.code')}
@@ -358,7 +343,7 @@ export default function Projects() {
                         )}
                       </div>
 
-                      <span className="text-[11px] font-bold text-border/60 tabular-nums">
+                      <span className="text-[11px] font-bold text-muted-foreground/40 tabular-nums">
                         {String(originalIdx + 1).padStart(2, '0')}
                       </span>
                     </div>
@@ -376,7 +361,7 @@ export default function Projects() {
             <button
               type="button"
               onClick={() => setShowAll((prev) => !prev)}
-              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-semibold text-foreground bg-background hover:bg-muted hover:text-[#00D9FF] hover:border-[#00D9FF]/40 transition-all duration-300 hover:-translate-y-px"
+              className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-2.5 text-sm font-semibold text-foreground bg-background hover:bg-muted hover:text-[#FF6B4A] hover:border-[#FF6B4A]/40 transition-all duration-300 hover:-translate-y-px"
             >
               {showAll ? t('projects.showLess') : t('projects.showMore')}
               <svg
@@ -391,7 +376,95 @@ export default function Projects() {
         )}
 
       </div>
+
+      {caseStudyIdx !== null && (
+        <CaseStudyModal
+          project={projectsMeta[caseStudyIdx]}
+          index={caseStudyIdx}
+          onClose={() => setCaseStudyIdx(null)}
+        />
+      )}
     </section>
+  );
+}
+
+function CaseStudyModal({ project, index, onClose }: { project: ProjectMeta; index: number; onClose: () => void }) {
+  const { t } = useLanguage();
+  const title = t(`projects.${index}.title`);
+  const challenge = t(`projects.${index}.challenge`);
+  const approach = t(`projects.${index}.approach`);
+
+  return (
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6">
+      <button type="button" aria-label="Close" className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div role="dialog" aria-modal="true" className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl border border-border/70 bg-card shadow-2xl">
+        {project.image && (
+          <div className="relative aspect-[16/8] w-full overflow-hidden">
+            <img src={project.image} alt={title} className="h-full w-full object-cover" />
+            <div className="absolute inset-0 bg-gradient-to-t from-card via-card/10 to-transparent" />
+          </div>
+        )}
+        <button
+          onClick={onClose}
+          aria-label="Fechar"
+          className="absolute right-4 top-4 z-10 rounded-full border border-border bg-background/80 p-2 text-muted-foreground backdrop-blur-sm transition-all hover:text-primary"
+        >
+          <X size={18} />
+        </button>
+
+        <div className="p-6 sm:p-8">
+          <p className="text-[10px] font-semibold tracking-[0.12em] uppercase text-primary mb-1.5">{project.category}</p>
+          <h3 className="text-2xl font-bold text-foreground mb-6">{title}</h3>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
+                <Target size={16} className="text-primary" />
+                {t('projects.challenge')}
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">{challenge}</p>
+            </div>
+            <div>
+              <div className="mb-2 flex items-center gap-2 text-sm font-semibold text-foreground">
+                <Lightbulb size={16} className="text-primary" />
+                {t('projects.approach')}
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">{approach}</p>
+            </div>
+          </div>
+
+          <div className="mt-6">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-2">Stack</p>
+            <div className="flex flex-wrap gap-1.5">
+              {project.stack.map((tech) => (
+                <span key={tech} className="inline-flex items-center gap-1.5 text-xs font-medium bg-secondary px-2.5 py-1 rounded-full text-muted-foreground">
+                  {iconMap[tech] && <img src={iconMap[tech]} alt={tech} className="h-3.5 w-3.5 object-contain" />}
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-7 flex items-center justify-between border-t border-border/60 pt-5">
+            <span className={`inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full ${STATUS_STYLES[project.status]}`}>
+              <span className="h-1.5 w-1.5 rounded-full bg-current" />
+              {t('projects.status')}: {STATUS_LABELS[project.status]}
+            </span>
+            {project.link && project.link !== '#' && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90"
+              >
+                <ExternalLink size={15} />
+                {t('projects.demo')}
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

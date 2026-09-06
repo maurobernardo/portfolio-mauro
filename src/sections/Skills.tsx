@@ -11,7 +11,7 @@ const backendSkills: Skill[] = [
   { name: 'Java', svg: '/icons/java.svg' },
   { name: 'Node.js', svg: '/icons/nodejs.svg' },
   { name: 'Golang', svg: '/icons/golang.svg' },
-  { name: 'MySQL / PostgreSQL', svg: '/icons/mysql-postgresql.svg' },
+  { name: 'MySQL', svg: '/icons/mysql.svg' },
 ];
 
 const fullStackSkills: Skill[] = [
@@ -21,34 +21,27 @@ const fullStackSkills: Skill[] = [
   { name: 'Dart', svg: '/icons/dart.svg' },
 ];
 
+const gisSkills: Skill[] = [
+  { name: 'PostgreSQL / PostGIS', svg: '/icons/postgresql.svg' },
+  { name: 'QGIS', svg: '/icons/qgis.svg' },
+  { name: 'Leaflet', svg: '/icons/leaflet.svg' },
+  { name: 'Power BI', svg: '/icons/powerbi.svg' },
+];
+
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
-import { Code2, Server, Layers } from 'lucide-react';
+import { Code2, Server, Layers, MapPinned } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+
+const CARD_CLASS = 'group mz-card mz-card-sm aspect-square flex flex-col items-center justify-center gap-3';
 
 export default function Skills() {
   const { t } = useLanguage();
   return (
-    <section id="skills" className="relative py-16 lg:py-24 overflow-hidden">
-      <div className="absolute inset-0 z-0 dark:hidden opacity-50" style={{ background: 'linear-gradient(to right, rgba(219, 234, 254, 0.5) 0%, rgba(255, 255, 255, 1) 100%)' }} />
-      <div className="absolute inset-0 z-0 hidden dark:block opacity-40" style={{ background: 'linear-gradient(to right, rgb(15, 23, 42) 0%, rgb(2, 6, 23) 100%)' }} />
-      
-      {/* Partículas animadas */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div className="absolute top-32 left-16 w-2 h-2 bg-[#00D9FF] rounded-full opacity-25 animate-float" style={{ animationDelay: '0s', animationDuration: '7s' }} />
-        <div className="absolute top-1/2 right-24 w-1.5 h-1.5 bg-[#00D9FF] rounded-full opacity-30 animate-float" style={{ animationDelay: '2s', animationDuration: '9s' }} />
-        <div className="absolute bottom-40 left-1/3 w-2.5 h-2.5 bg-[#00D9FF] rounded-full opacity-20 animate-float" style={{ animationDelay: '4s', animationDuration: '8s' }} />
-      </div>
-      
-      {/* Gradientes animados */}
-      <div className="absolute inset-0 z-0 opacity-25 dark:opacity-15">
-        <div className="absolute top-1/3 left-1/4 w-80 h-80 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDuration: '5s' }} />
-        <div className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-[#00D9FF] rounded-full blur-3xl animate-pulse-glow" style={{ animationDelay: '2.5s', animationDuration: '7s' }} />
-      </div>
-      
+    <section id="skills" className="relative border-t border-border/70 bg-card/60 py-16 lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow="Stack" title={t('skills.title')} subtitle={t('skills.subtitle')} />
 
-        <div className="grid gap-8 lg:grid-cols-3 lg:gap-8">
+        <div className="grid gap-8 lg:grid-cols-4 lg:gap-6">
           {/* Frontend Section - Esquerda */}
           <Reveal delayMs={160}>
             <div className="space-y-5">
@@ -60,16 +53,9 @@ export default function Skills() {
               </div>
               <ul className="grid grid-cols-2 gap-4">
                 {frontendSkills.map((skill, i) => (
-                  <Reveal
-                    as="li"
-                    key={skill.name}
-                    delayMs={i * 50 + 200}
-                    className="group mz-card mz-card-sm flex flex-col items-center justify-center gap-3"
-                  >
+                  <Reveal as="li" key={skill.name} delayMs={i * 50 + 200} className={CARD_CLASS}>
                     <div className="mz-card-accent" />
-                    <div className="mz-card-accent-pulse" />
                     <div className="mz-card-hover-bg" />
-                    <div className="mz-card-hover-shine" />
                     <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500/15 to-blue-500/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-md group-hover:shadow-blue-500/20">
                       <img src={skill.svg} alt={skill.name} className="h-6 w-6 object-contain transition-transform duration-500 group-hover:scale-110" />
                     </span>
@@ -93,16 +79,9 @@ export default function Skills() {
               </div>
               <ul className="grid grid-cols-2 gap-4">
                 {backendSkills.map((skill, i) => (
-                  <Reveal
-                    as="li"
-                    key={skill.name}
-                    delayMs={i * 50 + 440}
-                    className="group mz-card mz-card-sm flex flex-col items-center justify-center gap-3"
-                  >
+                  <Reveal as="li" key={skill.name} delayMs={i * 50 + 440} className={CARD_CLASS}>
                     <div className="mz-card-accent" />
-                    <div className="mz-card-accent-pulse" />
                     <div className="mz-card-hover-bg" />
-                    <div className="mz-card-hover-shine" />
                     <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-green-500/15 to-green-500/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-md group-hover:shadow-green-500/20">
                       <img src={skill.svg} alt={skill.name} className="h-6 w-6 object-contain transition-transform duration-500 group-hover:scale-110" />
                     </span>
@@ -119,28 +98,47 @@ export default function Skills() {
           <Reveal delayMs={640}>
             <div className="space-y-5">
               <div className="flex items-center gap-4 justify-center lg:justify-start">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#00D9FF]/20 to-[#00D9FF]/10 text-[#00D9FF]">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#FF6B4A]/20 to-[#FF6B4A]/10 text-[#FF6B4A]">
                   <Layers size={24} />
                 </div>
                 <h3 className="text-xl font-bold tracking-tight text-foreground">{t('skills.fullStack')}</h3>
               </div>
               <ul className="grid grid-cols-2 gap-4">
                 {fullStackSkills.map((skill, i) => (
-                  <Reveal
-                    as="li"
-                    key={skill.name}
-                    delayMs={i * 50 + 680}
-                    className="group mz-card mz-card-sm flex flex-col items-center justify-center gap-3"
-                  >
+                  <Reveal as="li" key={skill.name} delayMs={i * 50 + 680} className={CARD_CLASS}>
                     <div className="mz-card-accent" />
-                    <div className="mz-card-accent-pulse" />
                     <div className="mz-card-hover-bg" />
-                    <div className="mz-card-hover-shine" />
-                    <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#00D9FF]/15 to-[#00D9FF]/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-md group-hover:shadow-[#00D9FF]/20">
+                    <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#FF6B4A]/15 to-[#FF6B4A]/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-md group-hover:shadow-[#FF6B4A]/20">
                       <img src={skill.svg} alt={skill.name} className="h-6 w-6 object-contain transition-transform duration-500 group-hover:scale-110" />
                     </span>
                     <div className="relative z-10 text-center">
-                      <p className="text-sm font-semibold text-foreground group-hover:text-[#00D9FF] transition-colors duration-300">{skill.name}</p>
+                      <p className="text-sm font-semibold text-foreground group-hover:text-[#FF6B4A] transition-colors duration-300">{skill.name}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+
+          {/* GIS */}
+          <Reveal delayMs={760}>
+            <div className="space-y-5">
+              <div className="flex items-center gap-4 justify-center lg:justify-start">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-teal-500/20 to-teal-500/10 text-teal-500">
+                  <MapPinned size={24} />
+                </div>
+                <h3 className="text-xl font-bold tracking-tight text-foreground">GIS</h3>
+              </div>
+              <ul className="grid grid-cols-2 gap-4">
+                {gisSkills.map((skill, i) => (
+                  <Reveal as="li" key={skill.name} delayMs={i * 50 + 800} className={CARD_CLASS}>
+                    <div className="mz-card-accent" />
+                    <div className="mz-card-hover-bg" />
+                    <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500/15 to-teal-500/5 transition-all duration-500 group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-md group-hover:shadow-teal-500/20">
+                      <img src={skill.svg} alt={skill.name} className="h-6 w-6 object-contain transition-transform duration-500 group-hover:scale-110" />
+                    </span>
+                    <div className="relative z-10 text-center">
+                      <p className="text-sm font-semibold text-foreground group-hover:text-teal-500 transition-colors duration-300">{skill.name}</p>
                     </div>
                   </Reveal>
                 ))}
@@ -152,5 +150,3 @@ export default function Skills() {
     </section>
   );
 }
-
-

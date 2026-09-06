@@ -19,13 +19,15 @@ export default function Reveal({ children, className, as = 'div', delayMs = 0 }:
           if (entry.isIntersecting) {
             if (delayMs > 0) {
               const id = setTimeout(() => setVisible(true), delayMs);
+              obs.unobserve(el);
               return () => clearTimeout(id);
             }
             setVisible(true);
+            obs.unobserve(el);
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.01, rootMargin: '0px 0px -5% 0px' }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -36,8 +38,8 @@ export default function Reveal({ children, className, as = 'div', delayMs = 0 }:
     <Component
       ref={ref}
       className={[
-        'transition-all duration-700 ease-out',
-        visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-8 scale-95',
+        'transition-all duration-500 ease-out',
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3',
         className ?? '',
       ].join(' ').trim()}
     >
