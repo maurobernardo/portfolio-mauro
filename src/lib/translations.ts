@@ -497,7 +497,7 @@ export const translations = {
     'education.0.degree': 'Information Technology',
     'education.0.institution': 'Catholic University of Mozambique',
     'education.0.period': '2023 - Present',
-    'education.0.description': 'Currently studying with focus on software development, networks and information security.',
+    'education.0.description': 'Ongoing higher education focused on software development and networks and systems administration, also working with IT infrastructure and information security, applying knowledge in practical projects and real environments.',
     
     // Experience
     'experience.0.role': 'IT Infrastructure Intern (Networks and Servers)',

@@ -28,6 +28,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="manifest" href="/manifest.webmanifest" />
+    <style>
+      html, body { background-color: #faf3e8; }
+      html.dark, html.dark body { background-color: #17120e; }
+    </style>
     <script>
       (() => {
         try {
@@ -38,7 +42,7 @@
       })();
     </script>
   </head>
-  <body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+  <body class="min-h-screen bg-background text-slate-900 dark:text-slate-100">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
