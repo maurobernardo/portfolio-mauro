@@ -102,7 +102,7 @@ export default function Contact() {
 
   return (
     <section id="contato" className="relative border-t border-border/70 bg-card/60 py-16 lg:py-24">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow="Contacto" title={t('contact.title')} subtitle={t('contact.subtitle')} />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow={t('eyebrow.contact')} title={t('contact.title')} subtitle={t('contact.subtitle')} />
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1fr] justify-items-center lg:justify-items-stretch">
           {/* Form card */}
@@ -128,7 +128,7 @@ export default function Contact() {
                   {errors.email && <span className="text-xs text-destructive mt-1">{errors.email}</span>}
                 </label>
                 <label className="grid gap-2.5">
-                  <span className={fieldLabel}>{t('contact.phone')} (opcional)</span>
+                  <span className={fieldLabel}>{t('contact.phone')} {t('contact.optional')}</span>
                   <input value={phone} onChange={(e) => setPhone(sanitize(e.target.value))} className={`${inputBase} h-12 ${errors.phone ? inputError : inputNormal}`} placeholder={t('contact.phonePlaceholder')} name="user_phone" />
                   {errors.phone && <span className="text-xs text-destructive mt-1">{errors.phone}</span>}
                 </label>

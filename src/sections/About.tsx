@@ -8,7 +8,7 @@ export default function About() {
   return (
     <section id="sobre" className="relative border-t border-border/70 bg-background py-16 lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <SectionHeader eyebrow="Perfil" title={t('about.title')} subtitle={t('about.subtitle')} />
+        <SectionHeader eyebrow={t('eyebrow.about')} title={t('about.title')} subtitle={t('about.subtitle')} />
 
         <div className="mx-auto max-w-3xl text-center">
           <Reveal delayMs={160}>
@@ -62,13 +62,13 @@ export default function About() {
 function Badge({ icon, title, value, delayMs = 0 }: { icon: React.ReactNode; title: string; value: string; delayMs?: number }) {
   return (
     <Reveal delayMs={delayMs}>
-      <div className="group flex items-center gap-3 rounded-xl border border-border/70 bg-card p-4 transition-all duration-200 hover:border-primary/30">
+      <div className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-4 transition-all duration-200 hover:border-primary/30">
         <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
           {icon}
         </span>
         <div className="min-w-0">
           <p className="text-xs font-medium text-muted-foreground">{title}</p>
-          <p className="text-sm font-semibold text-foreground truncate">{value}</p>
+          <p className="text-sm font-semibold leading-snug text-foreground">{value}</p>
         </div>
       </div>
     </Reveal>

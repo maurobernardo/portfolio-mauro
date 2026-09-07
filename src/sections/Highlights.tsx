@@ -150,7 +150,7 @@ export default function Highlights() {
       />
 
       <div className="mx-auto w-full max-w-6xl px-4 md:px-8 relative z-10">
-        <SectionHeader eyebrow="Highlights" title={t('highlights.title')} subtitle={t('highlights.subtitle')} />
+        <SectionHeader eyebrow={t('eyebrow.highlights')} title={t('highlights.title')} subtitle={t('highlights.subtitle')} />
 
         {/* Filtros */}
         <Reveal delayMs={120}>

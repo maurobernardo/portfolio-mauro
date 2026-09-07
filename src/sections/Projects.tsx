@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Github, Link2, ExternalLink, X, Target, Lightbulb } from 'lucide-react';
+import { Github, Link2, ExternalLink, X, Target, Lightbulb, Quote } from 'lucide-react';
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -22,10 +22,10 @@ type ProjectMeta = {
   };
 };
 
-const STATUS_LABELS: Record<StatusKey, string> = {
-  live:    'Live',
-  dev:     'Em dev',
-  private: 'Privado',
+const STATUS_KEYS: Record<StatusKey, string> = {
+  live:    'projects.status.live',
+  dev:     'projects.status.dev',
+  private: 'projects.status.private',
 };
 
 const STATUS_STYLES: Record<StatusKey, string> = {
@@ -34,11 +34,11 @@ const STATUS_STYLES: Record<StatusKey, string> = {
   private: 'bg-orange-500/12 text-orange-400 border border-orange-500/25',
 };
 
-const FILTER_LABELS: Record<FilterKey, string> = {
-  all:       'Todos',
-  web:       'Web App',
-  mobile:    'Mobile',
-  fullstack: 'Full Stack',
+const FILTER_KEYS: Record<FilterKey, string> = {
+  all:       'projects.filter.all',
+  web:       'projects.filter.web',
+  mobile:    'projects.filter.mobile',
+  fullstack: 'projects.filter.fullstack',
 };
 
 const projectsMeta: ProjectMeta[] = [
@@ -164,7 +164,7 @@ export default function Projects() {
           <Reveal>
             <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-[#FF6B4A] px-4 py-1.5 rounded-full border border-[#FF6B4A]/30 bg-[#FF6B4A]/5 mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B4A] animate-pulse" />
-              Portefólio
+              {t('eyebrow.projects')}
             </span>
           </Reveal>
 
@@ -183,7 +183,7 @@ export default function Projects() {
           {/* Filters */}
           <Reveal delayMs={160}>
             <div className="flex flex-wrap gap-2 justify-center mt-4">
-              {(Object.keys(FILTER_LABELS) as FilterKey[]).map((key) => (
+              {(Object.keys(FILTER_KEYS) as FilterKey[]).map((key) => (
                 <button
                   key={key}
                   type="button"
@@ -195,7 +195,7 @@ export default function Projects() {
                       : 'bg-background border-border text-muted-foreground hover:border-[#FF6B4A]/30 hover:text-foreground hover:bg-[#FF6B4A]/5',
                   ].join(' ')}
                 >
-                  {FILTER_LABELS[key]}
+                  {t(FILTER_KEYS[key])}
                 </button>
               ))}
             </div>
@@ -264,12 +264,12 @@ export default function Projects() {
                     {/* Status badge */}
                     <span className={`absolute top-3 right-3 z-20 inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full backdrop-blur-sm ${STATUS_STYLES[p.status]}`}>
                       <span className="h-1.5 w-1.5 rounded-full bg-current" />
-                      {STATUS_LABELS[p.status]}
+                      {t(STATUS_KEYS[p.status])}
                     </span>
 
                     {/* Categoria sobre a imagem */}
                     <p className="absolute bottom-3 left-4 z-20 text-[10px] font-semibold tracking-[0.12em] uppercase text-white/90 drop-shadow">
-                      {p.category}
+                      {t(`projects.${originalIdx}.category`)}
                     </p>
                   </a>
 
@@ -326,7 +326,7 @@ export default function Projects() {
                         ) : (
                           <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/40 cursor-default">
                             <Link2 size={13} />
-                            {p.status === 'private' ? 'Privado' : 'Em breve'}
+                            {p.status === 'private' ? t(STATUS_KEYS.private) : t('projects.comingSoon')}
                           </span>
                         )}
 
@@ -375,6 +375,17 @@ export default function Projects() {
           </div>
         )}
 
+        {/* Citação de programador */}
+        <Reveal delayMs={80}>
+          <div className="mx-auto mt-14 flex max-w-3xl items-start gap-4 rounded-2xl border border-border/70 bg-card px-6 py-5">
+            <Quote size={20} className="mt-0.5 flex-shrink-0 text-primary" strokeWidth={1.75} />
+            <div>
+              <p className="text-foreground italic leading-relaxed">{t('projects.devQuote')}</p>
+              <p className="mt-2 text-sm font-semibold text-primary">{t('projects.devQuoteAuthor')}</p>
+            </div>
+          </div>
+        </Reveal>
+
       </div>
 
       {caseStudyIdx !== null && (
@@ -413,7 +424,7 @@ function CaseStudyModal({ project, index, onClose }: { project: ProjectMeta; ind
         </button>
 
         <div className="p-6 sm:p-8">
-          <p className="text-[10px] font-semibold tracking-[0.12em] uppercase text-primary mb-1.5">{project.category}</p>
+          <p className="text-[10px] font-semibold tracking-[0.12em] uppercase text-primary mb-1.5">{t(`projects.${index}.category`)}</p>
           <h3 className="text-2xl font-bold text-foreground mb-6">{title}</h3>
 
           <div className="grid gap-6 sm:grid-cols-2">
@@ -448,7 +459,7 @@ function CaseStudyModal({ project, index, onClose }: { project: ProjectMeta; ind
           <div className="mt-7 flex items-center justify-between border-t border-border/60 pt-5">
             <span className={`inline-flex items-center gap-1.5 text-[10px] font-semibold tracking-wide uppercase px-2.5 py-1 rounded-full ${STATUS_STYLES[project.status]}`}>
               <span className="h-1.5 w-1.5 rounded-full bg-current" />
-              {t('projects.status')}: {STATUS_LABELS[project.status]}
+              {t('projects.status')}: {t(STATUS_KEYS[project.status])}
             </span>
             {project.link && project.link !== '#' && (
               <a

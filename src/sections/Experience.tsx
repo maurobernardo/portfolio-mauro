@@ -50,7 +50,7 @@ export default function Experience() {
   return (
     <section id="experiencia" className="relative border-t border-border/70 bg-background py-16 lg:py-24">
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <SectionHeader eyebrow="Trajetória" title={t('experience.title')} subtitle={t('experience.subtitle')} />
+        <SectionHeader eyebrow={t('eyebrow.experience')} title={t('experience.title')} subtitle={t('experience.subtitle')} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Coluna de Educação */}
@@ -122,7 +122,7 @@ export default function Experience() {
 
         {/* Certificações */}
         <div id="certificados" className="mt-16 scroll-mt-24">
-          <SectionHeader eyebrow="Certificados" title={t('experience.certifications')} subtitle={t('experience.certificationsSubtitle')} />
+          <SectionHeader eyebrow={t('eyebrow.certifications')} title={t('experience.certifications')} subtitle={t('experience.certificationsSubtitle')} />
           <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {certificationsData.map((c, i) => {
               const title = t(`certifications.${i}.title`);

@@ -39,7 +39,7 @@ export default function Skills() {
   const { t } = useLanguage();
   return (
     <section id="skills" className="relative border-t border-border/70 bg-card/60 py-16 lg:py-24">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow="Stack" title={t('skills.title')} subtitle={t('skills.subtitle')} />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow={t('eyebrow.skills')} title={t('skills.title')} subtitle={t('skills.subtitle')} />
 
         <div className="grid gap-8 lg:grid-cols-4 lg:gap-6">
           {/* Frontend Section - Esquerda */}
