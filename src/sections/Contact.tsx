@@ -44,7 +44,7 @@ export default function Contact() {
     const templateParams = {
       user_name: `${firstName} ${lastName}`.trim(),
       user_email: email,
-      user_subject: 'Nova mensagem do portfólio', // Assunto padrão, pode ser um campo do form se desejar
+      user_subject: 'Nova mensagem do portefólio', // Assunto padrão, pode ser um campo do form se desejar
       user_message: message,
     };
 
@@ -61,9 +61,9 @@ export default function Contact() {
   };
 
   const openEmail = () => {
-    const subject = 'Conctato através do Portfólio';
+    const subject = 'Contacto através do Portefólio';
     const bodyLines = [
-      'Olá Mauro, venho através do seu Portfólio,',
+      'Olá Mauro, venho através do seu Portefólio,',
       firstName || lastName ? `Meu nome é ${firstName} ${lastName}`.trim() : '',
       phone ? `Meu telefone: ${phone}` : '',
       '',
@@ -79,7 +79,7 @@ export default function Contact() {
   const openWhatsApp = () => {
     const phoneDest = '258842767435';
     const textLines = [
-      'Olá Mauro, venho através do seu Portfólio,',
+      'Olá Mauro, venho através do seu Portefólio,',
       firstName || lastName ? `Meu nome é ${firstName} ${lastName}`.trim() : '',
       phone ? `Meu telefone: ${phone}` : '',
       '',

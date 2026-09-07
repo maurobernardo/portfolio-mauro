@@ -46,6 +46,7 @@ export default function CommandPalette() {
     { id: 'projetos', label: t('nav.projects'), group: t('cmdk.sections'), icon: <Briefcase size={16} />, action: () => goTo('#projetos') },
     { id: 'experiencia', label: t('nav.experience'), group: t('cmdk.sections'), icon: <Wrench size={16} />, action: () => goTo('#experiencia') },
     { id: 'certificados', label: t('nav.certificates'), group: t('cmdk.sections'), icon: <Award size={16} />, action: () => goTo('#certificados') },
+    { id: 'momentos', label: t('highlights.title'), group: t('cmdk.sections'), icon: <Award size={16} />, action: () => goTo('#momentos') },
     { id: 'contato', label: t('nav.contact'), group: t('cmdk.sections'), icon: <Mail size={16} />, action: () => goTo('#contato') },
 
     { id: 'dataportal', label: 'DataPortal-Data4Moz', group: t('cmdk.projects'), icon: <Briefcase size={16} />, action: () => goTo('#projetos') },

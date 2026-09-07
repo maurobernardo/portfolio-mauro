@@ -93,7 +93,7 @@ const projectsMeta: ProjectMeta[] = [
     image:    '/Deyril.png',
     filter:   'web',
     status:   'live',
-    category: 'Portfólio pessoal',
+    category: 'Portefólio pessoal',
     placeholder: { gradient: 'from-[#1a1030] to-[#3a1a6a]', iconColor: '#a070ff' },
   },
   {
@@ -164,7 +164,7 @@ export default function Projects() {
           <Reveal>
             <span className="inline-flex items-center gap-2 text-[11px] font-semibold tracking-[0.2em] uppercase text-[#FF6B4A] px-4 py-1.5 rounded-full border border-[#FF6B4A]/30 bg-[#FF6B4A]/5 mb-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FF6B4A] animate-pulse" />
-              Portfólio
+              Portefólio
             </span>
           </Reveal>
 

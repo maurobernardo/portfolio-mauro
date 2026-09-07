@@ -66,7 +66,7 @@ export default function Navbar() {
             <CommandPalette />
             <button
               aria-label="Mudar idioma"
-              title={language === 'pt' ? 'Switch to English' : 'Mudar para Portugues'}
+              title={language === 'pt' ? 'Switch to English' : 'Mudar para Português'}
               onClick={toggleLanguage}
               className="grid h-12 w-12 place-items-center rounded-2xl border border-primary/20 bg-background/65 text-primary shadow-sm transition-all duration-300 hover:bg-primary/10 hover:-translate-y-px focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
             >
