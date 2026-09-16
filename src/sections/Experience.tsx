@@ -42,6 +42,7 @@ const awsCourseKeys = [
 import { PropsWithChildren, ReactNode } from 'react';
 import Reveal from "../components/Reveal";
 import SectionHeader from "../components/SectionHeader";
+import SectionPattern from "../components/SectionPattern";
 import { Award, MapPin, BookOpen, Briefcase } from "lucide-react";
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -49,6 +50,7 @@ export default function Experience() {
   const { t } = useLanguage();
   return (
     <section id="experiencia" className="relative border-t border-border/70 bg-background py-16 lg:py-24">
+      <SectionPattern />
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <SectionHeader eyebrow={t('eyebrow.experience')} title={t('experience.title')} subtitle={t('experience.subtitle')} />
 

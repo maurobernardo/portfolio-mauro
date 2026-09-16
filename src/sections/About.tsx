@@ -1,5 +1,6 @@
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
+import SectionPattern from '../components/SectionPattern';
 import { MapPin, GraduationCap, Languages, BookOpen } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -7,6 +8,7 @@ export default function About() {
   const { t } = useLanguage();
   return (
     <section id="sobre" className="relative border-t border-border/70 bg-background py-16 lg:py-24">
+      <SectionPattern />
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
         <SectionHeader eyebrow={t('eyebrow.about')} title={t('about.title')} subtitle={t('about.subtitle')} />
 

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Code2, Mic, Store, Trophy, Award, ImagePlus, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
+import SectionPattern from '../components/SectionPattern';
 import { useLanguage } from '../contexts/LanguageContext';
 
 type HighlightType = 'hackathon' | 'talk' | 'fair' | 'award' | 'certificate';
@@ -140,6 +141,7 @@ export default function Highlights() {
 
   return (
     <section id="momentos" className="relative border-t border-border/70 bg-card/60 py-16 lg:py-24 overflow-hidden">
+      <SectionPattern />
       <div
         className="absolute -top-24 -left-24 w-[420px] h-[420px] rounded-full pointer-events-none z-0 opacity-10"
         style={{ background: 'radial-gradient(circle, rgba(255, 107, 74, 0.35) 0%, transparent 70%)', filter: 'blur(80px)' }}

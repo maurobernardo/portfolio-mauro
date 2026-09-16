@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Reveal from '../components/Reveal';
+import SectionPattern from '../components/SectionPattern';
 import { Facebook, Linkedin, Github } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -26,11 +27,11 @@ export default function Hero() {
   
   return (
     <section id="inicio" className="relative overflow-hidden min-h-screen flex items-start pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-20">
-      {/* Gradiente de fundo idêntico às imagens - Modo Claro: azul claro à esquerda para branco à direita */}
+      {/* Gradiente de fundo - Modo Claro: creme suave à esquerda para creme quente à direita */}
       <div
         className="absolute inset-0 z-0 dark:hidden"
         style={{
-          background: 'linear-gradient(to right, rgba(219, 234, 254, 1) 0%, rgba(239, 246, 255, 0.85) 30%, rgba(250, 244, 231, 0.8) 65%, rgba(251, 240, 217, 0.7) 100%)'
+          background: 'linear-gradient(to right, rgba(250, 246, 238, 1) 0%, rgba(250, 244, 231, 0.85) 45%, rgba(251, 240, 217, 0.75) 100%)'
         }}
       />
       {/* Gradiente de fundo idêntico às imagens - Modo Escuro: azul escuro para preto com padrões */}
@@ -40,15 +41,8 @@ export default function Hero() {
           background: 'linear-gradient(to right, rgb(26, 20, 15) 0%, rgb(16, 12, 9) 45%, rgb(6, 4, 3) 100%)'
         }}
       />
-      {/* Padrão geométrico sutil - modo claro */}
-      <div
-        className="absolute inset-0 opacity-[0.03] dark:hidden z-0"
-        style={{
-          backgroundImage: 'url(\'/patterns/hero-network.svg\')',
-          backgroundRepeat: 'repeat',
-          backgroundSize: '400px',
-        }}
-      />
+      {/* Padrão da assinatura (código, redes, dados/GIS) */}
+      <SectionPattern />
       {/* Padrões abstratos emanando do lado direito - modo escuro */}
       <div
         className="absolute inset-0 opacity-[0.08] hidden dark:block z-0"
@@ -66,7 +60,10 @@ export default function Hero() {
           {/* Left content: text and buttons */}
           <div className="flex-1 text-center lg:text-left">
             <Reveal delayMs={0}>
-              <p className="text-lg font-medium text-primary mb-2">{t('hero.welcome')}</p>
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 mb-4 text-sm font-semibold text-primary backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                {t('hero.welcome')}
+              </span>
             </Reveal>
             <Reveal delayMs={80}>
               <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl" style={{ lineHeight: '1.3' }}>

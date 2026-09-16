@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
-import emailjs from '@emailjs/browser'; 
-import { Send, Loader2, CheckCircle2, AlertCircle, Phone, Mail, MapPin, Linkedin, Github, Facebook, Instagram } from 'lucide-react';
+import SectionPattern from '../components/SectionPattern';
+import emailjs from '@emailjs/browser';
+import { Send, Loader2, CheckCircle2, AlertCircle, Phone, Mail, MapPin, Linkedin, Github, Facebook, Instagram, Crosshair } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
 
 type SubmitStatus = 'idle' | 'loading' | 'success' | 'error';
@@ -102,6 +104,7 @@ export default function Contact() {
 
   return (
     <section id="contato" className="relative border-t border-border/70 bg-card/60 py-16 lg:py-24">
+      <SectionPattern />
       <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">        <SectionHeader eyebrow={t('eyebrow.contact')} title={t('contact.title')} subtitle={t('contact.subtitle')} />
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_1fr] justify-items-center lg:justify-items-stretch">
@@ -161,7 +164,7 @@ export default function Contact() {
                   <span className="text-sm">{t('contact.emailButton')}</span>
                 </button>
                 <button type="button" onClick={openWhatsApp} className="group inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background px-5 py-3 text-foreground font-medium transition-all duration-200 hover:border-primary/30 hover:bg-secondary">
-                  <img src="/icons/brands/whatsapp.svg" alt="WhatsApp" className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                  <FaWhatsapp size={18} className="text-[#25D366] transition-transform duration-300 group-hover:scale-110" />
                   <span className="text-sm">{t('contact.whatsappButton')}</span>
                 </button>
               </div>
@@ -244,12 +247,19 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Google Map */}
+        {/* Mapa geoespacial */}
         <Reveal delayMs={700}>
           <div className="mt-12 rounded-3xl border border-border/70 bg-card shadow-sm overflow-hidden">
-            <h4 className="text-xl font-bold text-primary p-5 bg-card text-center tracking-wide">
-              {t('contact.mapTitle')}
-            </h4>
+            <div className="flex flex-wrap items-center justify-between gap-3 p-5 bg-card">
+              <h4 className="inline-flex items-center gap-2 text-xl font-bold text-primary tracking-wide">
+                <Crosshair size={20} className="flex-shrink-0" />
+                {t('contact.mapTitle')}
+              </h4>
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-3 py-1.5 font-mono text-xs font-semibold text-primary">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+                -19.8428, 34.8480
+              </span>
+            </div>
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 title="Localização do Mauro Zibane"
@@ -261,6 +271,10 @@ export default function Contact() {
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
+              <span className="pointer-events-none absolute bottom-3 left-3 z-10 inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/90 px-3 py-1.5 text-xs font-semibold text-foreground shadow-sm backdrop-blur-sm">
+                <MapPin size={13} className="flex-shrink-0 text-primary" />
+                {t('contact.locationValue')}
+              </span>
             </div>
          </div>
         </Reveal>

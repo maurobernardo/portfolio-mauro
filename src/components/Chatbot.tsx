@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { MessageCircle, X } from 'lucide-react';
+import { X } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const WHATSAPP_PHONE = '258842767435';
@@ -116,7 +117,7 @@ export default function Chatbot() {
           title={t('popup.whatsappButton')}
           className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
         >
-          <MessageCircle size={26} />
+          <FaWhatsapp size={26} />
         </a>
       </div>
     </>

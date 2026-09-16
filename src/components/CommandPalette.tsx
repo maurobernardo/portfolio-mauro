@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Search, Home, User2, Wrench, Briefcase, Award, Mail, Download,
-  Github, Sun, Moon, MessageCircle, ArrowRight,
+  Github, Sun, Moon, ArrowRight,
 } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
 
 type Item = {
@@ -54,7 +55,7 @@ export default function CommandPalette() {
     { id: 'bioclean', label: 'BioClean Environment', group: t('cmdk.projects'), icon: <Briefcase size={16} />, action: () => window.open('https://bioclean-environment.vercel.app/pt', '_blank') },
 
     { id: 'cv', label: t('cmdk.actionDownloadCV'), group: t('cmdk.actions'), icon: <Download size={16} />, action: () => { close(); const a = document.createElement('a'); a.href = '/Mauro_ZibaneCV.pdf'; a.download = ''; a.click(); } },
-    { id: 'whatsapp', label: t('cmdk.actionWhatsApp'), group: t('cmdk.actions'), icon: <MessageCircle size={16} />, action: () => window.open('https://wa.me/258842767435', '_blank') },
+    { id: 'whatsapp', label: t('cmdk.actionWhatsApp'), group: t('cmdk.actions'), icon: <FaWhatsapp size={16} />, action: () => window.open('https://wa.me/258842767435', '_blank') },
     { id: 'github', label: t('cmdk.actionGithub'), group: t('cmdk.actions'), icon: <Github size={16} />, action: () => window.open('https://github.com/maurobernardo?tab=repositories', '_blank') },
     { id: 'theme', label: t('cmdk.actionToggleTheme'), group: t('cmdk.actions'), icon: <span className="relative flex h-4 w-4 items-center justify-center"><Sun size={14} className="absolute dark:hidden" /><Moon size={14} className="absolute hidden dark:block" /></span>, action: toggleTheme },
   ], [t]);

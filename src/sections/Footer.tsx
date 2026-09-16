@@ -1,4 +1,5 @@
 import { Facebook, Github, Linkedin, Instagram, Mail, Phone, MapPin, ArrowUp } from 'lucide-react';
+import SectionPattern from '../components/SectionPattern';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const quickLinks = [
@@ -23,7 +24,8 @@ export default function Footer() {
 
   return (
     <footer className="relative border-t border-border/70 bg-card/60">
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 py-12 lg:py-16">
+      <SectionPattern />
+      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 py-12 lg:py-16 relative z-10">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Github, Link2, ExternalLink, X, Target, Lightbulb, Quote } from 'lucide-react';
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
+import SectionPattern from '../components/SectionPattern';
 import { useLanguage } from '../contexts/LanguageContext';
 
 type FilterKey = 'all' | 'web' | 'mobile' | 'fullstack';
@@ -44,9 +45,10 @@ const FILTER_KEYS: Record<FilterKey, string> = {
 const projectsMeta: ProjectMeta[] = [
   {
     stack:    ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'PostgreSQL'],
+    link:     'https://dataportal.co.mz/',
     image:    '/Data.png',
     filter:   'fullstack',
-    status:   'dev',
+    status:   'live',
     category: 'Dados Abertos · Moçambique',
     caseStudy: true,
     placeholder: { gradient: 'from-[#001a30] to-[#003060]', iconColor: '#FF6B4A' },
@@ -60,6 +62,26 @@ const projectsMeta: ProjectMeta[] = [
     category: 'Agritech · Nampula',
     caseStudy: true,
     placeholder: { gradient: 'from-[#0a3a1a] to-[#1a7a43]', iconColor: '#FF6B4A' },
+  },
+  {
+    stack:    ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    link:     'https://antonio-inguane.vercel.app/',
+    image:    '/Antonio.png',
+    filter:   'web',
+    status:   'live',
+    category: 'Portefólio · Desenvolvimento Internacional',
+    caseStudy: true,
+    placeholder: { gradient: 'from-[#1a1200] to-[#3a2800]', iconColor: '#c89600' },
+  },
+  {
+    stack:    ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    link:     'https://ancapa-global.vercel.app/',
+    image:    '/ancapa.png',
+    filter:   'web',
+    status:   'live',
+    category: 'Investimento · Mercados Globais',
+    caseStudy: true,
+    placeholder: { gradient: 'from-[#0d1b2a] to-[#1a3a5c]', iconColor: '#0096ff' },
   },
   {
     stack:    ['Next.js', 'TypeScript', 'Framer Motion', 'next-intl', 'Tailwind CSS'],
@@ -80,14 +102,6 @@ const projectsMeta: ProjectMeta[] = [
     placeholder: { gradient: 'from-[#0d1b2a] to-[#1a3050]', iconColor: '#0096ff' },
   },
   {
-    stack:    ['React', 'TypeScript', 'Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
-    image:    '/UCM.png',
-    filter:   'fullstack',
-    status:   'private',
-    category: 'Educação · UCM',
-    placeholder: { gradient: 'from-[#0d1b2a] to-[#1a3a5c]', iconColor: '#0096ff' },
-  },
-  {
     stack:    ['Next.js', 'TypeScript', 'Tailwind CSS'],
     link:     'https://deyril-marlon.vercel.app/',
     image:    '/Deyril.png',
@@ -95,22 +109,6 @@ const projectsMeta: ProjectMeta[] = [
     status:   'live',
     category: 'Portefólio pessoal',
     placeholder: { gradient: 'from-[#1a1030] to-[#3a1a6a]', iconColor: '#a070ff' },
-  },
-  {
-    stack:    ['Laravel', 'PHP', 'MySQL', 'Tailwind CSS'],
-    image:    '/Feg.png',
-    filter:   'fullstack',
-    status:   'private',
-    category: 'Governo · FEG',
-    placeholder: { gradient: 'from-[#1a1200] to-[#3a2800]', iconColor: '#c89600' },
-  },
-  {
-    stack:    ['React Native', 'TypeScript', 'Expo'],
-    image:    '/Fin.jpg',
-    filter:   'mobile',
-    status:   'dev',
-    category: 'Fintech · Mobile',
-    placeholder: { gradient: 'from-[#001a2a] to-[#003a5a]', iconColor: '#00b4ff' },
   },
 ];
 
@@ -146,6 +144,7 @@ export default function Projects() {
 
   return (
     <section id="projetos" className="relative border-t border-border/70 bg-card/60 py-16 overflow-hidden lg:py-28">
+      <SectionPattern />
 
       {/* Orb de assinatura, único e discreto */}
       <div
@@ -203,7 +202,7 @@ export default function Projects() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 items-start sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {visible.map((p, i) => {
             const originalIdx = projectsMeta.indexOf(p);
             const title       = t(`projects.${originalIdx}.title`);
@@ -226,7 +225,7 @@ export default function Projects() {
                     rel="noreferrer"
                     className={[
                       'block relative overflow-hidden flex-shrink-0',
-                      isFeatured ? 'aspect-[16/7]' : 'aspect-[16/9]',
+                      isFeatured ? 'aspect-[21/10]' : 'aspect-[2/1]',
                     ].join(' ')}
                     aria-label={title}
                     onClick={(e) => { if (!p.link && !p.repo) e.preventDefault(); }}
@@ -239,7 +238,7 @@ export default function Projects() {
                       <img
                         src={p.image}
                         alt={title}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                         onError={(e) => {
                           const img = e.currentTarget as HTMLImageElement;
                           img.style.display = 'none';
@@ -280,7 +279,7 @@ export default function Projects() {
                       {title}
                     </h3>
 
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4">
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">
                       {description}
                     </p>
 
@@ -311,20 +310,20 @@ export default function Projects() {
                     )}
 
                     {/* Footer */}
-                    <div className="flex items-center justify-between pt-4 border-t border-border/60">
-                      <div className="flex items-center gap-4">
+                    <div className="mt-auto flex items-center justify-between gap-3 pt-4 border-t border-border/60">
+                      <div className="flex items-center gap-2">
                         {p.link && p.link !== '#' ? (
                           <a
                             href={p.link}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors duration-200 group/link"
+                            className="group/link inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-bold text-primary-foreground shadow-sm shadow-primary/20 transition-all duration-200 hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-md hover:shadow-primary/25"
                           >
                             <ExternalLink size={13} className="transition-transform duration-200 group-hover/link:-rotate-12" />
                             {t('projects.demo')}
                           </a>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground/40 cursor-default">
+                          <span className="inline-flex items-center gap-1.5 rounded-full border border-border/70 px-4 py-2 text-xs font-semibold text-muted-foreground/60 cursor-default">
                             <Link2 size={13} />
                             {p.status === 'private' ? t(STATUS_KEYS.private) : t('projects.comingSoon')}
                           </span>
@@ -335,15 +334,16 @@ export default function Projects() {
                             href={p.repo}
                             target="_blank"
                             rel="noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-primary transition-colors duration-200 group/link"
+                            aria-label={t('projects.code')}
+                            title={t('projects.code')}
+                            className="group/link inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border border-border text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary"
                           >
-                            <Github size={13} className="transition-transform duration-200 group-hover/link:scale-110" />
-                            {t('projects.code')}
+                            <Github size={14} className="transition-transform duration-200 group-hover/link:scale-110" />
                           </a>
                         )}
                       </div>
 
-                      <span className="text-[11px] font-bold text-muted-foreground/40 tabular-nums">
+                      <span className="text-[11px] font-bold text-muted-foreground/40 tabular-nums flex-shrink-0">
                         {String(originalIdx + 1).padStart(2, '0')}
                       </span>
                     </div>
