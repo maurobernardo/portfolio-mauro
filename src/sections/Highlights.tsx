@@ -21,11 +21,11 @@ const FILTERS: FilterKey[] = ['all', 'hackathon', 'talk', 'fair', 'award', 'cert
 
 // A ordem define os índices das chaves de tradução `highlights.N.*`.
 const highlightsData: { type: HighlightType; photos: string[] }[] = [
-  { type: 'hackathon', photos: ['/highlights/hackathon/1.jpg', '/highlights/hackathon/2.jpg', '/highlights/hackathon/3.jpg', '/highlights/hackathon/4.jpg', '/highlights/hackathon/5.jpg'] },
-  { type: 'talk', photos: ['/highlights/talk/1.jpg', '/highlights/talk/2.jpg'] },
-  { type: 'fair', photos: ['/highlights/feira/1.jpg', '/highlights/feira/2.jpg', '/highlights/feira/3.jpg', '/highlights/feira/4.jpg'] },
-  { type: 'award', photos: ['/highlights/award/1.jpg', '/highlights/award/2.jpg', '/highlights/award/3.jpg', '/highlights/award/4.jpg', '/highlights/award/5.jpg'] },
-  { type: 'certificate', photos: ['/highlights/certificate/1.jpg', '/highlights/certificate/2.jpg', '/highlights/certificate/3.jpg'] },
+  { type: 'hackathon', photos: ['/highlights/hackathon/1.webp', '/highlights/hackathon/2.webp', '/highlights/hackathon/3.webp', '/highlights/hackathon/4.webp', '/highlights/hackathon/5.webp'] },
+  { type: 'talk', photos: ['/highlights/talk/1.webp', '/highlights/talk/2.webp'] },
+  { type: 'fair', photos: ['/highlights/feira/1.webp', '/highlights/feira/2.webp', '/highlights/feira/3.webp', '/highlights/feira/4.webp'] },
+  { type: 'award', photos: ['/highlights/award/1.webp', '/highlights/award/2.webp', '/highlights/award/3.webp', '/highlights/award/4.webp', '/highlights/award/5.webp'] },
+  { type: 'certificate', photos: ['/highlights/certificate/1.webp', '/highlights/certificate/2.webp', '/highlights/certificate/3.webp'] },
 ];
 
 const ROTATE_MS = 3000;
@@ -192,10 +192,10 @@ export default function Highlights() {
           </div>
         </div>
 
-        <div className={pinned ? 'relative z-10' : 'relative z-10 overflow-x-auto pb-6 [scroll-snap-type:x_mandatory]'}>
+        <div className="relative z-10">
           <div
             ref={trackRef}
-            className="flex w-max items-center gap-6 px-[var(--gutter)] py-4 will-change-transform"
+            className={pinned ? 'flex w-max items-center gap-6 px-[var(--gutter)] py-4 will-change-transform' : 'mx-auto flex w-full max-w-[1320px] flex-col gap-5 px-[var(--gutter)] py-2'}
           >
             {visible.map((h, i) => (
               <HighlightCard
@@ -204,13 +204,16 @@ export default function Highlights() {
                 position={i + 1}
                 total={visible.length}
                 data={h}
-                active={!pinned || activeCard === i}
+                active={pinned && activeCard === i}
+                pinned={pinned}
                 onOpen={() => setOpenIdx(h.originalIndex)}
               />
             ))}
-            <div className="flex h-[min(46vh,420px)] w-[clamp(220px,24vw,320px)] flex-shrink-0 snap-center items-center pr-4">
-              <p className="font-serif text-4xl italic text-muted-foreground">{t('highlights.counting')}</p>
-            </div>
+            {pinned && (
+              <div className="flex h-[min(46vh,420px)] w-[clamp(220px,24vw,320px)] flex-shrink-0 items-center pr-4">
+                <p className="font-serif text-4xl italic text-muted-foreground">{t('highlights.counting')}</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -226,6 +229,7 @@ function HighlightCard({
   total,
   data,
   active,
+  pinned,
   onOpen,
 }: {
   index: number;
@@ -233,6 +237,7 @@ function HighlightCard({
   total: number;
   data: { type: HighlightType; photos: string[] };
   active: boolean;
+  pinned: boolean;
   onOpen: () => void;
 }) {
   const { t } = useLanguage();
@@ -251,12 +256,14 @@ function HighlightCard({
         }
       }}
       aria-label={`${t(`highlights.${index}.title`)}. ${t('highlights.viewDetails')}`}
-      className={`group relative flex h-[min(46vh,420px)] w-[clamp(300px,40vw,540px)] flex-shrink-0 cursor-pointer snap-center flex-col overflow-hidden rounded-[28px] border bg-card transition-all duration-700 ${
+      className={`group relative flex flex-shrink-0 cursor-pointer flex-col overflow-hidden rounded-[28px] border bg-card transition-all duration-700 ${
+        pinned ? 'h-[min(46vh,420px)] w-[clamp(300px,40vw,540px)]' : 'w-full'
+      } ${
         active ? '-translate-y-3 border-foreground/20 shadow-[0_40px_80px_-36px_rgba(0,0,0,0.45)]' : 'border-foreground/10 shadow-[0_10px_30px_-24px_rgba(0,0,0,0.3)]'
       }`}
       style={{ transitionTimingFunction: 'var(--ease)' }}
     >
-      <div className="relative min-h-0 flex-1 overflow-hidden">
+      <div className={`relative min-h-0 overflow-hidden ${pinned ? 'flex-1' : 'aspect-[4/3]'}`}>
         <PhotoStack photos={data.photos} index={photoIndex} className="h-full w-full transition-transform duration-[1200ms] group-hover:scale-[1.04]" />
         <StoryProgress count={data.photos.length} activeIndex={photoIndex} cardKey={`card-${index}`} />
         <span className="absolute right-3 top-8 inline-flex items-center gap-1 rounded-full bg-background/90 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground backdrop-blur-sm transition-colors duration-500 group-hover:bg-foreground group-hover:text-background">

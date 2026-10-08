@@ -192,7 +192,7 @@ export default function Contact() {
           </svg>
         </div>
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] items-stretch">
+        <div className="mt-8 grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] items-stretch">
           {/* Form card */}
           <form onSubmit={handleSubmit} noValidate className={`${contactCard} flex flex-col p-6 md:p-10`}>
             <div className="flex items-center justify-between gap-4">
@@ -309,7 +309,7 @@ export default function Contact() {
                   </span>
                   <div>
                     <p className="mz-tag">{t('contact.email')}</p>
-                    <a href="mailto:maurobernardozibane@gmail.com" className="font-bold text-lg text-foreground hover:text-primary transition-colors duration-300">maurobernardozibane@gmail.com</a>
+                    <a href="mailto:maurobernardozibane@gmail.com" className="break-all font-bold text-base sm:text-lg text-foreground hover:text-primary transition-colors duration-300">maurobernardozibane@gmail.com</a>
                   </div>
                 </div>
               </Reveal>

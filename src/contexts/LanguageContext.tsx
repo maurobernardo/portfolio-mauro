@@ -28,6 +28,10 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = language === 'pt' ? 'pt-PT' : 'en';
+  }, [language]);
+
   const setLanguage = (lang: Language) => {
     try {
       setLanguageState(lang);

@@ -94,9 +94,9 @@ export default function LanyardCard() {
                 <p className="mt-1 text-center text-[11px] leading-snug text-muted-foreground">{t('about.role')}</p>
                 <dl className="mt-3 w-full space-y-1 font-mono text-[10px] uppercase tracking-wide">
                   {rows.map(([k, v]) => (
-                    <div key={k} className="flex justify-between gap-3 border-b border-foreground/10 pb-1">
+                    <div key={k} className="flex items-start justify-between gap-3 border-b border-foreground/10 pb-1">
                       <dt className="text-muted-foreground">{k}</dt>
-                      <dd className="truncate text-right text-foreground">{v}</dd>
+                      <dd className="text-right leading-tight text-foreground">{v}</dd>
                     </div>
                   ))}
                 </dl>

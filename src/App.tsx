@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { LanguageProvider } from './contexts/LanguageContext';
+import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 import Chatbot from './components/Chatbot';
 import Hero from './sections/Hero';
@@ -13,6 +13,15 @@ import Contact from './sections/Contact';
 import Footer from './sections/Footer';
 import { scrollToTarget, useSmoothScroll } from './lib/scroll';
 
+function SkipLink() {
+  const { t } = useLanguage();
+  return (
+    <a href="#conteudo" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[100] focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
+      {t('a11y.skip')}
+    </a>
+  );
+}
+
 function App() {
   useSmoothScroll();
 
@@ -23,9 +32,7 @@ function App() {
   return (
     <LanguageProvider>
       <div className="min-h-screen bg-background text-foreground">
-        <a href="#conteudo" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[100] focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground">
-          Pular para o conteúdo
-        </a>
+        <SkipLink />
         <Navbar />
         <main id="conteudo">
           <Hero />

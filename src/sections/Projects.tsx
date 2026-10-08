@@ -48,7 +48,7 @@ export default function Projects() {
         <SectionHeader no="03" eyebrow={t('eyebrow.projects')} title={t('projects.title')} subtitle={t('projects.subtitle')} />
 
         <Reveal>
-          <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filtro de projetos">
+          <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label={t('a11y.filterProjects')}>
             {(Object.keys(FILTER_KEYS) as FilterKey[]).map((key) => (
               <button
                 key={key}

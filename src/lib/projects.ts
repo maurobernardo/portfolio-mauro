@@ -13,13 +13,13 @@ export type ProjectMeta = {
 
 // A ordem define os índices das chaves de tradução `projects.N.*`.
 export const projectsMeta: ProjectMeta[] = [
-  { stack: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'PostgreSQL'], link: 'https://dataportal.co.mz/', image: '/Data.png', filter: 'fullstack', status: 'live', caseStudy: true },
-  { stack: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'], link: 'https://agro-tech-mozambique.vercel.app/', image: '/Agro.png', filter: 'web', status: 'live', caseStudy: true },
-  { stack: ['Next.js', 'TypeScript', 'Tailwind CSS'], link: 'https://antonio-inguane.vercel.app/', image: '/Antonio.png', filter: 'web', status: 'live', caseStudy: true },
-  { stack: ['Next.js', 'TypeScript', 'Tailwind CSS'], link: 'https://ancapa-global.vercel.app/', image: '/ancapa.png', filter: 'web', status: 'live', caseStudy: true },
-  { stack: ['Next.js', 'TypeScript', 'Framer Motion', 'next-intl', 'Tailwind CSS'], link: 'https://bioclean-environment.vercel.app/pt', image: '/Bio.png', filter: 'web', status: 'live', caseStudy: true },
-  { stack: ['React', 'TypeScript', 'Tailwind CSS'], image: '/metri.png', filter: 'web', status: 'live' },
-  { stack: ['Next.js', 'TypeScript', 'Tailwind CSS'], link: 'https://deyril-marlon.vercel.app/', image: '/Deyril.png', filter: 'web', status: 'live' },
+  { stack: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'PostgreSQL'], link: 'https://dataportal.co.mz/', image: '/Data.webp', filter: 'fullstack', status: 'live', caseStudy: true },
+  { stack: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS'], link: 'https://agro-tech-mozambique.vercel.app/', image: '/Agro.webp', filter: 'web', status: 'live', caseStudy: true },
+  { stack: ['Next.js', 'TypeScript', 'Tailwind CSS'], link: 'https://antonio-inguane.vercel.app/', image: '/Antonio.webp', filter: 'web', status: 'live', caseStudy: true },
+  { stack: ['Next.js', 'TypeScript', 'Tailwind CSS'], link: 'https://ancapa-global.vercel.app/', image: '/ancapa.webp', filter: 'web', status: 'live', caseStudy: true },
+  { stack: ['Next.js', 'TypeScript', 'Framer Motion', 'next-intl', 'Tailwind CSS'], link: 'https://bioclean-environment.vercel.app/pt', image: '/Bio.webp', filter: 'web', status: 'live', caseStudy: true },
+  { stack: ['React', 'TypeScript', 'Tailwind CSS'], image: '/metri.webp', filter: 'web', status: 'live' },
+  { stack: ['Next.js', 'TypeScript', 'Tailwind CSS'], link: 'https://deyril-marlon.vercel.app/', image: '/Deyril.webp', filter: 'web', status: 'live' },
 ];
 
 export const iconMap: Record<string, string> = {

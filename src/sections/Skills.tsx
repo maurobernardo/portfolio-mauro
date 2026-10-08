@@ -51,7 +51,7 @@ export default function Skills() {
         <SectionHeader no="02" eyebrow={t('eyebrow.skills')} title={t('skills.title')} subtitle={t('skills.subtitle')} />
 
         <Reveal>
-          <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filtro por família">
+          <div className="mb-8 flex flex-wrap gap-2" role="group" aria-label={t('a11y.filterSkills')}>
             {(['all', ...FAMILIES] as const).map((f) => (
               <button
                 key={f}

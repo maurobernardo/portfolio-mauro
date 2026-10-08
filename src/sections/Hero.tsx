@@ -26,7 +26,7 @@ export default function Hero() {
       </span>
 
       <div className="relative z-10 mx-auto w-full max-w-[1320px] px-[var(--gutter)]">
-        <div className="flex flex-col-reverse items-center justify-between gap-12 lg:flex-row lg:gap-8">
+        <div className="flex flex-col-reverse items-center justify-between gap-9 lg:flex-row lg:gap-8">
           <div className="flex-1 text-center lg:text-left">
             <Reveal>
               <span className="mz-tag inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-card/60 px-4 py-2 backdrop-blur-sm">
@@ -101,8 +101,8 @@ export default function Hero() {
               <div className="relative overflow-hidden rounded-full border border-foreground/15 bg-card shadow-[0_40px_100px_-40px_rgba(0,0,0,0.35)]">
                 <img
                   src="/profile10.png"
-                  alt="Foto de perfil de Mauro Zibane"
-                  className="h-72 w-72 object-cover transition-transform duration-[1200ms] hover:scale-105 sm:h-80 sm:w-80 lg:h-[26rem] lg:w-[26rem]"
+                  alt={t('hero.photoAlt')}
+                  className="h-48 w-48 object-cover transition-transform duration-[1200ms] hover:scale-105 sm:h-80 sm:w-80 lg:h-[26rem] lg:w-[26rem]"
                   style={{ transitionTimingFunction: 'var(--ease)' }}
                 />
               </div>

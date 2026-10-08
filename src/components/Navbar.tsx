@@ -156,14 +156,14 @@ export default function Navbar() {
 
           <div className="hidden items-center gap-1 xl:flex">
             <CommandPalette />
-            <button aria-label="Mudar idioma" title={language === 'pt' ? 'Mudar para Inglês' : 'Switch to Portuguese'} onClick={toggleLanguage} className={`${iconBtn} font-mono text-[11px] font-bold`}>
+            <button aria-label={t('a11y.language')} title={t('a11y.languageTo')} onClick={toggleLanguage} className={`${iconBtn} font-mono text-[11px] font-bold`}>
               {language.toUpperCase()}
             </button>
-            <button aria-label="Alternar tema" onClick={toggleTheme} className={iconBtn}>
+            <button aria-label={t('a11y.theme')} onClick={toggleTheme} className={iconBtn}>
               {isDark ? <Sun size={17} /> : <Moon size={17} />}
             </button>
             <a href="#contato" className="group ml-1 inline-flex h-10 items-center gap-2 rounded-full bg-foreground pl-5 pr-2 text-sm font-semibold text-background transition-all duration-500 hover:pr-3">
-              Contactar
+              {t('nav.cta')}
               <span className="grid h-7 w-7 place-items-center rounded-full bg-background text-foreground transition-transform duration-500 group-hover:rotate-45">
                 <ArrowUpRight size={15} />
               </span>
@@ -171,10 +171,10 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-1 xl:hidden">
-            <button aria-label="Mudar idioma" onClick={toggleLanguage} className={`${iconBtn} font-mono text-[11px] font-bold`}>
+            <button aria-label={t('a11y.language')} onClick={toggleLanguage} className={`${iconBtn} font-mono text-[11px] font-bold`}>
               {language.toUpperCase()}
             </button>
-            <button aria-label="Alternar tema" onClick={toggleTheme} className={iconBtn}>
+            <button aria-label={t('a11y.theme')} onClick={toggleTheme} className={iconBtn}>
               {isDark ? <Sun size={17} /> : <Moon size={17} />}
             </button>
             <button

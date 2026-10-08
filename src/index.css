@@ -137,8 +137,8 @@
   0%, 100% { transform: translateY(0); }
   40% { transform: translateY(-0.22em); }
 }
-.mz-hop > span { display: inline-block; transition: transform 0.4s var(--ease); }
-.mz-hop > span:hover { animation: mz-hop 0.6s var(--ease); }
+.mz-hop > span > span { display: inline-block; transition: transform 0.4s var(--ease); }
+.mz-hop > span > span:hover { animation: mz-hop 0.6s var(--ease); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

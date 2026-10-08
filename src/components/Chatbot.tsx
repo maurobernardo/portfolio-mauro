@@ -45,7 +45,7 @@ export default function Chatbot() {
           className="fixed bottom-24 right-4 z-[70] w-[calc(100vw-2rem)] max-w-[380px] sm:bottom-28 sm:right-6"
           style={{ animation: `${closing ? 'mz-chat-out' : 'mz-chat-in'} 0.7s var(--ease) both` }}
         >
-          <div className="relative overflow-hidden rounded-[28px] border border-foreground/10 bg-card p-6 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.5)]">
+          <div className="relative overflow-hidden rounded-[28px] border border-foreground/10 bg-card p-5 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.5)]">
             <button
               onClick={handleClose}
               aria-label={t('popup.close')}
@@ -62,11 +62,11 @@ export default function Chatbot() {
               <p className="mz-tag">{t('popup.eyebrow')}</p>
             </div>
 
-            <h2 id="popup-title" className="mt-5 text-4xl font-bold leading-[0.95]">
+            <h2 id="popup-title" className="mt-4 text-3xl font-bold leading-[0.95] sm:text-4xl">
               <span className="font-serif font-normal italic text-muted-foreground">{t('popup.title')}</span>
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-foreground/85">{t('popup.message1')}</p>
-            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t('popup.message2')}</p>
+            <p className="mt-2 hidden text-sm leading-relaxed text-muted-foreground sm:block">{t("popup.message2")}</p>
 
             <div className="mt-6 flex items-center gap-2">
               <a

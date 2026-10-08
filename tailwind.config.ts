@@ -8,89 +8,30 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-hero': 'linear-gradient(135deg, hsl(var(--background)) 0%, #1a203e 100%)',
-      },
       keyframes: {
         fadeInUp: {
           '0%': { opacity: '0', transform: 'translateY(16px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-        fadeInLeft: {
-          '0%': { opacity: '0', transform: 'translateX(-24px)' },
-          '100%': { opacity: '1', transform: 'translateX(0)' },
-        },
-        fadeInRight: {
-          '0%': { opacity: '0', transform: 'translateX(24px)' },
-          '100%': { opacity: '1', transform: 'translateX(0)' },
-        },
-        floatY: {
-          '0%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-8px)' },
-          '100%': { transform: 'translateY(0)' },
-        },
-        morphBlob: {
-          '0%': {
-            borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%'
-          },
-          '50%': {
-            borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%'
-          },
-          '100%': {
-            borderRadius: '40% 60% 70% 30% / 40% 70% 30% 60%'
-          },
-        },
-        pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(255, 107, 74, 0.0)' },
-          '50%': { boxShadow: '0 0 0 6px rgba(255, 107, 74, 0.3)' },
-        },
-        typewriter: {
-          '0%': { width: '0%' },
-          '100%': { width: '100%' },
-        },
-        blink: {
-          '0%, 49%': { opacity: '1' },
-          '50%, 100%': { opacity: '0' },
-        },
         popupOverlayIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
-        },
-        popupOverlayOut: {
-          '0%': { opacity: '1' },
-          '100%': { opacity: '0' },
         },
         popupModalIn: {
           '0%': { opacity: '0', transform: 'translateY(24px) scale(0.94)' },
           '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
         },
-        popupModalOut: {
-          '0%': { opacity: '1', transform: 'translateY(0) scale(1)' },
-          '100%': { opacity: '0', transform: 'translateY(16px) scale(0.96)' },
-        },
-        popupShine: {
-          '0%': { transform: 'translateX(-120%)' },
-          '100%': { transform: 'translateX(120%)' },
-        },
       },
       animation: {
         'fade-in-up': 'fadeInUp 700ms ease-out forwards',
-        'fade-in-left': 'fadeInLeft 700ms ease-out forwards',
-        'fade-in-right': 'fadeInRight 700ms ease-out forwards',
-        'float': 'floatY 6s ease-in-out infinite',
         'spin-slow': 'spin 6s linear infinite',
-        'morph': 'morphBlob 8s ease-in-out infinite alternate',
-        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
-        typewriter: 'typewriter 1s steps(40, end) forwards',
-        blink: 'blink 750ms step-end infinite',
         'popup-overlay-in': 'popupOverlayIn 400ms ease-out forwards',
-        'popup-overlay-out': 'popupOverlayOut 280ms ease-in forwards',
         'popup-modal-in': 'popupModalIn 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
-        'popup-modal-out': 'popupModalOut 280ms ease-in forwards',
-        'popup-shine': 'popupShine 2.8s ease-in-out infinite',
       },
       fontFamily: {
+        serif: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
         sans: [
+          '"Inter Tight Variable"',
           "Inter",
           "ui-sans-serif",
           "system-ui",
@@ -108,6 +49,7 @@ export default {
           "Noto Color Emoji",
         ],
         mono: [
+          '"JetBrains Mono Variable"',
           "Fira Code",
           "ui-monospace",
           "SFMono-Regular",
@@ -153,20 +95,7 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        brand: {
-          DEFAULT: '#FF6B4A',
-          50: '#fff2ee',
-          100: '#ffe0d6',
-          200: '#ffc0ad',
-          300: '#ff9a7d',
-          400: '#ff8464',
-          500: '#FF6B4A',
-          600: '#e6532f',
-          700: '#c03f22',
-          800: '#98301a',
-          900: '#7a2817',
-          950: '#42130a',
-        },
+        brand: { 500: '#0d0d0d' },
       },
       borderRadius: {
         lg: "var(--radius)",

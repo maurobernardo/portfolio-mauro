@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
+import { projectsMeta } from '../lib/projects';
 
 type Item = {
   id: string;
@@ -50,9 +51,14 @@ export default function CommandPalette() {
     { id: 'momentos', label: t('highlights.title'), group: t('cmdk.sections'), icon: <Award size={16} />, action: () => goTo('#momentos') },
     { id: 'contato', label: t('nav.contact'), group: t('cmdk.sections'), icon: <Mail size={16} />, action: () => goTo('#contato') },
 
-    { id: 'dataportal', label: 'DataPortal-Data4Moz', group: t('cmdk.projects'), icon: <Briefcase size={16} />, action: () => goTo('#projetos') },
-    { id: 'agrotech', label: 'Agro Tech Mozambique', group: t('cmdk.projects'), icon: <Briefcase size={16} />, action: () => window.open('https://agro-tech-mozambique.vercel.app/', '_blank') },
-    { id: 'bioclean', label: 'BioClean Environment', group: t('cmdk.projects'), icon: <Briefcase size={16} />, action: () => window.open('https://bioclean-environment.vercel.app/pt', '_blank') },
+
+    ...projectsMeta.map((p, i) => ({
+      id: `project-${i}`,
+      label: t(`projects.${i}.title`),
+      group: t('cmdk.projects'),
+      icon: <Briefcase size={16} />,
+      action: () => (p.link ? window.open(p.link, '_blank') : goTo('#projetos')),
+    })),
 
     { id: 'cv', label: t('cmdk.actionDownloadCV'), group: t('cmdk.actions'), icon: <Download size={16} />, action: () => { close(); const a = document.createElement('a'); a.href = '/Mauro%20Zibane.pdf'; a.download = ''; a.click(); } },
     { id: 'whatsapp', label: t('cmdk.actionWhatsApp'), group: t('cmdk.actions'), icon: <FaWhatsapp size={16} />, action: () => window.open('https://wa.me/258842767435', '_blank') },
