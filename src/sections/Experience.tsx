@@ -55,33 +55,46 @@ export default function Experience() {
       <div className="relative z-10 mx-auto w-full max-w-[1320px] px-[var(--gutter)]">
         <SectionHeader no="05" eyebrow={t('eyebrow.experience')} title={t('experience.title')} subtitle={t('experience.subtitle')} />
 
-        <ol ref={listRef} className="relative mx-auto max-w-4xl pl-10 sm:pl-14">
-          <span aria-hidden="true" className="absolute bottom-0 left-[11px] top-2 w-px bg-foreground/10 sm:left-[15px]" />
+        <ol ref={listRef} className="relative mx-auto max-w-6xl [--yw:0px] sm:[--yw:190px] lg:[--yw:280px]">
+          <span aria-hidden="true" className="absolute bottom-0 left-[14px] top-2 w-px bg-foreground/10 sm:left-[calc(var(--yw)+14px)]" />
           <span
             aria-hidden="true"
-            className="absolute bottom-0 left-[11px] top-2 w-px origin-top bg-foreground sm:left-[15px]"
+            className="absolute bottom-0 left-[14px] top-2 w-px origin-top bg-foreground sm:left-[calc(var(--yw)+14px)]"
             style={{ transform: `scaleY(${progress})` }}
           />
 
           {stops.map((s, i) => {
             const lit = progress * stops.length >= i + 0.4;
+            const year = s.meta.match(/\d{4}/)?.[0] ?? s.meta;
+            const kind = t(s.kind === 'edu' ? 'experience.kindEdu' : 'experience.kindExp');
             return (
-              <li key={i} className="relative pb-12 last:pb-6">
+              <li key={i} className="relative grid gap-4 pb-16 pl-12 last:pb-8 sm:grid-cols-[var(--yw)_minmax(0,1fr)] sm:gap-0 sm:pl-0">
                 <span
                   aria-hidden="true"
-                  className={`absolute -left-10 top-1.5 h-[22px] w-[22px] rounded-full border-2 bg-background transition-all duration-700 sm:-left-14 sm:h-[30px] sm:w-[30px] ${
-                    lit ? 'scale-100 border-foreground bg-foreground' : 'border-foreground/20'
+                  className={`absolute left-0 top-3 h-[30px] w-[30px] rounded-full border-2 transition-all duration-700 sm:left-[var(--yw)] sm:top-5 ${
+                    lit ? 'border-foreground bg-foreground' : 'border-foreground/25 bg-background'
                   }`}
                   style={{ transitionTimingFunction: 'var(--ease)' }}
                 />
-                <Reveal>
-                  <div className={`transition-opacity duration-700 ${lit ? 'opacity-100' : 'opacity-50'}`}>
-                    <p className="mz-tag">
-                      {s.meta} · {t(s.kind === 'edu' ? 'experience.kindEdu' : 'experience.kindExp')}
-                    </p>
-                    <h3 className="mt-2 text-2xl font-bold leading-tight sm:text-3xl">{s.title}</h3>
-                    <p className="mt-1 text-sm font-medium text-muted-foreground">{s.place}</p>
-                    {s.detail && <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{s.detail}</p>}
+
+                {/* Ano em destaque */}
+                <Reveal className="sm:pr-10 sm:text-right">
+                  <p
+                    className={`text-6xl font-bold leading-[0.9] tracking-[-0.06em] transition-colors duration-700 sm:text-7xl lg:text-[7rem] ${
+                      lit ? 'text-foreground' : 'text-foreground/20'
+                    }`}
+                  >
+                    {year}
+                  </p>
+                  <p className="mz-tag mt-3">{s.meta}</p>
+                  <p className="mz-tag mt-1 text-foreground">{kind}</p>
+                </Reveal>
+
+                <Reveal delayMs={80}>
+                  <div className={`transition-opacity duration-700 sm:pl-12 sm:pt-3 ${lit ? 'opacity-100' : 'opacity-50'}`}>
+                    <h3 className="text-2xl font-bold leading-tight sm:text-3xl lg:text-4xl">{s.title}</h3>
+                    <p className="mt-2 text-sm font-medium text-muted-foreground">{s.place}</p>
+                    {s.detail && <p className="mt-4 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{s.detail}</p>}
                     {s.tags && (
                       <ul className="mt-4 flex flex-wrap gap-2">
                         {s.tags.map((tag) => (
@@ -97,10 +110,15 @@ export default function Experience() {
             );
           })}
 
-          <li className="relative">
-            <span aria-hidden="true" className="absolute -left-10 top-1.5 h-[22px] w-[22px] rounded-full border-2 border-dashed border-foreground/30 bg-background sm:-left-14 sm:h-[30px] sm:w-[30px]" />
-            <Reveal>
-              <a href="#contato" className="block rounded-[24px] border border-dashed border-foreground/25 p-6 transition-colors duration-500 hover:border-foreground hover:bg-card">
+          <li className="relative grid gap-4 pl-12 sm:grid-cols-[var(--yw)_minmax(0,1fr)] sm:gap-0 sm:pl-0">
+            <span aria-hidden="true" className="absolute left-0 top-3 h-[30px] w-[30px] rounded-full border-2 border-dashed border-foreground/30 bg-background sm:left-[var(--yw)] sm:top-5" />
+            <Reveal className="sm:pr-10 sm:text-right">
+              <p className="text-6xl font-bold leading-[0.9] tracking-[-0.06em] text-foreground/20 sm:text-7xl lg:text-[7rem]">
+                <span className="font-serif font-normal italic">→</span>
+              </p>
+            </Reveal>
+            <Reveal delayMs={80}>
+              <a href="#contato" className="block rounded-[24px] border border-dashed border-foreground/25 p-6 transition-colors duration-500 hover:border-foreground hover:bg-card sm:ml-12">
                 <p className="mz-tag">{t('experience.next')} —</p>
                 <p className="mt-2 text-2xl font-bold sm:text-3xl">
                   <span className="font-serif font-normal italic text-muted-foreground">{t('experience.nextTitle')}</span>

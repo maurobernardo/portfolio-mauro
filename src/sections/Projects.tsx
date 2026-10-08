@@ -142,67 +142,65 @@ function Panel({
         </span>
       </button>
 
-      {/* Painel aberto */}
-      <div
-        className={`h-full gap-6 p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:p-8 ${
-          isOpen ? 'grid animate-fade-in-up opacity-0' : 'hidden'
-        }`}
-        aria-hidden={!isOpen}
-      >
-        <div className="flex min-w-0 flex-col">
-          <p className="mz-tag">{pad(index)} — {t(`projects.${index}.category`)}</p>
-          <h3 className="mt-4 text-3xl font-bold leading-[1.02] lg:text-4xl">{title}</h3>
-          <span className="mz-tag mt-4 inline-flex items-center gap-2">
-            <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
-            {t(STATUS_KEYS[project.status])}
-          </span>
-          <p className="mt-5 text-sm leading-relaxed text-muted-foreground lg:text-[15px]">{t(`projects.${index}.description`)}</p>
-
-          <ul className="mt-5 flex flex-wrap gap-2">
-            {project.stack.map((tech) => (
-              <li key={tech} className="inline-flex items-center gap-1.5 rounded-full border border-foreground/10 bg-secondary px-3 py-1 text-[11px] font-medium">
-                {iconMap[tech] && <img src={iconMap[tech]} alt="" className="h-3 w-3 object-contain" />}
-                {tech}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-auto flex flex-wrap items-center gap-3 pt-6">
-            {project.link ? (
-              <a href={project.link} target="_blank" rel="noreferrer" tabIndex={isOpen ? 0 : -1} className="mz-btn mz-btn-primary">
-                <ExternalLink size={15} />
-                {t('projects.demo')}
-              </a>
-            ) : (
-              <span className="mz-btn border border-foreground/15 text-muted-foreground">
-                {project.status === 'private' ? t(STATUS_KEYS.private) : t('projects.comingSoon')}
-              </span>
-            )}
-            {project.repo && (
-              <a href={project.repo} target="_blank" rel="noreferrer" tabIndex={isOpen ? 0 : -1} className="mz-btn mz-btn-ghost">
-                <Github size={15} />
-                {t('projects.code')}
-              </a>
-            )}
-            {project.caseStudy && (
-              <button type="button" onClick={onCaseStudy} tabIndex={isOpen ? 0 : -1} className="mz-btn mz-btn-ghost">
-                <Lightbulb size={15} />
-                {t('projects.viewCaseStudy')}
-              </button>
-            )}
-          </div>
-        </div>
-
-        <div className="relative hidden min-h-[280px] overflow-hidden rounded-[20px] border border-foreground/10 bg-secondary lg:block">
+      {/* Painel aberto: imagem inteira em cima, texto por baixo */}
+      <div className={`h-full flex-col gap-6 p-5 lg:p-7 ${isOpen ? 'flex animate-fade-in-up opacity-0' : 'hidden'}`} aria-hidden={!isOpen}>
+        <div className="overflow-hidden rounded-[20px] border border-foreground/10 bg-secondary p-3">
           {project.image && (
             <img
               key={isOpen ? 'open' : 'closed'}
               src={project.image}
               alt={title}
-              className="absolute inset-0 h-full w-full object-cover object-top"
+              className="mx-auto h-auto max-h-[300px] w-auto max-w-full rounded-xl border border-foreground/10 shadow-[0_20px_50px_-24px_rgba(0,0,0,0.5)]"
               style={isOpen ? { animation: 'mz-wipe 1s var(--ease) both' } : undefined}
             />
           )}
+        </div>
+
+        <div className="grid min-w-0 flex-1 gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
+          <div className="min-w-0">
+            <p className="mz-tag">{pad(index)} — {t(`projects.${index}.category`)}</p>
+            <h3 className="mt-3 text-3xl font-bold leading-[1.02] lg:text-4xl">{title}</h3>
+            <span className="mz-tag mt-3 inline-flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
+              {t(STATUS_KEYS[project.status])}
+            </span>
+          </div>
+
+          <div className="flex min-w-0 flex-col">
+            <p className="text-sm leading-relaxed text-muted-foreground">{t(`projects.${index}.description`)}</p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {project.stack.map((tech) => (
+                <li key={tech} className="inline-flex items-center gap-1.5 rounded-full border border-foreground/10 bg-secondary px-3 py-1 text-[11px] font-medium">
+                  {iconMap[tech] && <img src={iconMap[tech]} alt="" className="h-3 w-3 object-contain" />}
+                  {tech}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto flex flex-wrap items-center gap-3 pt-5">
+              {project.link ? (
+                <a href={project.link} target="_blank" rel="noreferrer" tabIndex={isOpen ? 0 : -1} className="mz-btn mz-btn-primary">
+                  <ExternalLink size={15} />
+                  {t('projects.demo')}
+                </a>
+              ) : (
+                <span className="mz-btn border border-foreground/15 text-muted-foreground">
+                  {project.status === 'private' ? t(STATUS_KEYS.private) : t('projects.comingSoon')}
+                </span>
+              )}
+              {project.repo && (
+                <a href={project.repo} target="_blank" rel="noreferrer" tabIndex={isOpen ? 0 : -1} className="mz-btn mz-btn-ghost">
+                  <Github size={15} />
+                  {t('projects.code')}
+                </a>
+              )}
+              {project.caseStudy && (
+                <button type="button" onClick={onCaseStudy} tabIndex={isOpen ? 0 : -1} className="mz-btn mz-btn-ghost">
+                  <Lightbulb size={15} />
+                  {t('projects.viewCaseStudy')}
+                </button>
+              )}
+            </div>
+          </div>
         </div>
       </div>
       <style>{`@keyframes mz-wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}`}</style>
