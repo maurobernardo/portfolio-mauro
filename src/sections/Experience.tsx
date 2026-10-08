@@ -1,255 +1,115 @@
-// Types removed - using translations instead
-
-const educationData = [
-  {
-    institution: "Universidade Católica de Moçambique",
-    periodKey: "education.0.period",
-  },
-];
-
-const experiencesData = [
-  {
-    translationKey: 'experience.4',
-    bulletCount: 1,
-  },
-  {
-    translationKey: 'experience.3',
-    bulletCount: 1,
-  },
-  {
-    translationKey: 'experience.0',
-    bulletCount: 1,
-  },
-  {
-    translationKey: 'experience.1',
-    bulletCount: 1,
-  },
-  {
-    translationKey: 'experience.2',
-    bulletCount: 1,
-  },
-];
-
-const ciscoCourseKeys = ['experience.cybersecurity', 'experience.ai', 'experience.dataScience', 'experience.hardware'];
-const awsCourseKeys = [
-  'experience.aws.compute',
-  'experience.aws.storage',
-  'experience.aws.cloud101',
-  'experience.aws.genai',
-  'experience.aws.ml',
-];
-
-import { PropsWithChildren, ReactNode } from 'react';
-import Reveal from "../components/Reveal";
-import SectionHeader from "../components/SectionHeader";
-import SectionPattern from "../components/SectionPattern";
-import { Award, MapPin, BookOpen, Briefcase } from "lucide-react";
+import { useRef } from 'react';
+import Reveal from '../components/Reveal';
+import SectionHeader from '../components/SectionHeader';
+import SectionPattern from '../components/SectionPattern';
+import { useScrollProgress } from '../lib/hooks';
 import { useLanguage } from '../contexts/LanguageContext';
 
+const ciscoCourseKeys = ['experience.cybersecurity', 'experience.ai', 'experience.dataScience', 'experience.hardware'];
+const awsCourseKeys = ['experience.aws.compute', 'experience.aws.storage', 'experience.aws.cloud101', 'experience.aws.genai', 'experience.aws.ml'];
+
+type Stop = {
+  kind: 'edu' | 'exp';
+  sort: number;
+  title: string;
+  meta: string;
+  place: string;
+  detail?: string;
+  tags?: string[];
+};
+
+/** Formação e experiência no mesmo caminho, por ordem cronológica. */
 export default function Experience() {
   const { t } = useLanguage();
+  const listRef = useRef<HTMLOListElement | null>(null);
+  const progress = useScrollProgress(listRef, 0.65);
+
+  const exp = (i: number, sort: number): Stop => {
+    const k = `experience.${i}`;
+    const loc = t(`${k}.location`);
+    return {
+      kind: 'exp',
+      sort,
+      title: t(`${k}.role`),
+      meta: t(`${k}.period`),
+      place: loc ? `${t(`${k}.company`)} · ${loc}` : t(`${k}.company`),
+      detail: t(`${k}.bullet0`),
+    };
+  };
+
+  const raw: Stop[] = [
+    { kind: 'edu', sort: 2023.0, title: t('education.0.degree'), meta: t('education.0.period'), place: t('education.0.institution'), detail: t('education.0.description') },
+    exp(0, 2023.9),
+    { kind: 'edu', sort: 2025.1, title: t('experience.ciscoCourses'), meta: '2025', place: t('experience.ciscoInstitution'), tags: ciscoCourseKeys.map((k) => t(k)) },
+    { kind: 'edu', sort: 2025.2, title: t('experience.awsCourses'), meta: '2025', place: t('experience.awsInstitution'), tags: awsCourseKeys.map((k) => t(k)) },
+    exp(2, 2026.0),
+    exp(1, 2026.05),
+    exp(3, 2026.3),
+    exp(4, 2026.5),
+  ];
+  const stops = raw.sort((a, b) => a.sort - b.sort);
+
   return (
-    <section id="experiencia" className="relative border-t border-border/70 bg-background py-16 lg:py-24">
+    <section id="experiencia" className="relative border-t border-border/70 py-[clamp(56px,8vh,96px)]">
       <SectionPattern />
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <SectionHeader eyebrow={t('eyebrow.experience')} title={t('experience.title')} subtitle={t('experience.subtitle')} />
+      <div className="relative z-10 mx-auto w-full max-w-[1320px] px-[var(--gutter)]">
+        <SectionHeader no="05" eyebrow={t('eyebrow.experience')} title={t('experience.title')} subtitle={t('experience.subtitle')} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-          {/* Coluna de Educação */}
-          <div>
-            <Reveal delayMs={160}>
-              <h3 className="text-xl font-bold tracking-tight text-foreground mb-8 text-center lg:text-left">{t('experience.education')}</h3>
-            </Reveal>
-            <ol className="relative border-l border-border ml-4 md:ml-12 lg:ml-0 lg:text-left">
-              {educationData.map((edu, i) => {
-                const degree = t(`education.${i}.degree`);
-                const institution = t(`education.${i}.institution`);
-                const period = t(`education.${i}.period`);
-                const description = t(`education.${i}.description`);
-                return (
-                  <TimelineItem key={i} delayMs={i * 100 + 200} icon={<BookOpen size={14} />} title={degree} meta={period}>
-                    <p className="text-sm text-muted-foreground">{institution}</p>
-                    <p className="mt-1.5 text-sm text-muted-foreground leading-relaxed">{description}</p>
-                  </TimelineItem>
-                );
-              })}
+        <ol ref={listRef} className="relative mx-auto max-w-4xl pl-10 sm:pl-14">
+          <span aria-hidden="true" className="absolute bottom-0 left-[11px] top-2 w-px bg-foreground/10 sm:left-[15px]" />
+          <span
+            aria-hidden="true"
+            className="absolute bottom-0 left-[11px] top-2 w-px origin-top bg-foreground sm:left-[15px]"
+            style={{ transform: `scaleY(${progress})` }}
+          />
 
-              <TimelineItem delayMs={300} icon={<Award size={14} />} title={t('experience.ciscoCourses')} meta="2025">
-                <p className="text-sm text-muted-foreground mb-3">{t('experience.ciscoInstitution')}</p>
-                <TagList items={ciscoCourseKeys.map((k) => t(k))} />
-              </TimelineItem>
-
-              <TimelineItem delayMs={360} icon={<Award size={14} />} title={t('experience.awsCourses')} meta="2025">
-                <p className="text-sm text-muted-foreground mb-3">{t('experience.awsInstitution')}</p>
-                <TagList items={awsCourseKeys.map((k) => t(k))} />
-              </TimelineItem>
-            </ol>
-          </div>
-
-          {/* Coluna de Experiência */}
-          <div>
-            <Reveal delayMs={240}>
-              <h3 className="text-xl font-bold tracking-tight text-foreground mb-8 text-center lg:text-left">{t('experience.experience')}</h3>
-            </Reveal>
-            <ol className="relative border-l border-border ml-4 md:ml-12 lg:ml-0 lg:text-left">
-              {experiencesData.map((exp, i) => {
-                const key = exp.translationKey;
-                const role = t(`${key}.role`);
-                const company = t(`${key}.company`);
-                const period = t(`${key}.period`);
-                const location = t(`${key}.location`);
-                const bullets = Array.from({ length: exp.bulletCount }, (_, idx) => t(`${key}.bullet${idx}`));
-                return (
-                  <TimelineItem key={i} delayMs={i * 100 + 280} icon={<Briefcase size={14} />} title={role} meta={period}>
-                    <p className="text-sm text-muted-foreground">{company}</p>
-                    {location && (
-                      <p className="mt-1 text-sm text-muted-foreground flex items-center gap-1">
-                        <MapPin size={13} /> {location}
-                      </p>
+          {stops.map((s, i) => {
+            const lit = progress * stops.length >= i + 0.4;
+            return (
+              <li key={i} className="relative pb-12 last:pb-6">
+                <span
+                  aria-hidden="true"
+                  className={`absolute -left-10 top-1.5 h-[22px] w-[22px] rounded-full border-2 bg-background transition-all duration-700 sm:-left-14 sm:h-[30px] sm:w-[30px] ${
+                    lit ? 'scale-100 border-foreground bg-foreground' : 'border-foreground/20'
+                  }`}
+                  style={{ transitionTimingFunction: 'var(--ease)' }}
+                />
+                <Reveal>
+                  <div className={`transition-opacity duration-700 ${lit ? 'opacity-100' : 'opacity-50'}`}>
+                    <p className="mz-tag">
+                      {s.meta} · {t(s.kind === 'edu' ? 'experience.kindEdu' : 'experience.kindExp')}
+                    </p>
+                    <h3 className="mt-2 text-2xl font-bold leading-tight sm:text-3xl">{s.title}</h3>
+                    <p className="mt-1 text-sm font-medium text-muted-foreground">{s.place}</p>
+                    {s.detail && <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-muted-foreground">{s.detail}</p>}
+                    {s.tags && (
+                      <ul className="mt-4 flex flex-wrap gap-2">
+                        {s.tags.map((tag) => (
+                          <li key={tag} className="rounded-full border border-foreground/10 bg-card px-3 py-1 text-xs font-medium">
+                            {tag}
+                          </li>
+                        ))}
+                      </ul>
                     )}
-                    <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
-                      {bullets.map((bullet, idx) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-primary" />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </TimelineItem>
-                );
-              })}
-            </ol>
-          </div>
-        </div>
-
-        {/* Certificações */}
-        <div id="certificados" className="mt-16 scroll-mt-24">
-          <SectionHeader eyebrow={t('eyebrow.certifications')} title={t('experience.certifications')} subtitle={t('experience.certificationsSubtitle')} />
-          <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {certificationsData.map((c, i) => {
-              const title = t(`certifications.${i}.title`);
-              const issuer = t(`certifications.${i}.issuer`);
-              const year = t(`certifications.${i}.year`);
-              const period = t(`certifications.${i}.period`);
-              const skills = Array.from({ length: c.skillCount }, (_, idx) => t(`certifications.${i}.skill${idx}`));
-              return (
-                <Reveal key={i} delayMs={i * 100 + 520}>
-                  <div className="group mz-card h-full flex flex-col overflow-hidden p-0">
-                    <div className="mz-card-hover-bg" />
-                    {c.image && (
-                      <div className="relative z-10 aspect-[16/10] w-full overflow-hidden border-b border-border/70 bg-primary/5">
-                        <img
-                          src={c.image}
-                          alt={title}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
-                    )}
-                    <div className="relative z-10 flex flex-1 flex-col p-5 md:p-6">
-                      <div className="mb-3 flex items-start gap-3 text-foreground">
-                        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
-                          <Award size={18} />
-                        </span>
-                        <div>
-                          <p className="font-bold text-lg leading-tight text-foreground group-hover:text-primary transition-colors duration-300">{title}</p>
-                          <p className="mt-1 text-sm text-muted-foreground">{issuer} · {year}</p>
-                        </div>
-                      </div>
-                      {period && (
-                        <p className="text-sm text-muted-foreground">{period}</p>
-                      )}
-                      {skills.length > 0 && <TagList items={skills} className="mt-4" />}
-                    </div>
                   </div>
                 </Reveal>
-              );
-            })}
-          </div>
-        </div>
+              </li>
+            );
+          })}
+
+          <li className="relative">
+            <span aria-hidden="true" className="absolute -left-10 top-1.5 h-[22px] w-[22px] rounded-full border-2 border-dashed border-foreground/30 bg-background sm:-left-14 sm:h-[30px] sm:w-[30px]" />
+            <Reveal>
+              <a href="#contato" className="block rounded-[24px] border border-dashed border-foreground/25 p-6 transition-colors duration-500 hover:border-foreground hover:bg-card">
+                <p className="mz-tag">{t('experience.next')} —</p>
+                <p className="mt-2 text-2xl font-bold sm:text-3xl">
+                  <span className="font-serif font-normal italic text-muted-foreground">{t('experience.nextTitle')}</span>
+                </p>
+              </a>
+            </Reveal>
+          </li>
+        </ol>
       </div>
     </section>
   );
 }
-
-function TimelineItem({
-  icon,
-  title,
-  meta,
-  delayMs = 0,
-  children,
-}: PropsWithChildren<{ icon: ReactNode; title: string; meta: string; delayMs?: number }>) {
-  return (
-    <li className="relative mb-8 ml-6">
-      <span className="absolute -left-3 flex h-6 w-6 items-center justify-center rounded-full bg-primary ring-8 ring-background">
-        <span className="text-primary-foreground">{icon}</span>
-      </span>
-      <Reveal delayMs={delayMs}>
-        <div className="group mz-card mz-card-sm">
-          <div className="mz-card-accent" />
-          <div className="mz-card-hover-bg" />
-          <div className="relative z-10">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-1 mb-1.5">
-              <h4 className="text-base font-bold text-foreground group-hover:text-primary transition-colors duration-300">{title}</h4>
-              <time className="text-xs font-medium text-muted-foreground flex-shrink-0">{meta}</time>
-            </div>
-            {children}
-          </div>
-        </div>
-      </Reveal>
-    </li>
-  );
-}
-
-function TagList({ items, className }: { items: string[]; className?: string }) {
-  return (
-    <div className={["flex flex-wrap gap-1.5", className ?? ''].join(' ')}>
-      {items.map((s, idx) => (
-        <span
-          key={idx}
-          className="inline-flex items-center rounded-full bg-secondary px-2.5 py-1 text-xs font-medium text-muted-foreground"
-        >
-          {s}
-        </span>
-      ))}
-    </div>
-  );
-}
-
-const certificationsData = [
-  {
-    year: "Jul 2025",
-    periodKey: "certifications.0.period",
-    skillCount: 4,
-    image: '/mpesa.jpg',
-  },
-  {
-    year: "2025",
-    periodKey: "certifications.1.period",
-    skillCount: 3,
-    image: '/cyber.jpg',
-  },
-  {
-    year: "2025",
-    periodKey: "certifications.2.period",
-    skillCount: 4,
-    image: '/ia2.jpg',
-  },
-  {
-    year: "2025",
-    periodKey: "certifications.3.period",
-    skillCount: 4,
-    image: '/Ciencia.jpg',
-  },
-  {
-    year: "2025",
-    periodKey: "certifications.4.period",
-    skillCount: 2,
-    image: '/Hardware.jpg',
-  },
-  {
-    year: "2024 - 2025",
-    periodKey: "certifications.5.period",
-    skillCount: 2,
-    image: '/strach.jpeg',
-  },
-];

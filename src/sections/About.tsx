@@ -1,78 +1,85 @@
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
 import SectionPattern from '../components/SectionPattern';
-import { MapPin, GraduationCap, Languages, BookOpen } from 'lucide-react';
+import LanyardCard from '../components/LanyardCard';
+import { MapPin, GraduationCap, Languages, Mail, BookOpen, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function About() {
   const { t } = useLanguage();
+
+  const facts = [
+    { Icon: MapPin, k: t('about.location'), v: t('about.locationValue') },
+    { Icon: GraduationCap, k: t('about.education'), v: t('about.educationValue') },
+    { Icon: Languages, k: t('about.languages'), v: t('about.languagesValue') },
+    { Icon: Mail, k: t('about.email'), v: 'maurobernardozibane@gmail.com' },
+  ];
+
   return (
-    <section id="sobre" className="relative border-t border-border/70 bg-background py-16 lg:py-24">
+    <section id="sobre" className="relative border-t border-border/70 py-[clamp(56px,8vh,96px)]">
       <SectionPattern />
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <SectionHeader eyebrow={t('eyebrow.about')} title={t('about.title')} subtitle={t('about.subtitle')} />
+      <div className="relative z-10 mx-auto w-full max-w-[1320px] px-[var(--gutter)]">
+        <SectionHeader no="01" eyebrow={t('eyebrow.about')} title={t('about.title')} subtitle={t('about.subtitle')} />
 
-        <div className="mx-auto max-w-3xl text-center">
-          <Reveal delayMs={160}>
-            <h3 className="text-2xl lg:text-3xl font-bold tracking-tight text-foreground">{t('about.name')}</h3>
-            <p className="mt-1.5 text-base font-semibold text-primary">{t('about.role')}</p>
-          </Reveal>
-
-          <Reveal delayMs={240}>
-            <div className="mt-6 space-y-4 text-left text-muted-foreground">
-              <p className="leading-relaxed">{t('about.text1')}</p>
-              <p className="leading-relaxed">{t('about.text2')}</p>
-              <p className="leading-relaxed">{t('about.text3')}</p>
-              <p className="leading-relaxed">{t('about.text4')}</p>
-            </div>
-          </Reveal>
-
-          <Reveal delayMs={320}>
-            <div className="mt-8">
-              <a href="#skills" className="group inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3 text-primary-foreground font-semibold shadow-sm transition-all hover:shadow-md hover:-translate-y-0.5">
-                {t('about.viewSkills')}
-                <svg className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </a>
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Informações pessoais: grid plano, sem card dentro de card */}
-        <div className="mx-auto mt-14 grid max-w-4xl gap-4 sm:grid-cols-3">
-          <Badge icon={<MapPin size={18} />} title={t('about.location')} value={t('about.locationValue')} delayMs={400} />
-          <Badge icon={<GraduationCap size={18} />} title={t('about.education')} value={t('about.educationValue')} delayMs={460} />
-          <Badge icon={<Languages size={18} />} title={t('about.languages')} value={t('about.languagesValue')} delayMs={520} />
-        </div>
-
-        {/* Citação — faixa discreta, não um segundo bloco de destaque */}
-        <Reveal delayMs={580}>
-          <div className="mx-auto mt-10 flex max-w-3xl items-start gap-4 rounded-2xl border border-border/70 bg-card px-6 py-5">
-            <BookOpen size={20} className="mt-0.5 flex-shrink-0 text-primary" strokeWidth={1.75} />
-            <div>
-              <p className="text-foreground italic leading-relaxed">{t('about.quote')}</p>
-              <p className="mt-2 text-sm font-semibold text-primary">{t('about.quoteAuthor')}</p>
-            </div>
+        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_320px_minmax(0,1fr)] lg:gap-14">
+          {/* Esquerda: texto */}
+          <div className="order-2 lg:order-1">
+            <Reveal>
+              <h3 className="text-3xl font-bold leading-tight lg:text-4xl">{t('about.name')}</h3>
+              <p className="mt-2 text-sm font-semibold text-muted-foreground">{t('about.role')}</p>
+            </Reveal>
+            <Reveal delayMs={80}>
+              <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-muted-foreground">
+                <p>{t('about.text1')}</p>
+                <p>{t('about.text2')}</p>
+                <p>{t('about.text3')}</p>
+                <p>{t('about.text4')}</p>
+              </div>
+            </Reveal>
+            <Reveal delayMs={140}>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a href="#skills" className="mz-btn mz-btn-primary">
+                  {t('about.viewSkills')}
+                  <ArrowRight size={16} />
+                </a>
+                <a href="/Mauro%20Zibane.pdf" download className="mz-btn mz-btn-ghost">{t('hero.downloadCV')} ↓</a>
+                <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="mz-btn mz-btn-ghost">GitHub</a>
+                <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="mz-btn mz-btn-ghost">LinkedIn</a>
+              </div>
+            </Reveal>
           </div>
-        </Reveal>
+
+          {/* Centro: cartão pendurado */}
+          <Reveal className="order-1 lg:order-2">
+            <LanyardCard />
+          </Reveal>
+
+          {/* Direita: factos rápidos + citação */}
+          <div className="order-3">
+            <Reveal>
+              <p className="mz-tag mb-4">{t('about.quickFacts')}</p>
+              <dl className="divide-y divide-foreground/10 rounded-[24px] border border-foreground/10 bg-card px-6">
+                {facts.map(({ Icon, k, v }) => (
+                  <div key={k} className="flex items-start gap-4 py-4">
+                    <Icon size={16} className="mt-1 flex-shrink-0 text-muted-foreground" />
+                    <div className="min-w-0">
+                      <dt className="mz-tag">{k}</dt>
+                      <dd className="mt-1 text-[15px] font-semibold leading-snug break-words">{v}</dd>
+                    </div>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+            <Reveal delayMs={120}>
+              <figure className="mt-6 rounded-[24px] bg-foreground p-6 text-background">
+                <BookOpen size={18} className="opacity-60" strokeWidth={1.75} />
+                <blockquote className="mt-3 font-serif text-xl italic leading-snug">{t('about.quote')}</blockquote>
+                <figcaption className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] opacity-60">{t('about.quoteAuthor')}</figcaption>
+              </figure>
+            </Reveal>
+          </div>
+        </div>
       </div>
     </section>
-  );
-}
-
-function Badge({ icon, title, value, delayMs = 0 }: { icon: React.ReactNode; title: string; value: string; delayMs?: number }) {
-  return (
-    <Reveal delayMs={delayMs}>
-      <div className="group flex items-start gap-3 rounded-xl border border-border/70 bg-card p-4 transition-all duration-200 hover:border-primary/30">
-        <span className="grid h-10 w-10 flex-shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
-          {icon}
-        </span>
-        <div className="min-w-0">
-          <p className="text-xs font-medium text-muted-foreground">{title}</p>
-          <p className="text-sm font-semibold leading-snug text-foreground">{value}</p>
-        </div>
-      </div>
-    </Reveal>
   );
 }

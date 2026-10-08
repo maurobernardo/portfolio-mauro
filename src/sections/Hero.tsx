@@ -1,156 +1,115 @@
-import { useEffect, useState } from 'react';
 import Reveal from '../components/Reveal';
 import SectionPattern from '../components/SectionPattern';
-import { Facebook, Linkedin, Github } from 'lucide-react';
+import { Facebook, Linkedin, Github, ArrowDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+
+const social = [
+  { href: 'https://www.facebook.com/mauroutall.mbz', label: 'Facebook', Icon: Facebook },
+  { href: 'https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/', label: 'LinkedIn', Icon: Linkedin },
+  { href: 'https://github.com/maurobernardo?tab=repositories', label: 'GitHub', Icon: Github },
+];
 
 export default function Hero() {
   const { t } = useLanguage();
-  const [isDark, setIsDark] = useState(true);
-  
-  useEffect(() => {
-    const checkTheme = () => {
-      const isDarkMode = document.documentElement.classList.contains('dark');
-      setIsDark(isDarkMode);
-    };
-    
-    checkTheme();
-    const observer = new MutationObserver(checkTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-    
-    return () => observer.disconnect();
-  }, []);
-  
-  
+
   return (
-    <section id="inicio" className="relative overflow-hidden min-h-screen flex items-start pt-16 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 lg:pb-20">
-      {/* Gradiente de fundo - Modo Claro: creme suave à esquerda para creme quente à direita */}
-      <div
-        className="absolute inset-0 z-0 dark:hidden"
-        style={{
-          background: 'linear-gradient(to right, rgba(250, 246, 238, 1) 0%, rgba(250, 244, 231, 0.85) 45%, rgba(251, 240, 217, 0.75) 100%)'
-        }}
-      />
-      {/* Gradiente de fundo idêntico às imagens - Modo Escuro: azul escuro para preto com padrões */}
-      <div
-        className="absolute inset-0 z-0 hidden dark:block"
-        style={{
-          background: 'linear-gradient(to right, rgb(26, 20, 15) 0%, rgb(16, 12, 9) 45%, rgb(6, 4, 3) 100%)'
-        }}
-      />
-      {/* Padrão da assinatura (código, redes, dados/GIS) */}
+    <section id="inicio" className="relative flex min-h-[100svh] items-center overflow-hidden pb-16 pt-28 lg:pb-20">
       <SectionPattern />
-      {/* Padrões abstratos emanando do lado direito - modo escuro */}
-      <div
-        className="absolute inset-0 opacity-[0.08] hidden dark:block z-0"
-        style={{
-          backgroundImage: 'radial-gradient(ellipse at right, rgba(255, 107, 74, 0.15) 0%, transparent 70%)',
-        }}
-      />
-      
-      {/* Glow único de assinatura, atrás da foto */}
-      <div className="absolute inset-0 z-0 opacity-15 dark:opacity-[0.07]">
-        <div className="absolute top-1/4 right-1/4 w-72 h-72 bg-primary rounded-full blur-3xl animate-pulse-glow" style={{ animationDuration: '6s' }} />
-      </div>
-      <div className="mx-auto w-full max-w-7xl px-4 md:px-8 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10">
-          {/* Left content: text and buttons */}
+
+      {/* Palavra fantasma, só contorno */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-1/2 z-0 -translate-y-1/2 select-none text-center text-[34vw] font-extrabold uppercase leading-none lg:text-[24vw]"
+        style={{ color: 'transparent', WebkitTextStroke: '1px hsl(var(--foreground) / 0.12)', letterSpacing: '-0.05em' }}
+      >
+        Mauro
+      </span>
+
+      <div className="relative z-10 mx-auto w-full max-w-[1320px] px-[var(--gutter)]">
+        <div className="flex flex-col-reverse items-center justify-between gap-12 lg:flex-row lg:gap-8">
           <div className="flex-1 text-center lg:text-left">
-            <Reveal delayMs={0}>
-              <span className="inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-4 py-1.5 mb-4 text-sm font-semibold text-primary backdrop-blur-sm">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            <Reveal>
+              <span className="mz-tag inline-flex items-center gap-2 rounded-full border border-foreground/15 bg-card/60 px-4 py-2 backdrop-blur-sm">
+                <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
                 {t('hero.welcome')}
               </span>
             </Reveal>
+
             <Reveal delayMs={80}>
-              <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl" style={{ lineHeight: '1.3' }}>
+              <h1 className="mt-6 text-5xl font-bold leading-[0.95] text-foreground sm:text-6xl lg:text-7xl xl:text-[5.5rem]">
                 {t('hero.greeting')}{' '}
-                <span className="text-primary">{t('hero.name')}</span>
+                <span className="font-serif font-normal italic text-muted-foreground" style={{ letterSpacing: '-0.02em' }}>
+                  {t('hero.name')}
+                </span>
               </h1>
             </Reveal>
-            <Reveal delayMs={120}>
-              <p className="mt-4 text-2xl font-semibold text-primary mx-auto lg:mx-0">
+
+            <Reveal delayMs={140}>
+              <p className="mx-auto mt-6 max-w-2xl text-xl font-semibold tracking-tight text-foreground lg:mx-0 lg:text-2xl">
                 {t('hero.role1')}
               </p>
             </Reveal>
-            <Reveal delayMs={160}>
-              <p className="mt-4 max-w-2xl text-xl text-muted-foreground mx-auto lg:mx-0">
+
+            <Reveal delayMs={200}>
+              <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-muted-foreground lg:mx-0 lg:text-lg">
                 {t('hero.description')}
               </p>
             </Reveal>
-            <Reveal delayMs={240}>
-              <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                <a href="/Mauro_ZibaneCV.pdf" download className="rounded-full bg-primary px-8 py-4 text-primary-foreground font-semibold shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl hover:-translate-y-px active:translate-y-px">
-                  {t('hero.downloadCV')}
-                </a>
-                <a href="#projetos" className="rounded-full border border-input px-8 py-4 font-semibold text-foreground transition-all hover:bg-muted hover:text-primary hover:shadow-sm hover:-translate-y-px">
+
+            <Reveal delayMs={260}>
+              <div className="mt-9 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                <a href="#projetos" className="mz-btn mz-btn-primary px-7 py-3.5">
                   {t('hero.viewWork')}
                 </a>
+                <a href="#contato" className="mz-btn mz-btn-ghost px-7 py-3.5">
+                  {t('nav.contact')}
+                </a>
+                <a href="/Mauro%20Zibane.pdf" download className="mz-btn mz-btn-ghost px-7 py-3.5">
+                  {t('hero.downloadCV')} ↓
+                </a>
               </div>
             </Reveal>
-            {/* Scroll Down Indicator */}
+
             <Reveal delayMs={320}>
-              <div className="mt-12 flex items-center justify-center lg:justify-start gap-2 text-primary">
-                <span className="h-8 w-8 flex items-center justify-center rounded-full border border-primary/40 text-sm animate-bounce">
-                  0
-                </span>
-                <span>{t('hero.scrollDown')}</span>
-              </div>
-            </Reveal>
-            {/* Social icons */}
-            <Reveal delayMs={400}>
-              <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-4">
-                <a href="https://www.facebook.com/mauroutall.mbz" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="Facebook">
-                  <Facebook size={20} className="text-primary group-hover:scale-110 transition-transform" />
-                </a>
-                <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="LinkedIn">
-                  <Linkedin size={20} className="text-primary group-hover:scale-110 transition-transform" />
-                </a>
-                <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="group flex h-10 w-10 items-center justify-center rounded-full border border-primary/40 hover:border-primary hover:shadow-md hover:shadow-primary/20 transition-all duration-300" aria-label="GitHub">
-                  <Github size={20} className="text-primary group-hover:scale-110 transition-transform" />
+              <div className="mt-10 flex flex-wrap items-center justify-center gap-5 lg:justify-start">
+                <div className="flex items-center gap-3">
+                  {social.map(({ href, label, Icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={label}
+                      className="grid h-11 w-11 place-items-center rounded-full border border-foreground/15 text-foreground transition-all duration-500 hover:-translate-y-0.5 hover:bg-foreground hover:text-background"
+                    >
+                      <Icon size={18} />
+                    </a>
+                  ))}
+                </div>
+                <a href="#sobre" className="mz-tag inline-flex items-center gap-2 transition-colors hover:text-foreground">
+                  <ArrowDown size={14} />
+                  {t('hero.scrollDown')}
                 </a>
               </div>
             </Reveal>
           </div>
 
-          {/* Right content: Photo / Avatar and vertical social bar */}
-          <div className="relative flex-shrink-0 mt-8 lg:mt-4">
-            {/* Photo / Avatar */}
-            <Reveal delayMs={480} className="relative z-10">
-              <div className="relative group">
-                <div className="absolute -inset-1.5 bg-primary rounded-full opacity-30 blur-md group-hover:opacity-50 transition-opacity duration-500"></div>
-                <div className="relative rounded-full border-4 border-primary/50 shadow-2xl shadow-primary/30 overflow-hidden">
+          <Reveal delayMs={160} className="relative flex-shrink-0">
+            <div className="relative">
+              <div className="absolute -inset-4 rounded-full border border-foreground/10" />
+              <div className="absolute -inset-10 rounded-full border border-dashed border-foreground/10" />
+              <div className="relative overflow-hidden rounded-full border border-foreground/15 bg-card shadow-[0_40px_100px_-40px_rgba(0,0,0,0.35)]">
                 <img
-                  src={isDark ? "/profile10.png" : "/profile10.png"}
+                  src="/profile10.png"
                   alt="Foto de perfil de Mauro Zibane"
-                    className="h-80 w-80 lg:h-96 lg:w-96 object-cover rounded-full transition-all duration-500 group-hover:scale-105"
-                  onError={(e) => {
-                    const img = e.currentTarget as HTMLImageElement;
-                    if (img.src.endsWith('/profile10.png') || img.src.endsWith('/profile10.png')) {
-                      img.onerror = null; // evita loop
-                      img.src = isDark ? '/profile10.png' : '/profile10.png';
-                    }
-                    else {
-                      img.style.display = 'none';
-                    }
-                  }}
+                  className="h-72 w-72 object-cover transition-transform duration-[1200ms] hover:scale-105 sm:h-80 sm:w-80 lg:h-[26rem] lg:w-[26rem]"
+                  style={{ transitionTimingFunction: 'var(--ease)' }}
                 />
-                </div>
               </div>
-            </Reveal>
-            {/* Abstract elements - for visual richness */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-30 animate-pulse-glow z-0">
-              <div className="h-full w-full rounded-full border border-primary/50 animate-morph-blob" />
             </div>
-            {/* Vertical Social Bar - REMOVIDO */}
-            {/* O conteúdo da barra social vertical foi removido como solicitado */}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
   );
 }
-

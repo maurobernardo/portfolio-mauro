@@ -54,7 +54,7 @@ export default function CommandPalette() {
     { id: 'agrotech', label: 'Agro Tech Mozambique', group: t('cmdk.projects'), icon: <Briefcase size={16} />, action: () => window.open('https://agro-tech-mozambique.vercel.app/', '_blank') },
     { id: 'bioclean', label: 'BioClean Environment', group: t('cmdk.projects'), icon: <Briefcase size={16} />, action: () => window.open('https://bioclean-environment.vercel.app/pt', '_blank') },
 
-    { id: 'cv', label: t('cmdk.actionDownloadCV'), group: t('cmdk.actions'), icon: <Download size={16} />, action: () => { close(); const a = document.createElement('a'); a.href = '/Mauro_ZibaneCV.pdf'; a.download = ''; a.click(); } },
+    { id: 'cv', label: t('cmdk.actionDownloadCV'), group: t('cmdk.actions'), icon: <Download size={16} />, action: () => { close(); const a = document.createElement('a'); a.href = '/Mauro%20Zibane.pdf'; a.download = ''; a.click(); } },
     { id: 'whatsapp', label: t('cmdk.actionWhatsApp'), group: t('cmdk.actions'), icon: <FaWhatsapp size={16} />, action: () => window.open('https://wa.me/258842767435', '_blank') },
     { id: 'github', label: t('cmdk.actionGithub'), group: t('cmdk.actions'), icon: <Github size={16} />, action: () => window.open('https://github.com/maurobernardo?tab=repositories', '_blank') },
     { id: 'theme', label: t('cmdk.actionToggleTheme'), group: t('cmdk.actions'), icon: <span className="relative flex h-4 w-4 items-center justify-center"><Sun size={14} className="absolute dark:hidden" /><Moon size={14} className="absolute hidden dark:block" /></span>, action: toggleTheme },
@@ -124,7 +124,7 @@ export default function CommandPalette() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Command palette"
-        className="hidden md:inline-flex items-center gap-2 rounded-2xl border border-primary/20 bg-background/65 px-3.5 h-12 text-sm text-muted-foreground shadow-sm transition-all duration-300 hover:bg-primary/10 hover:-translate-y-px"
+        className="hidden md:inline-flex items-center gap-2 rounded-full border border-transparent px-3.5 h-10 text-sm text-muted-foreground shadow-sm transition-all duration-300 hover:bg-foreground hover:text-background"
       >
         <Search size={16} />
         <kbd className="rounded-md border border-border bg-secondary px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">⌘K</kbd>

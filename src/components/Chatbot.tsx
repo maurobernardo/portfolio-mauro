@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { X } from 'lucide-react';
+import { ArrowUpRight, X } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -7,6 +7,7 @@ const WHATSAPP_PHONE = '258842767435';
 const WHATSAPP_MESSAGE =
   'Olá Mauro! Tenho uma ideia, projeto ou solução em mente e gostaria de conversar contigo.';
 
+/** Convite "Vamos conversar": cartão no canto, sem bloquear a página. */
 export default function Chatbot() {
   const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
@@ -15,97 +16,80 @@ export default function Chatbot() {
   const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
   useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 900);
+    const timer = setTimeout(() => setVisible(true), 3500);
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && handleClose();
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visible]);
 
   const handleClose = () => {
     setClosing(true);
     setTimeout(() => {
       setVisible(false);
       setClosing(false);
-    }, 280);
+    }, 450);
   };
 
   return (
     <>
       {visible && (
-        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6">
-          <button
-            type="button"
-            aria-label={t('popup.close')}
-            className={`absolute inset-0 bg-black/45 backdrop-blur-md ${
-              closing ? 'animate-popup-overlay-out' : 'animate-popup-overlay-in'
-            }`}
-            onClick={handleClose}
-          />
-
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="popup-title"
-            className={`relative w-full max-w-lg overflow-hidden rounded-[2rem] border border-primary/20 bg-card/90 shadow-[0_24px_80px_-12px_rgba(255,107,74,0.25)] backdrop-blur-2xl ${
-              closing ? 'animate-popup-modal-out' : 'animate-popup-modal-in'
-            }`}
-          >
-            <div className="pointer-events-none absolute -top-20 -right-16 h-48 w-48 rounded-full bg-[#FF6B4A]/15 blur-3xl" />
-            <div className="pointer-events-none absolute -bottom-16 -left-12 h-40 w-40 rounded-full bg-primary/10 blur-3xl" />
-
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              <div className="absolute inset-0 animate-popup-shine bg-gradient-to-r from-transparent via-primary/8 to-transparent" />
-            </div>
-
-            <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-[#FF6B4A] via-primary to-[#FF6B4A]/40" />
-
+        <aside
+          role="dialog"
+          aria-labelledby="popup-title"
+          className="fixed bottom-24 right-4 z-[70] w-[calc(100vw-2rem)] max-w-[380px] sm:bottom-28 sm:right-6"
+          style={{ animation: `${closing ? 'mz-chat-out' : 'mz-chat-in'} 0.7s var(--ease) both` }}
+        >
+          <div className="relative overflow-hidden rounded-[28px] border border-foreground/10 bg-card p-6 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.5)]">
             <button
               onClick={handleClose}
               aria-label={t('popup.close')}
-              className="absolute right-4 top-4 z-10 rounded-full border border-primary/15 bg-background/60 p-2 text-muted-foreground transition-all duration-300 hover:border-primary/30 hover:bg-background hover:text-primary hover:rotate-90"
+              className="absolute right-4 top-4 grid h-9 w-9 place-items-center rounded-full border border-foreground/15 text-muted-foreground transition-all duration-500 hover:rotate-90 hover:bg-foreground hover:text-background"
             >
-              <X size={18} />
+              <X size={16} />
             </button>
 
-            <div className="relative z-10 px-7 pb-7 pt-8 sm:px-9 sm:pb-9 sm:pt-10">
-              <div className="mb-6">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#FF6B4A]">
-                  {t('popup.eyebrow')}
-                </p>
-                <h2 id="popup-title" className="text-xl font-bold text-foreground sm:text-2xl">
-                  {t('popup.title')}
-                </h2>
-              </div>
+            <div className="flex items-center gap-3">
+              <span className="relative">
+                <img src="/profile10.png" alt="" className="h-12 w-12 rounded-full border border-foreground/15 object-cover" />
+                <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-card bg-foreground" />
+              </span>
+              <p className="mz-tag">{t('popup.eyebrow')}</p>
+            </div>
 
-              <div className="space-y-4">
-                <p className="animate-fade-in-up text-[15px] leading-relaxed text-foreground/90 sm:text-base [animation-delay:120ms] [animation-fill-mode:both] opacity-0">
-                  {t('popup.message1')}
-                </p>
-                <p className="animate-fade-in-up text-sm leading-relaxed text-muted-foreground sm:text-[15px] [animation-delay:220ms] [animation-fill-mode:both] opacity-0">
-                  {t('popup.message2')}
-                </p>
-              </div>
+            <h2 id="popup-title" className="mt-5 text-4xl font-bold leading-[0.95]">
+              <span className="font-serif font-normal italic text-muted-foreground">{t('popup.title')}</span>
+            </h2>
+            <p className="mt-4 text-[15px] leading-relaxed text-foreground/85">{t('popup.message1')}</p>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t('popup.message2')}</p>
 
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center animate-fade-in-up [animation-delay:320ms] [animation-fill-mode:both] opacity-0">
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={handleClose}
-                  className="group relative inline-flex w-full items-center justify-center overflow-hidden rounded-full bg-gradient-to-r from-primary to-primary/80 px-8 py-3.5 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/30 sm:flex-1"
-                >
-                  <span className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-[100%]" />
-                  <span className="relative">{t('popup.whatsappButton')}</span>
-                </a>
-                <button
-                  type="button"
-                  onClick={handleClose}
-                  className="inline-flex w-full items-center justify-center rounded-full border border-primary/15 bg-background/50 px-6 py-3.5 text-sm font-medium text-muted-foreground transition-all duration-300 hover:border-primary/25 hover:bg-background hover:text-foreground sm:w-auto"
-                >
-                  {t('popup.later')}
-                </button>
-              </div>
+            <div className="mt-6 flex items-center gap-2">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={handleClose}
+                className="group inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-sm font-semibold text-background transition-all duration-500 hover:-translate-y-0.5"
+              >
+                <FaWhatsapp size={17} />
+                {t('popup.whatsappButton')}
+                <ArrowUpRight size={15} className="transition-transform duration-500 group-hover:rotate-45" />
+              </a>
+              <button
+                type="button"
+                onClick={handleClose}
+                className="rounded-full border border-foreground/15 px-5 py-3.5 text-sm font-medium text-muted-foreground transition-all duration-500 hover:border-foreground hover:text-foreground"
+              >
+                {t('popup.later')}
+              </button>
             </div>
           </div>
-        </div>
+        </aside>
       )}
 
       <div className="fixed bottom-5 right-5 z-[60]">
@@ -115,11 +99,16 @@ export default function Chatbot() {
           rel="noreferrer"
           aria-label={t('popup.whatsappButton')}
           title={t('popup.whatsappButton')}
-          className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-primary/25 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          className="relative inline-flex h-14 w-14 items-center justify-center rounded-full bg-foreground text-background shadow-lg transition-all duration-500 hover:-translate-y-0.5"
         >
+          {!visible && <span className="absolute inset-0 rounded-full border border-foreground" style={{ animation: 'mz-ping 2.4s ease-out infinite' }} />}
           <FaWhatsapp size={26} />
         </a>
       </div>
+      <style>{`
+        @keyframes mz-chat-in{from{opacity:0;transform:translateY(28px) scale(.96)}to{opacity:1;transform:none}}
+        @keyframes mz-chat-out{from{opacity:1;transform:none}to{opacity:0;transform:translateY(20px) scale(.97)}}
+      `}</style>
     </>
   );
 }

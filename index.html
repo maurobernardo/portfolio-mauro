@@ -22,27 +22,27 @@
     <meta name="twitter:image" content="/profile.PNG" />
     <link rel="canonical" href="https://mauro-zibanee.vercel.app" />
     <title>Mauro Zibane - Software Engineer, Full-Stack, Networks and Systems, Data and GIS</title>
-    <meta name="theme-color" content="#faf3e8" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f0c0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0f0f0f" />
+    <meta name="color-scheme" content="light dark" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="manifest" href="/manifest.webmanifest" />
     <style>
-      html, body { background-color: #faf3e8; }
-      html.dark, html.dark body { background-color: #17120e; }
+      html, body { background-color: #f4f2ee; }
+      html.dark, html.dark body { background-color: #0f0f0f; }
     </style>
     <script>
       (() => {
         try {
           const saved = localStorage.getItem('theme');
-          const enable = saved ? saved === 'dark' : true; // Modo escuro como padrão
+          const enable = saved ? saved === 'dark' : true; // Escuro por padrão
           document.documentElement.classList.toggle('dark', enable);
         } catch {}
       })();
     </script>
   </head>
-  <body class="min-h-screen bg-background text-slate-900 dark:text-slate-100">
+  <body class="min-h-screen bg-background text-foreground">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
