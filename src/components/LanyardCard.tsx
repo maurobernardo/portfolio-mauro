@@ -42,14 +42,14 @@ export default function LanyardCard() {
   };
 
   const rows = [
-    [t('about.location'), t('about.locationValue')],
+    [t('about.location'), t('about.locationValue').split(',').slice(-2).join(',').trim()],
     [t('about.education'), t('about.educationValue')],
     [t('about.languages'), t('about.languagesValue')],
   ];
   const strap = `${t('about.name')} · ${t('about.role')} · `;
 
   return (
-    <div className="relative mx-auto h-[540px] w-[320px] max-w-full" onPointerMove={onMove}>
+    <div className="relative mx-auto h-[600px] w-[320px] max-w-full" onPointerMove={onMove}>
       <div ref={swingRef} className="absolute inset-x-0 top-0 mx-auto w-[300px]" style={{ transformOrigin: '50% 0' }}>
         {/* Fita */}
         <div className="relative mx-auto h-[56px] w-[30px] overflow-hidden bg-foreground">
@@ -75,7 +75,7 @@ export default function LanyardCard() {
           onKeyDown={onKey}
           onMouseEnter={() => setFlipped(true)}
           onMouseLeave={() => setFlipped(false)}
-          className="relative mx-auto h-[404px] w-[300px] cursor-pointer rounded-[24px] [perspective:1200px] focus-visible:outline-offset-4"
+          className="relative mx-auto h-[450px] w-[300px] cursor-pointer rounded-[24px] [perspective:1200px] focus-visible:outline-offset-4"
         >
           <div
             className="relative h-full w-full transition-transform duration-[900ms]"
@@ -87,8 +87,8 @@ export default function LanyardCard() {
                 {t('about.idBand')}
               </div>
               <div className="flex flex-1 flex-col items-center px-6 pt-5">
-                <div className="grid h-[164px] w-[136px] place-items-center rounded-full border border-foreground/15 bg-secondary p-1 shadow-[0_0_0_6px_hsl(var(--secondary))]">
-                  <img src="/profile10.png" alt={t('about.name')} className="h-[156px] w-[128px] rounded-full object-cover transition-transform duration-700 hover:scale-105" />
+                <div className="grid h-[148px] w-[124px] place-items-center rounded-full border border-foreground/15 bg-secondary p-1 shadow-[0_0_0_6px_hsl(var(--secondary))]">
+                  <img src="/profile10.png" alt={t('about.name')} className="h-[140px] w-[116px] rounded-full object-cover transition-transform duration-700 hover:scale-105" />
                 </div>
                 <p className="mt-4 text-center text-xl font-bold leading-tight tracking-tight">{t('about.name')}</p>
                 <p className="mt-1 text-center text-[11px] leading-snug text-muted-foreground">{t('about.role')}</p>
