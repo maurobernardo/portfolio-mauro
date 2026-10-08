@@ -29,6 +29,8 @@ const highlightsData: { type: HighlightType; photos: string[] }[] = [
 ];
 
 const ROTATE_MS = 3000;
+// Quanto scroll vertical é preciso por pixel de deslize horizontal (<1 = a galeria avança mais depressa que o scroll).
+const SCROLL_RATIO = 0.5;
 const pad = (n: number) => String(n).padStart(2, '0');
 
 function useAutoRotate(length: number, active: boolean) {
@@ -41,7 +43,7 @@ function useAutoRotate(length: number, active: boolean) {
   return [index, setIndex] as const;
 }
 
-function PhotoStack({ photos, index, className }: { photos: string[]; index: number; className?: string }) {
+function PhotoStack({ photos, index, className, fit = 'cover' }: { photos: string[]; index: number; className?: string; fit?: 'cover' | 'contain' }) {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -59,7 +61,7 @@ function PhotoStack({ photos, index, className }: { photos: string[]; index: num
           key={src}
           src={src}
           alt=""
-          className={`absolute inset-0 h-full w-full object-cover ease-out ${mounted ? 'transition-all duration-700' : ''}`}
+          className={`absolute inset-0 h-full w-full ${fit === 'contain' ? 'object-contain' : 'object-cover'} ease-out ${mounted ? 'transition-all duration-700' : ''}`}
           style={{ opacity: i === index ? 1 : 0, transform: i === index ? 'scale(1)' : 'scale(1.08)' }}
         />
       ))}
@@ -118,7 +120,14 @@ export default function Highlights() {
     };
     measure();
     window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
+    // Volta a medir quando a pista muda de tamanho (imagens, fontes, filtro)
+    const ro = new ResizeObserver(measure);
+    if (trackRef.current) ro.observe(trackRef.current);
+    document.fonts?.ready.then(measure);
+    return () => {
+      window.removeEventListener('resize', measure);
+      ro.disconnect();
+    };
   }, [pinned, filter]);
 
   useEffect(() => {
@@ -164,7 +173,7 @@ export default function Highlights() {
       id="momentos"
       ref={outerRef}
       className="relative border-t border-border/70"
-      style={pinned ? { height: `calc(100svh + ${travel}px)` } : undefined}
+      style={pinned ? { height: `calc(100svh + ${Math.round(travel * SCROLL_RATIO)}px)` } : undefined}
     >
       <div className={pinned ? 'sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden pt-24' : 'py-[clamp(56px,8vh,96px)]'}>
         <SectionPattern />
@@ -209,18 +218,63 @@ export default function Highlights() {
                 onOpen={() => setOpenIdx(h.originalIndex)}
               />
             ))}
-            {pinned && (
-              <div className="flex h-[min(46vh,420px)] w-[clamp(220px,24vw,320px)] flex-shrink-0 items-center pr-4">
-                <p className="font-serif text-4xl italic text-muted-foreground">{t('highlights.counting')}</p>
-              </div>
-            )}
           </div>
         </div>
       </div>
 
-      {openIdx !== null && <HighlightModal index={openIdx} data={highlightsData[openIdx]} onClose={() => setOpenIdx(null)} />}
+      {openIdx !== null && (() => {
+        const list = visible.map((h) => h.originalIndex);
+        const pos = Math.max(0, list.indexOf(openIdx));
+        const at = (d: number) => list[(pos + d + list.length) % list.length];
+        return (
+          <HighlightModal
+            index={openIdx}
+            data={highlightsData[openIdx]}
+            position={pos + 1}
+            total={list.length}
+            prevTitle={t(`highlights.${at(-1)}.title`)}
+            nextTitle={t(`highlights.${at(1)}.title`)}
+            onNav={(d) => setOpenIdx(at(d))}
+            onClose={() => setOpenIdx(null)}
+          />
+        );
+      })()}
     </section>
   );
+}
+
+/** Número que sobe até ao valor na primeira vez que o cartão aparece (easeOutQuart, 1,4 s). */
+function useCountUp(target: number, ref: React.RefObject<HTMLElement>) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !target) return;
+    if (prefersReducedMotion()) {
+      setValue(target);
+      return;
+    }
+    let raf = 0;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        obs.disconnect();
+        const start = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min(1, (now - start) / 1400);
+          setValue(Math.round(target * (1 - Math.pow(1 - p, 4))));
+          if (p < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.4 }
+    );
+    obs.observe(el);
+    return () => {
+      obs.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [target, ref]);
+  return value;
 }
 
 function HighlightCard({
@@ -242,10 +296,15 @@ function HighlightCard({
 }) {
   const { t } = useLanguage();
   const [photoIndex] = useAutoRotate(data.photos.length, true);
+  const ref = useRef<HTMLDivElement | null>(null);
   const Icon = TYPE_ICONS[data.type];
+  const date = t(`highlights.${index}.date`);
+  const years = date.match(/\d{4}/g);
+  const year = useCountUp(years ? Number(years[years.length - 1]) : 0, ref);
 
   return (
     <div
+      ref={ref}
       role="button"
       tabIndex={0}
       onClick={onOpen}
@@ -256,51 +315,103 @@ function HighlightCard({
         }
       }}
       aria-label={`${t(`highlights.${index}.title`)}. ${t('highlights.viewDetails')}`}
-      className={`group relative flex flex-shrink-0 cursor-pointer flex-col overflow-hidden rounded-[28px] border bg-card transition-all duration-700 ${
-        pinned ? 'h-[min(46vh,420px)] w-[clamp(300px,40vw,540px)]' : 'w-full'
+      className={`group relative flex flex-shrink-0 cursor-pointer overflow-hidden rounded-[28px] bg-card transition-all duration-700 ${
+        pinned ? 'h-[clamp(300px,46vh,400px)] w-[clamp(560px,52vw,680px)] flex-row' : 'w-full flex-col'
       } ${
-        active ? '-translate-y-3 border-foreground/20 shadow-[0_40px_80px_-36px_rgba(0,0,0,0.45)]' : 'border-foreground/10 shadow-[0_10px_30px_-24px_rgba(0,0,0,0.3)]'
+        active
+          ? '-translate-y-3 shadow-[0_44px_90px_-34px_rgba(0,0,0,0.55)] ring-1 ring-foreground/15'
+          : 'shadow-[0_14px_36px_-26px_rgba(0,0,0,0.4)] ring-1 ring-foreground/5'
       }`}
       style={{ transitionTimingFunction: 'var(--ease)' }}
     >
-      <div className={`relative min-h-0 overflow-hidden ${pinned ? 'flex-1' : 'aspect-[4/3]'}`}>
-        <PhotoStack photos={data.photos} index={photoIndex} className="h-full w-full transition-transform duration-[1200ms] group-hover:scale-[1.04]" />
+      {/* Fotografia em moldura */}
+      <div className={`relative flex-shrink-0 overflow-hidden ${pinned ? 'm-3 w-[42%] rounded-[20px]' : 'm-3 aspect-[4/3] rounded-[20px]'}`}>
+        <PhotoStack photos={data.photos} index={photoIndex} className="h-full w-full transition-transform duration-[1200ms] group-hover:scale-[1.05]" />
         <StoryProgress count={data.photos.length} activeIndex={photoIndex} cardKey={`card-${index}`} />
-        <span className="absolute right-3 top-8 inline-flex items-center gap-1 rounded-full bg-background/90 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground backdrop-blur-sm transition-colors duration-500 group-hover:bg-foreground group-hover:text-background">
+        <span className="absolute bottom-3 left-3 inline-flex items-center gap-1 rounded-full bg-background/90 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground backdrop-blur-sm transition-colors duration-500 group-hover:bg-foreground group-hover:text-background">
           <Maximize2 size={11} />
           {t('highlights.viewDetails')}
         </span>
       </div>
-      <div className="flex items-end justify-between gap-4 p-5">
-        <div className="min-w-0">
-          <p className="mz-tag inline-flex items-center gap-1.5">
-            <Icon size={12} />
-            {t(`highlights.type.${data.type}`)} · {t(`highlights.${index}.date`)}
-          </p>
-          <h3 className="mt-2 text-lg font-bold leading-tight sm:text-xl">{t(`highlights.${index}.title`)}</h3>
+
+      {/* Informação: etiqueta no topo, título em baixo e o ano em número gigante */}
+      <div className="relative flex min-w-0 flex-1 flex-col justify-between p-5 pt-3 sm:p-6 sm:pt-4">
+        <div className="flex items-start justify-between gap-3">
+          <span className="grid h-[72px] w-[72px] flex-shrink-0 place-items-center rounded-[22px] bg-secondary text-foreground">
+            <Icon size={28} strokeWidth={1.6} />
+          </span>
+          <span className="font-mono text-xs text-muted-foreground">
+            {pad(position)} / {pad(total)}
+          </span>
         </div>
-        <span className="flex-shrink-0 font-mono text-xs text-muted-foreground">
-          {pad(position)} / {pad(total)}
-        </span>
+
+        <div className="mt-4 flex items-end justify-between gap-3">
+          <div className="min-w-0">
+            <p className="mz-tag">{t(`highlights.type.${data.type}`)}</p>
+            <h3 className="mt-1.5 text-lg font-bold leading-tight sm:text-xl">{t(`highlights.${index}.title`)}</h3>
+            <p className="mt-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">{date}</p>
+          </div>
+          {years && (
+            <span
+              aria-label={years[years.length - 1]}
+              className="select-none font-bold leading-[0.8] tracking-[-0.06em] tabular-nums text-foreground/90 text-5xl sm:text-6xl"
+            >
+              {year || ''}
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
 }
 
-function HighlightModal({ index, data, onClose }: { index: number; data: { type: HighlightType; photos: string[] }; onClose: () => void }) {
+function HighlightModal({
+  index,
+  data,
+  position,
+  total,
+  nextTitle,
+  prevTitle,
+  onNav,
+  onClose,
+}: {
+  index: number;
+  data: { type: HighlightType; photos: string[] };
+  position: number;
+  total: number;
+  nextTitle: string;
+  prevTitle: string;
+  onNav: (dir: 1 | -1) => void;
+  onClose: () => void;
+}) {
   const { t } = useLanguage();
-  const [photoIndex, setPhotoIndex] = useAutoRotate(data.photos.length, true);
+  const [manual, setManual] = useState(false);
+  const [photoIndex, setPhotoIndex] = useAutoRotate(data.photos.length, !manual);
+  const yearRef = useRef<HTMLDivElement | null>(null);
   const Icon = TYPE_ICONS[data.type];
+  const date = t(`highlights.${index}.date`);
+  const years = date.match(/\d{4}/g);
+  const year = useCountUp(years ? Number(years[years.length - 1]) : 0, yearRef);
+  const count = data.photos.length;
 
-  const goPrev = () => setPhotoIndex((i) => (i - 1 + data.photos.length) % data.photos.length);
-  const goNext = () => setPhotoIndex((i) => (i + 1) % data.photos.length);
+  const go = (d: number) => {
+    setManual(true);
+    setPhotoIndex((i) => (i + d + count) % count);
+  };
+
+  useEffect(() => {
+    setManual(false);
+    setPhotoIndex(0);
+  }, [index, setPhotoIndex]);
 
   useEffect(() => {
     lockScroll(true);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') goPrev();
-      if (e.key === 'ArrowRight') goNext();
+      if (e.key === 'ArrowLeft') go(-1);
+      if (e.key === 'ArrowRight') go(1);
+      if (e.key === 'ArrowUp') onNav(-1);
+      if (e.key === 'ArrowDown') onNav(1);
     };
     window.addEventListener('keydown', onKey);
     return () => {
@@ -308,59 +419,115 @@ function HighlightModal({ index, data, onClose }: { index: number; data: { type:
       window.removeEventListener('keydown', onKey);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [count, onNav, onClose]);
 
-  const arrow =
-    'absolute top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-background/85 text-foreground backdrop-blur-sm transition-all hover:scale-110';
+  const round =
+    'grid h-11 w-11 flex-shrink-0 place-items-center rounded-full border border-foreground/15 bg-card transition-all duration-500 hover:bg-foreground hover:text-background';
+  const facts = [
+    [t('highlights.factType'), t(`highlights.type.${data.type}`)],
+    [t('highlights.factDate'), date],
+    [t('highlights.factPhotos'), String(count).padStart(2, '0')],
+  ];
 
   return (
-    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6">
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-6">
       <button type="button" aria-label="Close" className="absolute inset-0 bg-foreground/70 backdrop-blur-sm" onClick={onClose} />
-      <div role="dialog" aria-modal="true" className="relative max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-[28px] border border-foreground/10 bg-card shadow-2xl">
-        <div className="relative aspect-[4/3] w-full">
-          <PhotoStack photos={data.photos} index={photoIndex} className="h-full w-full" />
-          {data.photos.length > 1 && (
-            <>
-              <StoryProgress count={data.photos.length} activeIndex={photoIndex} cardKey="modal" />
-              <button onClick={goPrev} aria-label="Previous photo" className={`${arrow} left-3`}><ChevronLeft size={18} /></button>
-              <button onClick={goNext} aria-label="Next photo" className={`${arrow} right-3`}><ChevronRight size={18} /></button>
-            </>
+      <div
+        key={index}
+        role="dialog"
+        aria-modal="true"
+        aria-label={t(`highlights.${index}.title`)}
+        className="relative grid max-h-[92vh] w-full max-w-6xl grid-rows-[auto_minmax(0,1fr)] overflow-hidden rounded-[32px] border border-foreground/10 bg-card shadow-2xl lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:grid-rows-1"
+        style={{ animation: 'mz-modal-in 0.6s var(--ease) both' }}
+      >
+        {/* Galeria */}
+        <div className="flex min-h-0 flex-col gap-3 bg-secondary p-3">
+          <div className="relative min-h-[220px] flex-1 overflow-hidden rounded-[22px] bg-background/60 sm:min-h-[320px]">
+            <div className="absolute inset-0">
+              <PhotoStack photos={data.photos} index={photoIndex} fit="contain" className="h-full w-full" />
+            </div>
+            <StoryProgress count={count} activeIndex={photoIndex} cardKey={`modal-${index}`} />
+            <span className="absolute bottom-3 left-3 rounded-full bg-background/90 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider backdrop-blur-sm">
+              {String(photoIndex + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+            </span>
+            {count > 1 && (
+              <div className="absolute bottom-3 right-3 flex gap-2">
+                <button onClick={() => go(-1)} aria-label="Previous photo" className={round}>
+                  <ChevronLeft size={18} />
+                </button>
+                <button onClick={() => go(1)} aria-label="Next photo" className={round}>
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            )}
+          </div>
+
+          {count > 1 && (
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {data.photos.map((src, i) => (
+                <button
+                  key={src}
+                  onClick={() => {
+                    setManual(true);
+                    setPhotoIndex(i);
+                  }}
+                  aria-label={`Foto ${i + 1}`}
+                  aria-current={i === photoIndex}
+                  className={`relative h-16 w-24 flex-shrink-0 overflow-hidden rounded-xl transition-all duration-500 ${
+                    i === photoIndex ? 'ring-2 ring-foreground ring-offset-2 ring-offset-secondary' : 'opacity-50 hover:opacity-100'
+                  }`}
+                >
+                  <img src={src} alt="" className="h-full w-full object-cover" />
+                </button>
+              ))}
+            </div>
           )}
-          <button
-            onClick={onClose}
-            aria-label="Fechar"
-            className="absolute right-4 top-6 z-10 grid h-10 w-10 place-items-center rounded-full border border-foreground/15 bg-background/85 backdrop-blur-sm transition-all hover:rotate-90"
-          >
-            <X size={18} />
-          </button>
         </div>
 
-        {data.photos.length > 1 && (
-          <div className="flex gap-2 overflow-x-auto px-6 pb-1 pt-5">
-            {data.photos.map((src, i) => (
-              <button
-                key={src}
-                onClick={() => setPhotoIndex(i)}
-                aria-label={`Foto ${i + 1}`}
-                className={`relative h-14 w-14 flex-shrink-0 overflow-hidden rounded-xl border-2 transition-all duration-200 ${
-                  i === photoIndex ? 'border-foreground' : 'border-transparent opacity-60 hover:opacity-100'
-                }`}
-              >
-                <img src={src} alt="" className="h-full w-full object-cover" />
-              </button>
-            ))}
+        {/* Texto */}
+        <div className="flex min-h-0 flex-col">
+          <div className="flex items-center justify-between gap-4 p-6 pb-0 sm:p-8 sm:pb-0">
+            <p className="mz-tag inline-flex items-center gap-2">
+              <Icon size={13} />
+              {t(`highlights.type.${data.type}`)}
+            </p>
+            <button onClick={onClose} aria-label="Fechar" className={`${round} hover:rotate-90`}>
+              <X size={18} />
+            </button>
           </div>
-        )}
 
-        <div className="p-6 pt-4 sm:p-8">
-          <p className="mz-tag inline-flex items-center gap-1.5">
-            <Icon size={12} />
-            {t(`highlights.type.${data.type}`)} · {t(`highlights.${index}.date`)}
-          </p>
-          <h3 className="mb-4 mt-2 text-3xl font-bold">{t(`highlights.${index}.title`)}</h3>
-          <p className="text-sm leading-relaxed text-muted-foreground">{t(`highlights.${index}.description`)}</p>
+          <div className="min-h-0 flex-1 overflow-y-auto p-6 pt-4 sm:p-8 sm:pt-4">
+            <div ref={yearRef} className="select-none text-7xl font-bold leading-[0.8] tracking-[-0.06em] tabular-nums text-foreground/90 sm:text-8xl" aria-hidden="true">
+              {years ? year || '' : ''}
+            </div>
+            <h3 className="mt-6 text-3xl font-bold leading-[1.02] sm:text-4xl">{t(`highlights.${index}.title`)}</h3>
+            <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">{t(`highlights.${index}.description`)}</p>
+
+            <dl className="mt-7 divide-y divide-foreground/10 border-y border-foreground/10">
+              {facts.map(([k, v]) => (
+                <div key={k} className="flex items-baseline justify-between gap-4 py-3">
+                  <dt className="mz-tag">{k}</dt>
+                  <dd className="text-right text-sm font-semibold">{v}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* Navegação entre momentos */}
+          <div className="flex items-center justify-between gap-3 border-t border-foreground/10 p-4 sm:px-8">
+            <button onClick={() => onNav(-1)} aria-label={prevTitle} title={prevTitle} className={round}>
+              <ChevronLeft size={18} />
+            </button>
+            <p className="mz-tag text-center">
+              {String(position).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            </p>
+            <button onClick={() => onNav(1)} aria-label={nextTitle} title={nextTitle} className={round}>
+              <ChevronRight size={18} />
+            </button>
+          </div>
         </div>
       </div>
+      <style>{`@keyframes mz-modal-in{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}`}</style>
     </div>
   );
 }

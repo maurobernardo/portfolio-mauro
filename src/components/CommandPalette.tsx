@@ -129,11 +129,11 @@ export default function CommandPalette() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Command palette"
+        aria-label="Command palette" title="Search (Ctrl+K)"
         className="hidden md:inline-flex items-center gap-2 rounded-full border border-transparent px-3.5 h-10 text-sm text-muted-foreground shadow-sm transition-all duration-300 hover:bg-foreground hover:text-background"
       >
         <Search size={16} />
-        <kbd className="rounded-md border border-border bg-secondary px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">⌘K</kbd>
+        <kbd className="hidden xl:block rounded-md border border-border bg-secondary px-1.5 py-0.5 text-[10px] font-semibold text-muted-foreground">⌘K</kbd>
       </button>
 
       {open && (

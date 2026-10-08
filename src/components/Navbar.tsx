@@ -133,7 +133,7 @@ export default function Navbar() {
             </span>
           </a>
 
-          <nav aria-label="Global" className="relative hidden items-center xl:flex">
+          <nav aria-label="Global" className="relative hidden items-center lg:flex">
             {pill && (
               <span
                 className="absolute bottom-0 top-0 rounded-full bg-foreground transition-all duration-500"
@@ -145,7 +145,7 @@ export default function Navbar() {
                 key={s.href}
                 href={s.href}
                 ref={(el) => (linkRefs.current[s.id] = el)}
-                className={`group relative z-10 whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-medium transition-colors duration-500 ${
+                className={`group relative z-10 whitespace-nowrap rounded-full px-3 py-2.5 text-[13px] font-medium transition-colors duration-500 xl:px-4 xl:text-sm ${
                   active === s.id ? 'text-background' : 'text-foreground/70 hover:text-foreground'
                 }`}
               >
@@ -154,7 +154,7 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden items-center gap-1 xl:flex">
+          <div className="hidden items-center gap-1 lg:flex">
             <CommandPalette />
             <button aria-label={t('a11y.language')} title={t('a11y.languageTo')} onClick={toggleLanguage} className={`${iconBtn} font-mono text-[11px] font-bold`}>
               {language.toUpperCase()}
@@ -162,15 +162,15 @@ export default function Navbar() {
             <button aria-label={t('a11y.theme')} onClick={toggleTheme} className={iconBtn}>
               {isDark ? <Sun size={17} /> : <Moon size={17} />}
             </button>
-            <a href="#contato" className="group ml-1 inline-flex h-10 items-center gap-2 rounded-full bg-foreground pl-5 pr-2 text-sm font-semibold text-background transition-all duration-500 hover:pr-3">
-              {t('nav.cta')}
+            <a href="#contato" aria-label={t('nav.cta')} className="group ml-1 inline-flex h-10 items-center gap-2 rounded-full bg-foreground pl-2 pr-2 text-sm xl:pl-5 font-semibold text-background transition-all duration-500 hover:pr-3">
+              <span className="hidden xl:inline">{t('nav.cta')}</span>
               <span className="grid h-7 w-7 place-items-center rounded-full bg-background text-foreground transition-transform duration-500 group-hover:rotate-45">
                 <ArrowUpRight size={15} />
               </span>
             </a>
           </div>
 
-          <div className="flex items-center gap-1 xl:hidden">
+          <div className="flex items-center gap-1 lg:hidden">
             <button aria-label={t('a11y.language')} onClick={toggleLanguage} className={`${iconBtn} font-mono text-[11px] font-bold`}>
               {language.toUpperCase()}
             </button>
@@ -196,7 +196,7 @@ export default function Navbar() {
       {/* Overlay mobile: papel inteiro, revelado com clip-path */}
       <div
         aria-hidden={!open}
-        className="fixed inset-0 z-40 bg-background xl:hidden"
+        className="fixed inset-0 z-40 bg-background lg:hidden"
         style={{
           clipPath: open ? 'circle(150% at 92% 4%)' : 'circle(0% at 92% 4%)',
           transition: 'clip-path 0.8s var(--ease)',

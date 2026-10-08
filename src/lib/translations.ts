@@ -56,7 +56,9 @@ export const translations = {
     'contact.openMap': 'Abrir no mapa',
     'contact.copied': 'Copiado',
     'contact.sayHello': 'diz olá · diz olá · ',
-    'highlights.counting': 'e a contar →',
+    'highlights.factType': 'Tipo',
+    'highlights.factDate': 'Data',
+    'highlights.factPhotos': 'Fotografias',
     'certs.count': 'certificações',
     'certs.heading': 'Sempre a aprender.',
 
@@ -192,7 +194,7 @@ export const translations = {
     'highlights.3.date': 'Novembro, 2025',
     'highlights.3.description': 'Conquistei o segundo lugar no concurso Tech Start da Vodacom, competindo com uma solução tecnológica inovadora.',
     'highlights.4.title': 'Certificação em Programação Scratch',
-    'highlights.4.date': 'Setembro de 2024 a Setembro de 2025',
+    'highlights.4.date': 'Recebido em 2026',
     'highlights.4.description': 'Recebi a certificação em Programação Visual do Scratch, após concluir o programa com foco em lógica de programação e desenvolvimento do pensamento computacional.',
 
     // Skills
@@ -385,7 +387,9 @@ export const translations = {
     'contact.openMap': 'Open in maps',
     'contact.copied': 'Copied',
     'contact.sayHello': 'say hello · say hello · ',
-    'highlights.counting': 'and counting →',
+    'highlights.factType': 'Type',
+    'highlights.factDate': 'Date',
+    'highlights.factPhotos': 'Photos',
     'certs.count': 'certifications',
     'certs.heading': 'Always learning.',
 
@@ -521,7 +525,7 @@ export const translations = {
     'highlights.3.date': 'November, 2025',
     'highlights.3.description': "Won second place at Vodacom's Tech Start competition, competing with an innovative technology solution.",
     'highlights.4.title': 'Scratch Programming Certification',
-    'highlights.4.date': 'September 2024 to September 2025',
+    'highlights.4.date': 'Received in 2026',
     'highlights.4.description': 'Received the Visual Programming certification from Scratch, after completing the programme focused on programming logic and computational thinking development.',
 
     // Skills
