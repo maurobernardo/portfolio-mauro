@@ -259,6 +259,10 @@ export const translations = {
     'projects.7.description': 'Portefólio de Paulo Macamo, engenheiro agrícola e mestrando na UFRPE (bolsista CAPES), dedicado ao estudo da água, do solo e dos sedimentos nas bacias do Recife.',
     'projects.8.title': 'Portefólio - Michel Domingos',
     'projects.8.description': 'Portefólio de Michel Domingos Nhampossa, estudante de Engenharia Eletrónica focado em energia, sistemas elétricos, automação e inovação.',
+    'projects.7.challenge': 'A investigação do Paulo sobre água, solo e sedimentos nas bacias do Recife não tinha um espaço único onde académicos, financiadores e colegas pudessem conhecer o seu perfil, a bolsa e o trabalho.',
+    'projects.7.approach': 'Construí um portefólio pessoal limpo e rápido, com Next.js e Tailwind CSS, que apresenta a formação, a área de investigação e o percurso académico em secções claras.',
+    'projects.8.challenge': 'O Michel, estudante de Engenharia Eletrónica, precisava de uma presença online profissional para mostrar o seu foco em energia, sistemas elétricos e automação a recrutadores e colaboradores.',
+    'projects.8.approach': 'Construí um portefólio pessoal responsivo em React, que organiza o perfil, os interesses e os projetos numa interface simples e moderna.',
 
     // Education
     'education.0.degree': 'Tecnologia de Informação',
@@ -596,6 +600,10 @@ export const translations = {
     'projects.7.description': 'Portfolio of Paulo Macamo, an agricultural engineer and UFRPE master’s student (CAPES scholar), dedicated to the study of water, soil and sediments in the Recife basins.',
     'projects.8.title': 'Portfolio - Michel Domingos',
     'projects.8.description': 'Portfolio of Michel Domingos Nhampossa, an Electronics Engineering student focused on energy, electrical systems, automation and innovation.',
+    'projects.7.challenge': 'Paulo’s research on water, soil and sediments in the Recife basins had no single place where academics, funders and peers could find his profile, scholarship and work.',
+    'projects.7.approach': 'I built a clean, fast personal portfolio with Next.js and Tailwind CSS that presents his background, research focus and academic path in clear sections.',
+    'projects.8.challenge': 'Michel, an Electronics Engineering student, needed a professional online presence to show his focus on energy, electrical systems and automation to recruiters and collaborators.',
+    'projects.8.approach': 'I built a responsive personal portfolio in React that organizes his profile, interests and projects into a simple, modern interface.',
 
     // Education
     'education.0.degree': 'Information Technology',
