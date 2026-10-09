@@ -229,6 +229,8 @@ export const translations = {
     'projects.4.category': 'Ambiente · Bilíngue PT/EN',
     'projects.5.category': 'Consultoria · MEAL',
     'projects.6.category': 'Portefólio pessoal',
+    'projects.7.category': 'Portefólio · Engenharia Agrícola',
+    'projects.8.category': 'Portefólio · Engenharia Eletrónica',
     'projects.0.title': 'DataPortal-Data4Moz',
     'projects.0.description': 'Plataforma de dados abertos e inteligência territorial que centraliza indicadores estatísticos, mapas geoespaciais e relatórios socioeconómicos para apoiar a tomada de decisões em Moçambique.',
     'projects.0.challenge': 'Os dados públicos sobre Moçambique existem, mas estão dispersos por relatórios em PDF, sites institucionais diferentes e formatos não padronizados, o que dificulta cruzar informação estatística, geoespacial e socioeconómica num único lugar.',
@@ -253,6 +255,10 @@ export const translations = {
     'projects.5.description': 'Plataforma web moderna e responsiva para uma consultora moçambicana de dados e sistemas MEAL. O site apresenta os serviços, a presença geográfica e a metodologia da empresa através de uma interface limpa, stack digital personalizada e um formulário de contacto funcional para potenciais clientes.',
     'projects.6.title': 'Portefólio Pessoal - Deyril Marlon',
     'projects.6.description': 'Portefólio pessoal moderno e interativo com suporte a múltiplos idiomas (PT/EN), modo escuro/claro e chatbot inteligente para responder perguntas sobre projetos e trajetória profissional.',
+    'projects.7.title': 'Portefólio - Paulo Macamo',
+    'projects.7.description': 'Portefólio de Paulo Macamo, engenheiro agrícola e mestrando na UFRPE (bolsista CAPES), dedicado ao estudo da água, do solo e dos sedimentos nas bacias do Recife.',
+    'projects.8.title': 'Portefólio - Michel Domingos',
+    'projects.8.description': 'Portefólio de Michel Domingos Nhampossa, estudante de Engenharia Eletrónica focado em energia, sistemas elétricos, automação e inovação.',
 
     // Education
     'education.0.degree': 'Tecnologia de Informação',
@@ -560,6 +566,8 @@ export const translations = {
     'projects.4.category': 'Environment · Bilingual PT/EN',
     'projects.5.category': 'Consulting · MEAL',
     'projects.6.category': 'Personal Portfolio',
+    'projects.7.category': 'Portfolio · Agricultural Engineering',
+    'projects.8.category': 'Portfolio · Electronics Engineering',
     'projects.0.title': 'DataPortal-Data4Moz',
     'projects.0.description': 'Open data and territorial intelligence platform that centralizes statistical indicators, geospatial maps and socioeconomic reports to support decision-making in Mozambique.',
     'projects.0.challenge': 'Public data about Mozambique exists, but it is scattered across PDF reports, different institutional websites and non-standardized formats, making it hard to cross-reference statistical, geospatial and socioeconomic information in one place.',
@@ -584,6 +592,10 @@ export const translations = {
     'projects.5.description': 'Modern and responsive web platform for a Mozambican MEAL data and systems consulting firm. The site presents the company\'s services, geographic presence and methodology through a clean interface, custom digital stack and a functional contact form for potential clients.',
     'projects.6.title': 'Personal Portfolio - Deyril Marlon',
     'projects.6.description': 'Modern and interactive personal portfolio with support for multiple languages (PT/EN), dark/light mode and intelligent chatbot to answer questions about projects and professional trajectory.',
+    'projects.7.title': 'Portfolio - Paulo Macamo',
+    'projects.7.description': 'Portfolio of Paulo Macamo, an agricultural engineer and UFRPE master’s student (CAPES scholar), dedicated to the study of water, soil and sediments in the Recife basins.',
+    'projects.8.title': 'Portfolio - Michel Domingos',
+    'projects.8.description': 'Portfolio of Michel Domingos Nhampossa, an Electronics Engineering student focused on energy, electrical systems, automation and innovation.',
 
     // Education
     'education.0.degree': 'Information Technology',

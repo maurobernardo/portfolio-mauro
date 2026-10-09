@@ -66,7 +66,7 @@ export default function Projects() {
         </Reveal>
 
         {/* Galeria acordeão */}
-        <div className="flex flex-col gap-3 lg:min-h-[min(78svh,640px)] lg:flex-row">
+        <div className="flex flex-col gap-3 xl:min-h-[min(78svh,640px)] xl:flex-row">
           {visible.map(({ p, i }) => (
             <Panel
               key={i}
@@ -116,7 +116,7 @@ function Panel({
   return (
     <article
       onMouseEnter={onOpen}
-      className={`relative min-h-[72px] overflow-hidden rounded-[28px] border bg-card transition-all duration-700 lg:min-h-0 lg:min-w-0 ${isOpen ? "lg:[flex:1_1_72px]" : "lg:[flex:0_0_72px]"} ${
+      className={`relative min-h-[64px] overflow-hidden rounded-[28px] border bg-card transition-all duration-700 xl:min-h-0 xl:min-w-0 ${isOpen ? "xl:[flex:1_1_64px]" : "xl:[flex:0_0_64px]"} ${
         isOpen ? 'border-foreground/20 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.4)]' : 'border-foreground/10'
       }`}
       style={{ transitionTimingFunction: 'var(--ease)' }}
@@ -128,14 +128,14 @@ function Panel({
         onFocus={onOpen}
         aria-expanded={isOpen}
         aria-label={title}
-        className={`group absolute inset-0 z-10 flex items-center justify-between p-5 text-left transition-opacity duration-500 lg:flex-col lg:justify-between lg:py-6 ${
+        className={`group absolute inset-0 z-10 flex items-center justify-between p-5 text-left transition-opacity duration-500 xl:flex-col xl:justify-between xl:py-6 ${
           isOpen ? 'pointer-events-none opacity-0' : 'opacity-100'
         }`}
       >
         <span className="font-mono text-xs text-muted-foreground">{pad(index)}</span>
-        <span className="truncate text-lg font-bold tracking-tight lg:text-xl">
-          <span className="hidden lg:inline-block [writing-mode:vertical-rl] [transform:rotate(180deg)]">{title}</span>
-          <span className="lg:hidden">{title}</span>
+        <span className="truncate text-lg font-bold tracking-tight xl:text-xl">
+          <span className="hidden xl:inline-block [writing-mode:vertical-rl] [transform:rotate(180deg)]">{title}</span>
+          <span className="xl:hidden">{title}</span>
         </span>
         <span className="grid h-9 w-9 place-items-center rounded-full border border-foreground/15 transition-transform duration-500 group-hover:rotate-90">
           <Plus size={16} />
@@ -143,7 +143,7 @@ function Panel({
       </button>
 
       {/* Painel aberto: imagem inteira em cima, texto por baixo */}
-      <div className={`h-full flex-col gap-6 p-5 lg:p-7 ${isOpen ? 'flex animate-fade-in-up opacity-0' : 'hidden'}`} aria-hidden={!isOpen}>
+      <div className={`h-full flex-col gap-6 p-5 xl:p-7 ${isOpen ? 'flex animate-fade-in-up opacity-0' : 'hidden'}`} aria-hidden={!isOpen}>
         <div className="overflow-hidden rounded-[20px] border border-foreground/10 bg-secondary p-3">
           {project.image && (
             <img

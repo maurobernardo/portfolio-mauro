@@ -20,6 +20,8 @@ export const projectsMeta: ProjectMeta[] = [
   { stack: ['Next.js', 'TypeScript', 'Framer Motion', 'next-intl', 'Tailwind CSS'], link: 'https://bioclean-environment.vercel.app/pt', image: '/Bio.webp', filter: 'web', status: 'live', caseStudy: true },
   { stack: ['React', 'TypeScript', 'Tailwind CSS'], image: '/metri.webp', filter: 'web', status: 'live' },
   { stack: ['Next.js', 'TypeScript', 'Tailwind CSS'], link: 'https://deyril-marlon.vercel.app/', image: '/Deyril.webp', filter: 'web', status: 'live' },
+  { stack: ['Next.js', 'Tailwind CSS'], image: '/paulo.webp', filter: 'web', status: 'live' },
+  { stack: ['React'], image: '/michel.webp', filter: 'web', status: 'live' },
 ];
 
 export const iconMap: Record<string, string> = {
@@ -32,6 +34,7 @@ export const iconMap: Record<string, string> = {
   'MySQL': '/icons/mysql.svg',
   'Laravel': '/icons/laravel.svg',
   'PHP': '/icons/php.svg',
+  'PostgreSQL': '/icons/postgresql.svg',
   'Framer Motion': '/icons/react.svg',
   'next-intl': '/icons/nextjs.svg',
 };
