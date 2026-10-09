@@ -6,10 +6,10 @@ import { prefersReducedMotion } from '../lib/hooks';
 import { lockScroll } from '../lib/scroll';
 import { useLanguage } from '../contexts/LanguageContext';
 
-type HighlightType = 'hackathon' | 'talk' | 'fair' | 'award' | 'certificate';
+export type HighlightType = 'hackathon' | 'talk' | 'fair' | 'award' | 'certificate';
 type FilterKey = 'all' | HighlightType;
 
-const TYPE_ICONS: Record<HighlightType, React.ElementType> = {
+export const TYPE_ICONS:Record<HighlightType, React.ElementType> = {
   hackathon: Code2,
   talk: Mic,
   fair: Store,
@@ -20,7 +20,7 @@ const TYPE_ICONS: Record<HighlightType, React.ElementType> = {
 const FILTERS: FilterKey[] = ['all', 'hackathon', 'talk', 'fair', 'award', 'certificate'];
 
 // A ordem define os índices das chaves de tradução `highlights.N.*`.
-const highlightsData: { type: HighlightType; photos: string[] }[] = [
+export const highlightsData:{ type: HighlightType; photos: string[] }[] = [
   { type: 'hackathon', photos: ['/highlights/hackathon/1.webp', '/highlights/hackathon/2.webp', '/highlights/hackathon/3.webp', '/highlights/hackathon/4.webp', '/highlights/hackathon/5.webp'] },
   { type: 'talk', photos: ['/highlights/talk/1.webp', '/highlights/talk/2.webp'] },
   { type: 'fair', photos: ['/highlights/feira/1.webp', '/highlights/feira/2.webp', '/highlights/feira/3.webp', '/highlights/feira/4.webp'] },

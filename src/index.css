@@ -147,3 +147,19 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Entrada depois do splash (classe posta por Splash.tsx) */
+.mz-enter #inicio { animation: mz-hero-in 1.5s var(--ease) both; }
+.mz-enter body header { animation: mz-nav-in 1.1s var(--ease) 0.35s both; }
+.mz-enter #inicio h1 { animation: mz-rise-in 1.1s var(--ease) 0.2s both; }
+.mz-enter #inicio h1 + * , .mz-enter #inicio p { animation: mz-rise-in 1.1s var(--ease) 0.35s both; }
+.mz-enter #inicio .mz-btn { animation: mz-rise-in 1s var(--ease) both; }
+.mz-enter #inicio .mz-btn:nth-child(1) { animation-delay: 0.5s; }
+.mz-enter #inicio .mz-btn:nth-child(2) { animation-delay: 0.58s; }
+.mz-enter #inicio .mz-btn:nth-child(3) { animation-delay: 0.66s; }
+.mz-enter #inicio .rounded-full.overflow-hidden img { animation: mz-photo-in 1.6s var(--ease) both; }
+@keyframes mz-hero-in { from { transform: scale(1.12); filter: blur(14px); opacity: 0.4; } to { transform: none; filter: none; opacity: 1; } }
+@keyframes mz-nav-in { from { transform: translateY(-120%); } to { transform: none; } }
+@keyframes mz-rise-in { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes mz-photo-in { from { transform: scale(1.5) rotate(-8deg); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .mz-enter * { animation: none !important; } }

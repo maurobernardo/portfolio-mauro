@@ -10,7 +10,7 @@ type Family = 'frontend' | 'backend' | 'fullstack' | 'gis';
 type Skill = { name: string; symbol: string; svg: string; family: Family; match: string };
 
 // Ordem = número atómico (1..n). Símbolo de 2 letras.
-const SKILLS: Skill[] = [
+export const SKILLS: Skill[] = [
   { name: 'Next.js', symbol: 'Nx', svg: '/icons/nextjs.svg', family: 'frontend', match: 'next' },
   { name: 'React Native', symbol: 'Rn', svg: '/icons/react.svg', family: 'frontend', match: 'react native' },
   { name: 'Angular', symbol: 'An', svg: '/icons/tech/angular.svg', family: 'frontend', match: 'angular' },

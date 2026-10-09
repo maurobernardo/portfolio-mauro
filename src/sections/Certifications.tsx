@@ -5,7 +5,7 @@ import SectionHeader from '../components/SectionHeader';
 import { lockScroll } from '../lib/scroll';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const certificationsData = [
+export const certificationsData = [
   { skillCount: 4, image: '/mpesa.webp' },
   { skillCount: 3, image: '/cyber.webp' },
   { skillCount: 4, image: '/ia2.webp' },
