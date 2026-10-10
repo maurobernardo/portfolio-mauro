@@ -8,9 +8,14 @@ export type BridgeItem = { kind: 'photo'; src: string } | { kind: 'icon'; src: s
  * Passagem entre secções controlada pelo scroll: os elementos da secção seguinte explodem do centro,
  * a frase cresce até a câmara "atravessar" as letras e tudo se dissolve no fundo.
  */
-export default function SectionBridge({ items, a, b, height = '170svh' }: { items: BridgeItem[]; a: string; b: string; height?: string }) {
+type Content = { items: BridgeItem[]; a: string; b: string };
+
+export default function SectionBridge({ items, a, b, back, height = '170svh' }: Content & { back?: Content; height?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [p, setP] = useState(0);
+  // Sentido da passagem: decidido quando se entra pela ponta de cima (a descer) ou de baixo (a subir).
+  const [up, setUp] = useState(false);
+  const lastP = useRef(0);
   const reduce = prefersReducedMotion();
 
   useEffect(() => {
@@ -21,8 +26,15 @@ export default function SectionBridge({ items, a, b, height = '170svh' }: { item
       if (!el) return;
       const r = el.getBoundingClientRect();
       // Só recalcula perto do ecrã.
-      if (r.bottom < -200 || r.top > window.innerHeight + 200) return;
-      setP(clamp(-r.top / (r.height - window.innerHeight)));
+      if (r.bottom < -200 || r.top > window.innerHeight + 200) {
+        lastP.current = r.bottom < 0 ? 1 : 0;
+        return;
+      }
+      const next = clamp(-r.top / (r.height - window.innerHeight));
+      if (lastP.current >= 1 && next < 1) setUp(true);
+      else if (lastP.current <= 0 && next > 0) setUp(false);
+      lastP.current = next;
+      setP(next);
     };
     const on = () => {
       cancelAnimationFrame(raf);
@@ -40,16 +52,18 @@ export default function SectionBridge({ items, a, b, height = '170svh' }: { item
 
   if (reduce) return null;
 
+  // A subir, mostra a secção de cima (para onde se vai), com a mesma coreografia ao contrário.
+  const show = up && back ? back : { items, a, b };
   const burst = out(seg(p, 0.05, 0.55));
   const through = inOut(seg(p, 0.6, 1));
-  const n = items.length;
+  const n = show.items.length;
 
   return (
     // A margem negativa sobrepõe o último ecrã da ponte ao início da secção seguinte:
     // quando a câmara atravessa as letras, o fundo fica transparente e a secção já está lá por baixo.
     <div ref={ref} className="pointer-events-none relative z-30" style={{ height, marginBottom: '-100svh' }} aria-hidden="true">
       <div className="sticky top-0 h-[100svh] overflow-hidden" style={{ background: `hsl(var(--background) / ${1 - seg(p, 0.55, 0.92)})` }}>
-        {items.map((it, i) => {
+        {show.items.map((it, i) => {
           // Ângulo de ouro: espalha os elementos de forma uniforme sem parecer grelha.
           const ang = i * 2.39996;
           const dist = (0.25 + ((i * 37) % 10) / 14) * burst;
@@ -88,9 +102,9 @@ export default function SectionBridge({ items, a, b, height = '170svh' }: { item
               opacity: seg(p, 0.08, 0.3) * (1 - seg(p, 0.8, 0.97)),
             }}
           >
-            {a}
+            {show.a}
             <br />
-            <span className="font-serif font-normal italic text-muted-foreground">{b}</span>
+            <span className="font-serif font-normal italic text-muted-foreground">{show.b}</span>
           </p>
         </div>
       </div>

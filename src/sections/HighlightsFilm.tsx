@@ -362,7 +362,13 @@ export default function HighlightsFilm() {
           />
         </Reveal>
       </div>
-      <SectionBridge items={allPhotos.map((src) => ({ kind: 'photo', src }))} a={t('film.bridgeA')} b={t('film.bridgeB')} height="220svh" />
+      <SectionBridge
+        items={allPhotos.map((src) => ({ kind: 'photo', src }))}
+        a={t('film.bridgeA')}
+        b={t('film.bridgeB')}
+        back={{ items: allPhotos.map((src) => ({ kind: 'photo', src })), a: t('bridge.backFilmA'), b: t('bridge.backFilmB') }}
+        height="220svh"
+      />
     </section>
   );
 }

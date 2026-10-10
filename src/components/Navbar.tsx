@@ -1,17 +1,17 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Moon, Sun, ArrowUpRight, Languages } from 'lucide-react';
+import { Moon, Sun, ArrowUpRight, User, Layers, FolderKanban, Award, Briefcase, Sparkles, Mail } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { lockScroll } from '../lib/scroll';
 import CommandPalette from './CommandPalette';
 
 const sections = [
-  { href: '#sobre', id: 'sobre', labelKey: 'nav.about' },
-  { href: '#skills', id: 'skills', labelKey: 'nav.skills' },
-  { href: '#projetos', id: 'projetos', labelKey: 'nav.projects' },
-  { href: '#certificados', id: 'certificados', labelKey: 'nav.certificates' },
-  { href: '#experiencia', id: 'experiencia', labelKey: 'nav.experience' },
-  { href: '#momentos', id: 'momentos', labelKey: 'nav.highlights' },
-  { href: '#contato', id: 'contato', labelKey: 'nav.contact' },
+  { href: '#sobre', id: 'sobre', labelKey: 'nav.about', Icon: User },
+  { href: '#skills', id: 'skills', labelKey: 'nav.skills', Icon: Layers },
+  { href: '#projetos', id: 'projetos', labelKey: 'nav.projects', Icon: FolderKanban },
+  { href: '#certificados', id: 'certificados', labelKey: 'nav.certificates', Icon: Award },
+  { href: '#experiencia', id: 'experiencia', labelKey: 'nav.experience', Icon: Briefcase },
+  { href: '#momentos', id: 'momentos', labelKey: 'nav.highlights', Icon: Sparkles },
+  { href: '#contato', id: 'contato', labelKey: 'nav.contact', Icon: Mail },
 ] as const;
 
 const EMAIL = 'maurobernardozibane@gmail.com';
@@ -145,11 +145,14 @@ export default function Navbar() {
                 key={s.href}
                 href={s.href}
                 ref={(el) => (linkRefs.current[s.id] = el)}
-                className={`group relative z-10 whitespace-nowrap rounded-full px-3 py-2.5 text-[13px] font-medium transition-colors duration-500 xl:px-4 xl:text-sm ${
+                className={`group relative z-10 whitespace-nowrap rounded-full px-2.5 py-2.5 text-[13px] font-medium transition-colors duration-500 xl:px-3 2xl:px-4 2xl:text-sm ${
                   active === s.id ? 'text-background' : 'text-foreground/70 hover:text-foreground'
                 }`}
               >
-                <Roll>{t(s.labelKey)}</Roll>
+                <span className="flex items-center gap-1.5">
+                  <s.Icon size={14} strokeWidth={1.8} className="hidden flex-shrink-0 transition-transform duration-500 group-hover:-rotate-12 group-hover:scale-110 xl:block" aria-hidden="true" />
+                  <Roll>{t(s.labelKey)}</Roll>
+                </span>
               </a>
             ))}
           </nav>
@@ -221,6 +224,7 @@ export default function Navbar() {
               >
                 <span className="flex items-baseline gap-4">
                   <span className="mz-tag">{String(i + 1).padStart(2, '0')}</span>
+                  <s.Icon className="h-7 w-7 flex-shrink-0 self-center opacity-60" strokeWidth={1.5} aria-hidden="true" />
                   {t(s.labelKey)}
                 </span>
                 <span className={`font-serif text-2xl italic ${active === s.id ? 'text-foreground' : 'text-transparent'}`}>●</span>

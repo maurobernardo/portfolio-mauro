@@ -71,15 +71,16 @@ export default function Contact() {
   const templateId = 'template_0pmbmx9'; 
   const publicKey = 'WYBtiSordr0Zt8IqY'; 
 
-  const sanitize = (s: string) => s.replace(/</g, '&lt;').replace(/>/g, '&gt;').trim();
+  // Sem trim aqui: corria a cada tecla e apagava os espaços (ex.: "Mauro Bernardo"). O trim é feito no envio.
+  const sanitize = (s: string) => s.replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
   const validate = () => {
     const next: Record<string, string> = {};
     if (!firstName.trim()) next.firstName = t('contact.nameError');
     if (!lastName.trim()) next.lastName = t('contact.lastNameError');
-    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
     if (!email.trim() || !emailOk) next.email = t('contact.emailError');
-    if (phone && !/^\+?[0-9\-()\s.]{6,}$/.test(phone)) next.phone = t('contact.phoneError');
+    if (phone.trim() && !/^\+?[0-9\-()\s.]{6,}$/.test(phone.trim())) next.phone = t('contact.phoneError');
     if (!message.trim()) next.message = t('contact.messageError');
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -91,10 +92,12 @@ export default function Contact() {
     setStatus('loading');
 
     const templateParams = {
-      user_name: `${firstName} ${lastName}`.trim(),
-      user_email: email,
+      user_name: `${firstName.trim()} ${lastName.trim()}`.trim(),
+      user_email: email.trim(),
       user_subject: topic ? `${topic} · Nova mensagem do portefólio` : 'Nova mensagem do portefólio', // Assunto padrão, pode ser um campo do form se desejar
-      user_message: message,
+      user_message: phone.trim() ? `${message.trim()}
+
+${t('contact.phone')}: ${phone.trim()}` : message.trim(),
     };
 
     try {
