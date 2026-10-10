@@ -2,6 +2,7 @@ import Reveal from '../components/Reveal';
 import SectionPattern from '../components/SectionPattern';
 import { Facebook, Linkedin, Github, ArrowDown } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useWelcomeVoice } from '../lib/voice';
 
 const social = [
   { href: 'https://www.facebook.com/mauroutall.mbz', label: 'Facebook', Icon: Facebook },
@@ -12,7 +13,8 @@ const social = [
 const outline = { color: 'transparent', WebkitTextStroke: '1px hsl(var(--foreground) / 0.14)' } as const;
 
 export default function Hero() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  useWelcomeVoice(language, t('voice.welcome'));
 
   return (
     <section id="inicio" className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pb-14 pt-24 lg:block lg:pb-0 lg:pt-0">

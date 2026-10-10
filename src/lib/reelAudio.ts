@@ -1,5 +1,5 @@
 /* Bandas sonoras geradas em tempo real (Web Audio): sem ficheiros.
-   'beat': pulso de synth a 120 bpm, hi-hats, teclado mecânico, whoosh e impacto (showreel).
+   'beat': arpejador de dados em ré dórico a 96 bpm, sub-grave, eco, glitches e quedas de grave (showreel).
    'memory': caixinha de música em arpejo, pad quente e estalidos de vinil (filme dos Highlights). */
 
 export type ReelAudio = {
@@ -55,22 +55,38 @@ export function createReelAudio(mood: Mood = 'beat'): ReelAudio {
     o.stop(t + 0.4);
   };
 
-  // Baixo em lá menor, uma nota por compasso.
-  const BASS = [55, 55, 43.65, 49];
-  const bass = (t: number, f: number) => {
+  // --- 'beat' (showreel): arpejador de "dados" em ré dórico, sub-grave, eco e glitches ---
+  const echo = ctx.createDelay(1);
+  echo.delayTime.value = 0.156 * 3; // três semicolcheias a 96 bpm
+  const echoFb = ctx.createGain();
+  echoFb.gain.value = 0.38;
+  const echoTone = ctx.createBiquadFilter();
+  echoTone.type = 'lowpass';
+  echoTone.frequency.value = 2200;
+  echo.connect(echoTone).connect(echoFb).connect(echo);
+  echoTone.connect(master);
+
+  const tone = (t: number, f: number, type: OscillatorType, peak: number, len: number, cutoff: number, wet = false) => {
     const o = ctx.createOscillator();
-    o.type = 'sawtooth';
+    o.type = type;
     o.frequency.value = f;
     const fl = ctx.createBiquadFilter();
     fl.type = 'lowpass';
-    fl.frequency.setValueAtTime(900, t);
-    fl.frequency.exponentialRampToValueAtTime(120, t + 0.4);
+    fl.frequency.setValueAtTime(cutoff, t);
+    fl.frequency.exponentialRampToValueAtTime(Math.max(80, cutoff / 6), t + len);
     const g = ctx.createGain();
-    env(g, t, 0.22, 0.01, 0.42);
+    env(g, t, peak, 0.003, len);
     o.connect(fl).connect(g).connect(master);
+    if (wet) g.connect(echo);
     o.start(t);
-    o.stop(t + 0.5);
+    o.stop(t + len + 0.05);
+    return o;
   };
+
+  // Ré dórico: D F A C E, e o baixo D · D · Bb · C.
+  const ARP_BEAT = [293.66, 349.23, 440, 523.25, 659.25, 523.25, 440, 349.23];
+  const SUB = [73.42, 73.42, 58.27, 65.41];
+  const blip = (t: number, f: number, peak = 0.06) => tone(t, f, 'sine', peak, 0.05, 6000, true);
 
   // --- 'memory' ---
   const bell = (t: number, f: number, peak: number, len: number) => {
@@ -114,7 +130,7 @@ export function createReelAudio(mood: Mood = 'beat'): ReelAudio {
   ];
   const ARP = [0, 1, 2, 3, 2, 1, 2, 3];
 
-  const STEP = mood === 'memory' ? 0.24 : 0.125; // colcheia a ~62 bpm / semicolcheia a 120 bpm
+  const STEP = mood === 'memory' ? 0.24 : 0.156; // colcheia a ~62 bpm / semicolcheia a 96 bpm
   let timer = 0;
   let step = 0;
   let next = 0;
@@ -133,10 +149,14 @@ export function createReelAudio(mood: Mood = 'beat'): ReelAudio {
         continue;
       }
       const s = step % 16;
-      if (s % 4 === 0) kick(next);
-      if (s % 2 === 0) bass(next, BASS[Math.floor(step / 16) % 4]);
-      if (s % 2 === 1) noiseHit(next, 'highpass', 8000, s % 4 === 3 ? 0.12 : 0.05, 0.05);
-      if (s === 4 || s === 12) noiseHit(next, 'bandpass', 1800, 0.25, 0.14, 0.8); // clap
+      const bar = Math.floor(step / 16) % 4;
+      if (s === 0 || s === 8) kick(next); // meio-tempo, mais cinematográfico
+      if (s === 14) tone(next, 110, 'sine', 0.35, 0.25, 400); // tom grave antes do compasso
+      if (s === 0) tone(next, SUB[bar], 'triangle', 0.3, STEP * 15, 300);
+      // Arpejo "de dados": pluck quadrado com eco; sobe uma oitava na segunda metade.
+      tone(next, ARP_BEAT[s % 8] * (bar >= 2 && s >= 8 ? 2 : 1), 'square', s % 4 === 0 ? 0.06 : 0.035, 0.14, 2600, true);
+      if (s % 4 === 2) blip(next, 2637, 0.025); // tique de relógio
+      if (s === 4 || s === 12) noiseHit(next, 'bandpass', 3200, 0.12, 0.06, 4); // snap seco
       next += STEP;
       step++;
     }
@@ -164,29 +184,33 @@ export function createReelAudio(mood: Mood = 'beat'): ReelAudio {
         return;
       }
       if (kind === 'hit') {
-        kick(t);
-        noiseHit(t, 'lowpass', 600, 0.6, 0.9);
+        // Queda de sub-grave + "ping" metálico.
+        const o = tone(t, 90, 'sine', 0.8, 1.2, 600);
+        o.frequency.exponentialRampToValueAtTime(28, t + 1.1);
+        tone(t, 1567.98, 'triangle', 0.08, 1.4, 5000, true);
         return;
       }
-      const fl = noiseHit(t, 'bandpass', 300, 0.35, 0.45, 2);
-      fl.frequency.exponentialRampToValueAtTime(5000, t + 0.4);
+      // Glitch: rajada de bips aleatórios e um varrimento a descer.
+      for (let i = 0; i < 6; i++) blip(t + i * 0.035, 1000 + Math.random() * 3000, 0.05);
+      const sw = tone(t, 1400, 'sawtooth', 0.12, 0.35, 3000);
+      sw.frequency.exponentialRampToValueAtTime(70, t + 0.35);
     },
     type(n) {
-      // Teclas mecânicas: cliques curtos com tempos irregulares.
       let t = ctx.currentTime;
       if (mood === 'memory') {
         // Projetor de película: tiques baixos e regulares.
         for (let i = 0; i < n * 2; i++) noiseHit(t + i * 0.09, 'bandpass', 1200, 0.06, 0.02, 2);
         return;
       }
+      // Bips de dados (tipo terminal), na escala do arpejo.
       for (let i = 0; i < n; i++) {
-        noiseHit(t, 'bandpass', 2500 + Math.random() * 2500, 0.3, 0.03, 3);
-        t += 0.05 + Math.random() * 0.07;
+        blip(t, ARP_BEAT[Math.floor(Math.random() * 5)] * 4, 0.04);
+        t += 0.045 + Math.random() * 0.05;
       }
     },
     close() {
       clearInterval(timer);
-      void ctx.close();
+      if (ctx.state !== 'closed') void ctx.close();
     },
   };
 }

@@ -155,7 +155,13 @@ export default function ReelPlayer({ scenes, label, tone = 'dark', mood = 'beat'
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sceneKey]);
 
-  useEffect(() => () => audioRef.current?.close(), []);
+  useEffect(
+    () => () => {
+      audioRef.current?.close();
+      audioRef.current = null;
+    },
+    []
+  );
 
   const toggleSound = () => {
     if (!audioRef.current) audioRef.current = createReelAudio(mood);

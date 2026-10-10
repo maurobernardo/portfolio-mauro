@@ -435,14 +435,15 @@ function HighlightModal({
       <div
         key={index}
         role="dialog"
+        data-lenis-prevent
         aria-modal="true"
         aria-label={t(`highlights.${index}.title`)}
-        className="relative grid max-h-[92vh] w-full max-w-6xl grid-rows-[auto_minmax(0,1fr)] overflow-hidden rounded-[32px] border border-foreground/10 bg-card shadow-2xl lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:grid-rows-1"
+        className="relative grid max-h-[92svh] w-full max-w-6xl grid-cols-[minmax(0,1fr)] overflow-y-auto overscroll-contain rounded-[28px] sm:rounded-[32px] lg:overflow-hidden border border-foreground/10 bg-card shadow-2xl lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:grid-rows-1"
         style={{ animation: 'mz-modal-in 0.6s var(--ease) both' }}
       >
         {/* Galeria */}
         <div className="flex min-h-0 flex-col gap-3 bg-secondary p-3">
-          <div className="relative min-h-[220px] flex-1 overflow-hidden rounded-[22px] bg-background/60 sm:min-h-[320px]">
+          <div className="relative h-[52svh] min-h-[280px] overflow-hidden rounded-[22px] bg-background/60 lg:h-auto lg:min-h-[320px] lg:flex-1">
             <div className="absolute inset-0">
               <PhotoStack photos={data.photos} index={photoIndex} fit="contain" className="h-full w-full" />
             </div>
@@ -496,7 +497,7 @@ function HighlightModal({
             </button>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-y-auto p-6 pt-4 sm:p-8 sm:pt-4">
+          <div className="p-6 pt-4 sm:p-8 sm:pt-4 lg:min-h-0 lg:flex-1 lg:overflow-y-auto">
             <div ref={yearRef} className="select-none text-7xl font-bold leading-[0.8] tracking-[-0.06em] tabular-nums text-foreground/90 sm:text-8xl" aria-hidden="true">
               {years ? year || '' : ''}
             </div>
