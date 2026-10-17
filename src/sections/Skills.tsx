@@ -3,7 +3,7 @@ import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
 import SectionPattern from '../components/SectionPattern';
 import { useInView } from '../lib/hooks';
-import { projectsMeta } from '../lib/projects';
+import { pk, projectsMeta } from '../lib/projects';
 import { useLanguage } from '../contexts/LanguageContext';
 
 type Family = 'frontend' | 'backend' | 'fullstack' | 'gis';
@@ -122,9 +122,9 @@ export default function Skills() {
               <p className="mz-tag mt-5">{t('skills.usedIn')}</p>
               {usedIn.length ? (
                 <ul className="mt-3 flex flex-wrap gap-2">
-                  {usedIn.map(({ i }) => (
+                  {usedIn.map(({ p, i }) => (
                     <li key={i} className="rounded-full border border-foreground/10 bg-secondary px-3 py-1 text-xs font-medium">
-                      {t(`projects.${i}.title`)}
+                      {t(`${pk(p)}.title`)}
                     </li>
                   ))}
                 </ul>

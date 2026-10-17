@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
-import { projectsMeta } from '../lib/projects';
+import { pk, projectsMeta } from '../lib/projects';
 
 type Item = {
   id: string;
@@ -54,7 +54,7 @@ export default function CommandPalette() {
 
     ...projectsMeta.map((p, i) => ({
       id: `project-${i}`,
-      label: t(`projects.${i}.title`),
+      label: t(`${pk(p)}.title`),
       group: t('cmdk.projects'),
       icon: <Briefcase size={16} />,
       action: () => (p.link ? window.open(p.link, '_blank') : goTo('#projetos')),

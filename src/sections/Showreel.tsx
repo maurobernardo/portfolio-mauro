@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { RotateCcw } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { iconMap, projectsMeta } from '../lib/projects';
+import { iconMap, pk, projectsMeta } from '../lib/projects';
 import { scrollToTarget } from '../lib/scroll';
 import Reveal from '../components/Reveal';
 import ReelPlayer, { inOut, out, pad, Rise, Scene, seg, useWide } from '../components/ReelPlayer';
@@ -10,7 +10,7 @@ const projects = projectsMeta.filter((p) => p.image);
 const stack = [...new Set(projectsMeta.flatMap((p) => p.stack))];
 const liveCount = projectsMeta.filter((p) => p.link).length;
 // Índices de projectsMeta por capítulo: dados, instituições, pessoas.
-const CHAPTERS = [[0, 5], [1, 3, 4], [2, 6, 7, 8]];
+const CHAPTERS = [[0, 1, 2, 7], [3, 5, 6], [4, 8, 9, 10]];
 
 const cue = (key: string) => ({
   cut: key.startsWith('ch') || key === 'montage' ? ('hit' as const) : key === 'intro' ? undefined : ('whoosh' as const),
@@ -168,7 +168,7 @@ export default function Showreel() {
           const q = out(seg(s, 0, 1.1));
           const exit = inOut(seg(s, 3.1, 3.6));
           const glare = seg(s, 0.9, 1.9);
-          const title = t(`projects.${i}.title`).split(' - ');
+          const title = t(`${pk(p)}.title`).split(' - ');
           const textOut = { opacity: 1 - exit, transform: `translateY(${-exit * 3}cqw)` };
           return (
             <div className="absolute inset-0 overflow-hidden">
@@ -182,6 +182,33 @@ export default function Showreel() {
                 {pad(no)}
               </p>
 
+              {/* App móvel: leque de três telemóveis com os ecrãs reais */}
+              {p.screens ? (
+                <div
+                  className="absolute flex items-end justify-center"
+                  style={wide ? { right: '4cqw', top: '50%', width: '58cqw', marginTop: '-17cqw', gap: '2cqw' } : { left: '4cqw', right: '4cqw', top: '10cqw', gap: '1.5cqw' }}
+                >
+                  {[0, 1, 2].map((j) => {
+                    const set = s < 1.9 ? [0, 3, 4] : [1, 5, 7];
+                    const e = out(seg(s, 0.1 + j * 0.15, 0.9 + j * 0.15));
+                    return (
+                      <div
+                        key={j}
+                        className="relative overflow-hidden rounded-[2cqw] border-[0.5cqw] border-[#1a1a1a] bg-black shadow-[0_3cqw_6cqw_-1cqw_rgba(0,0,0,0.8)]"
+                        style={{
+                          width: z(15, 28),
+                          aspectRatio: '540 / 1071',
+                          opacity: e * (1 - exit),
+                          transform: `translateY(${(1 - e) * 30 + (j === 1 ? -3 : 0) - exit * 5}cqw) rotate(${(j - 1) * 7 * e}deg)`,
+                        }}
+                      >
+                        <img key={set[j]} src={p.screens![set[j]]} alt="" className="h-full w-full object-cover" style={{ animation: 'mz-fade .5s ease both' }} />
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <>
               {/* Janela de browser com a captura inteira, sem cortes */}
               <div
                 className="absolute [perspective:1600px]"
@@ -208,10 +235,13 @@ export default function Showreel() {
                 </div>
               </div>
 
+                </>
+              )}
+
               {/* Texto */}
               <div className="absolute" style={{ ...(wide ? { left: '5cqw', width: '31cqw', top: '50%', marginTop: '-8cqw' } : { left: '6cqw', right: '6cqw', top: '72cqw' }), ...textOut }}>
                 <p className="font-mono uppercase tracking-[0.3em] text-white/60" style={{ fontSize: z(1.2, 2.8) }}>
-                  <Rise q={seg(s, 0.35, 0.8)}>{t(`projects.${i}.category`)}</Rise>
+                  <Rise q={seg(s, 0.35, 0.8)}>{t(`${pk(p)}.category`)}</Rise>
                 </p>
                 <h3 className="mt-[1.2cqw] font-bold leading-[0.95] tracking-[-0.04em]" style={{ fontSize: z(4.2, 8.5) }}>
                   <Rise q={seg(s, 0.45, 1)}>{title[0]}</Rise>
@@ -251,7 +281,7 @@ export default function Showreel() {
         return (
           <div className="absolute inset-0 overflow-hidden">
             <div className={`absolute inset-0 grid content-center gap-[1.2cqw] p-[3cqw] ${wide ? 'grid-cols-3' : 'grid-cols-2'}`} style={{ transform: `scale(${zoom}) rotate(${(1 - out(seg(s, 0, 2.2))) * -4}deg)` }}>
-              {projects.map((p, k) => {
+              {projects.filter((p) => !p.screens).map((p, k) => {
                 const q = out(seg(s, k * 0.09, 0.6 + k * 0.09));
                 return (
                   <div key={p.image} className="overflow-hidden rounded-[1cqw] border border-white/10 bg-white/5" style={{ opacity: q, transform: `scale(${0.7 + q * 0.3})` }}>

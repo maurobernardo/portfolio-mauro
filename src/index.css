@@ -163,3 +163,4 @@
 @keyframes mz-rise-in { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
 @keyframes mz-photo-in { from { transform: scale(1.5) rotate(-8deg); } to { transform: none; } }
 @media (prefers-reduced-motion: reduce) { .mz-enter * { animation: none !important; } }
+@keyframes mz-fade { from { opacity: 0; } to { opacity: 1; } }
