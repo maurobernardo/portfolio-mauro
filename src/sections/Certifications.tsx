@@ -40,7 +40,7 @@ export default function Certifications() {
             className="relative mt-6 hidden aspect-[16/10] w-full overflow-hidden rounded-[24px] border border-foreground/10 bg-secondary lg:block"
           >
             {certificationsData.map((c, i) => (
-              <img
+              <img loading="lazy" decoding="async"
                 key={c.image}
                 src={c.image}
                 alt={t(`certifications.${i}.title`)}
@@ -167,7 +167,7 @@ function Lightbox({
         </button>
       </div>
       <div className="relative my-4 flex min-h-0 flex-1 items-center justify-center" onClick={onClose}>
-        <img src={image} alt={title} className="max-h-full max-w-full rounded-xl border border-foreground/10 object-contain shadow-2xl" onClick={(e) => e.stopPropagation()} />
+        <img loading="lazy" decoding="async" src={image} alt={title} className="max-h-full max-w-full rounded-xl border border-foreground/10 object-contain shadow-2xl" onClick={(e) => e.stopPropagation()} />
       </div>
       <div className="flex justify-center gap-3">
         <button onClick={() => onNav(-1)} aria-label="Previous" className={circle}><ChevronLeft size={18} /></button>

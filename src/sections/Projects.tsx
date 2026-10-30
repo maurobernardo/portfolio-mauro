@@ -51,7 +51,7 @@ function BrowserFrame({ src, alt, url, className = '' }: { src: string; alt: str
         ))}
         <span className="mx-auto max-w-[60%] truncate rounded-full bg-secondary px-3 py-0.5 font-mono text-[10px] text-muted-foreground">{host(url)}</span>
       </div>
-      <img src={src} alt={alt} className="block h-auto w-full" />
+      <img loading="lazy" decoding="async" src={src} alt={alt} className="block h-auto w-full" />
     </div>
   );
 }
@@ -62,7 +62,7 @@ function PhoneFrame({ screens, index, className = '', style }: { screens: string
     <div className={`rounded-[2.4rem] border-[6px] border-[#111] bg-[#111] shadow-[0_40px_80px_-30px_rgba(0,0,0,0.65)] ${className}`} style={style}>
       <div className="relative aspect-[540/1071] overflow-hidden rounded-[1.9rem] bg-black">
         {screens.map((s, i) => (
-          <img
+          <img loading="lazy" decoding="async"
             key={s}
             src={s}
             alt=""
@@ -85,7 +85,7 @@ function StackChips({ stack, small = false }: { stack: string[]; small?: boolean
           className={`inline-flex items-center gap-1.5 rounded-full border font-medium ${small ? 'px-2.5 py-1 text-[11px]' : 'px-3 py-1.5 text-xs'}`}
           style={{ borderColor: 'color-mix(in srgb, currentColor 16%, transparent)', background: 'color-mix(in srgb, currentColor 5%, transparent)' }}
         >
-          {iconMap[tech] && <img src={iconMap[tech]} alt="" className="h-3.5 w-3.5 object-contain" />}
+          {iconMap[tech] && <img loading="lazy" decoding="async" src={iconMap[tech]} alt="" className="h-3.5 w-3.5 object-contain" />}
           {tech}
         </li>
       ))}
@@ -319,7 +319,7 @@ function TerraCard({ onCase }: { onCase: (p: ProjectMeta) => void }) {
                 onClick={() => setI(k)}
                 className={`h-12 flex-1 overflow-hidden rounded-md transition-all duration-500 ${k === i ? 'opacity-100 ring-1 ring-foreground' : 'opacity-35 hover:opacity-80'}`}
               >
-                <img src={s} alt="" className="h-full w-full object-cover object-top" />
+                <img loading="lazy" decoding="async" src={s} alt="" className="h-full w-full object-cover object-top" />
               </button>
             ))}
           </div>
@@ -383,7 +383,7 @@ function Panel({ project, enter, isOpen, onOpen, onCaseStudy }: { project: Proje
       {/* Painel aberto: imagem inteira em cima, texto por baixo */}
       <div className={`h-full flex-col gap-6 p-5 xl:p-7 ${isOpen ? 'flex animate-fade-in-up opacity-0' : 'hidden'}`} aria-hidden={!isOpen}>
         {project.image && (
-          <img
+          <img loading="lazy" decoding="async"
             key={isOpen ? 'open' : 'closed'}
             src={project.image}
             alt={title}
@@ -498,7 +498,7 @@ function CaseStudyModal({ project, onClose, onNav }: { project: ProjectMeta; onC
                     onClick={() => setShot(j)}
                     className={`h-14 flex-1 overflow-hidden rounded-md border transition-all duration-500 ${j === shot ? 'border-foreground opacity-100' : 'border-transparent opacity-40 hover:opacity-80'}`}
                   >
-                    <img src={src} alt="" className="h-full w-full object-cover object-top" />
+                    <img loading="lazy" decoding="async" src={src} alt="" className="h-full w-full object-cover object-top" />
                   </button>
                 ))}
               </div>

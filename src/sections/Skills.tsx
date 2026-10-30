@@ -110,7 +110,7 @@ export default function Skills() {
             <div className="rounded-[28px] border border-foreground/10 bg-card p-7">
               <p className="mz-tag">{String(sel + 1).padStart(2, '0')} · {famLabel(active.family)}</p>
               <div className="mt-6 grid h-[150px] place-items-center rounded-[20px] bg-secondary">
-                <img
+                <img loading="lazy" decoding="async"
                   key={active.name}
                   src={active.svg}
                   alt={active.name}

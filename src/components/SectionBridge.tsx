@@ -5,64 +5,67 @@ import { clamp, inOut, out, seg } from './ReelPlayer';
 export type BridgeItem = { kind: 'photo'; src: string } | { kind: 'icon'; src: string; label: string } | { kind: 'word'; label: string };
 
 /**
- * Passagem entre secções controlada pelo scroll: os elementos da secção seguinte explodem do centro,
- * a frase cresce até a câmara "atravessar" as letras e tudo se dissolve no fundo.
+ * Passagem entre secções: um flash curto (cerca de 1 s), por tempo e não por scroll.
+ * Toca uma única vez, só a descer, quando o topo da secção seguinte entra no ecrã.
+ * Não ocupa espaço na página, não bloqueia o scroll e não toca a subir.
  */
 type Content = { items: BridgeItem[]; a: string; b: string };
 
-export default function SectionBridge({ items, a, b, back, height = '135svh' }: Content & { back?: Content; height?: string }) {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const [p, setP] = useState(0);
-  // Sentido da passagem: decidido quando se entra pela ponta de cima (a descer) ou de baixo (a subir).
-  const [up, setUp] = useState(false);
-  const lastP = useRef(0);
+const DURATION = 1000;
+
+export default function SectionBridge({ items, a, b }: Content & { back?: Content; height?: string }) {
+  const marker = useRef<HTMLDivElement | null>(null);
+  const [p, setP] = useState<number | null>(null);
   const reduce = prefersReducedMotion();
 
   useEffect(() => {
-    if (reduce) return;
+    const el = marker.current;
+    if (reduce || !el) return;
     let raf = 0;
-    const calc = () => {
-      const el = ref.current;
-      if (!el) return;
-      const r = el.getBoundingClientRect();
-      // Só recalcula perto do ecrã.
-      if (r.bottom < -200 || r.top > window.innerHeight + 200) {
-        lastP.current = r.bottom < 0 ? 1 : 0;
-        return;
-      }
-      const next = clamp(-r.top / (r.height - window.innerHeight));
-      if (lastP.current >= 1 && next < 1) setUp(true);
-      else if (lastP.current <= 0 && next > 0) setUp(false);
-      lastP.current = next;
-      setP(next);
-    };
-    const on = () => {
+    let lastY = window.scrollY;
+    let armed = true;
+    const play = () => {
+      const t0 = performance.now();
+      const tick = (now: number) => {
+        const x = Math.min(1, (now - t0) / DURATION);
+        setP(x);
+        if (x < 1) raf = requestAnimationFrame(tick);
+        else setP(null);
+      };
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(calc);
+      raf = requestAnimationFrame(tick);
     };
-    calc();
-    window.addEventListener('scroll', on, { passive: true });
-    window.addEventListener('resize', on);
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        const down = window.scrollY > lastY;
+        lastY = window.scrollY;
+        // Entra pelo fundo do ecrã a descer: toca. Sai por baixo (voltou a subir): rearma.
+        if (e.isIntersecting && down && armed) {
+          armed = false;
+          play();
+        } else if (!e.isIntersecting && e.boundingClientRect.top > 0) {
+          armed = true;
+        }
+      },
+      { rootMargin: '0px 0px -20% 0px' }
+    );
+    obs.observe(el);
     return () => {
+      obs.disconnect();
       cancelAnimationFrame(raf);
-      window.removeEventListener('scroll', on);
-      window.removeEventListener('resize', on);
     };
   }, [reduce]);
 
-  if (reduce) return null;
-
-  // A subir, mostra a secção de cima (para onde se vai), com a mesma coreografia ao contrário.
-  const show = up && back ? back : { items, a, b };
-  const burst = out(seg(p, 0.0, 0.4));
-  const through = inOut(seg(p, 0.45, 0.9));
+  const show = { items, a, b };
+  const q = p ?? 0;
+  const burst = out(seg(q, 0.0, 0.4));
+  const through = inOut(seg(q, 0.45, 0.9));
   const n = Math.min(14, show.items.length);
 
   return (
-    // A margem negativa sobrepõe o último ecrã da ponte ao início da secção seguinte:
-    // quando a câmara atravessa as letras, o fundo fica transparente e a secção já está lá por baixo.
-    <div ref={ref} className="pointer-events-none relative z-30" style={{ height, marginBottom: '-100svh' }} aria-hidden="true">
-      <div className="sticky top-0 h-[100svh] overflow-hidden" style={{ background: `hsl(var(--background) / ${0.55 * Math.min(seg(p, 0, 0.2), 1 - seg(p, 0.5, 0.85))})` }}>
+    <div ref={marker} className="relative h-0" aria-hidden="true">
+      {p !== null && (
+      <div className="pointer-events-none fixed inset-0 z-30 overflow-hidden" style={{ background: `hsl(var(--background) / ${0.55 * Math.min(seg(q, 0, 0.2), 1 - seg(q, 0.5, 0.85))})` }}>
         {show.items.slice(0, 14).map((it, i) => {
           // Ângulo de ouro: espalha os elementos de forma uniforme sem parecer grelha.
           const ang = i * 2.39996;
@@ -70,7 +73,7 @@ export default function SectionBridge({ items, a, b, back, height = '135svh' }: 
           const depth = 0.7 + ((i * 53) % 7) / 10;
           const style = {
             transform: `translate(-50%, -50%) translate(${Math.cos(ang) * dist * 55}vw, ${Math.sin(ang) * dist * 48}svh) rotate(${(1 - burst) * (i % 2 ? 25 : -25) + Math.sin(ang) * 8}deg) scale(${(0.3 + burst * 0.7) * (1 + through * 1.6 * depth)})`,
-            opacity: 0.9 * seg(p, 0.0 + (i / n) * 0.05, 0.08 + (i / n) * 0.05) * (1 - seg(p, 0.6, 0.85)),
+            opacity: 0.9 * seg(q, 0.0 + (i / n) * 0.05, 0.08 + (i / n) * 0.05) * (1 - seg(q, 0.6, 0.85)),
             zIndex: Math.round(depth * 10),
           };
           const base = 'absolute left-1/2 top-1/2';
@@ -99,7 +102,7 @@ export default function SectionBridge({ items, a, b, back, height = '135svh' }: 
             style={{
               textShadow: '0 0 40px hsl(var(--background)), 0 0 12px hsl(var(--background))',
               transform: `scale(${0.75 + burst * 0.25 + through * through * 4})`,
-              opacity: seg(p, 0.04, 0.2) * (1 - seg(p, 0.6, 0.85)),
+              opacity: seg(q, 0.04, 0.2) * (1 - seg(q, 0.6, 0.85)),
             }}
           >
             {show.a}
@@ -108,6 +111,7 @@ export default function SectionBridge({ items, a, b, back, height = '135svh' }: 
           </p>
         </div>
       </div>
+      )}
     </div>
   );
 }

@@ -48,18 +48,8 @@ export default {
           "Segoe UI Symbol",
           "Noto Color Emoji",
         ],
-        mono: [
-          '"JetBrains Mono Variable"',
-          "Fira Code",
-          "ui-monospace",
-          "SFMono-Regular",
-          "Menlo",
-          "Monaco",
-          "Consolas",
-          "Liberation Mono",
-          "Courier New",
-          "monospace",
-        ],
+        // Sem fonte monoespaçada: o texto técnico usa a mesma família do resto do site.
+        mono: ['"Inter Tight Variable"', "Inter", "ui-sans-serif", "system-ui", "Segoe UI", "Roboto", "Arial", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

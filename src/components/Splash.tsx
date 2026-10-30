@@ -11,10 +11,10 @@ import { highlightsData } from '../sections/Highlights';
  * uma íris abre do centro e o hero entra (desfoque + zoom) com a barra de navegação a descer.
  * Clique ou tecla salta. Desligada com prefers-reduced-motion.
  */
-const COUNT_MS = 2100;
-const OUT_AT = 2300;
-const IRIS_AT = 2600;
-const DONE_AT = 3550;
+const COUNT_MS = 1400;
+const OUT_AT = 1550;
+const IRIS_AT = 1800;
+const DONE_AT = 2650;
 const SECTIONS = ['eyebrow.about', 'eyebrow.skills', 'eyebrow.projects', 'eyebrow.certifications', 'eyebrow.experience', 'eyebrow.highlights', 'eyebrow.contact'];
 
 export default function Splash() {

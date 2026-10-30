@@ -1,17 +1,17 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
-import Chatbot from './components/Chatbot';
+const Chatbot = lazy(() => import('./components/Chatbot'));
 import Splash from './components/Splash';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Skills from './sections/Skills';
 import Projects from './sections/Projects';
-import Showreel from './sections/Showreel';
+const Showreel = lazy(() => import('./sections/Showreel'));
 import Certifications from './sections/Certifications';
 import Experience from './sections/Experience';
 import { ToCertifications, ToContact, ToExperience, ToProjects, ToSkills } from './sections/Bridges';
-import HighlightsFilm from './sections/HighlightsFilm';
+const HighlightsFilm = lazy(() => import('./sections/HighlightsFilm'));
 import Highlights from './sections/Highlights';
 import Contact from './sections/Contact';
 import Footer from './sections/Footer';
@@ -46,17 +46,23 @@ function App() {
           <Skills />
           <ToProjects />
           <Projects />
-          <Showreel />
+          <Suspense fallback={<div className="min-h-[80svh]" />}>
+            <Showreel />
+          </Suspense>
           <ToCertifications />
           <Certifications />
           <ToExperience />
           <Experience />
-          <HighlightsFilm />
+          <Suspense fallback={<div className="min-h-[80svh]" />}>
+            <HighlightsFilm />
+          </Suspense>
           <Highlights />
           <ToContact />
           <Contact />
         </main>
-        <Chatbot />
+        <Suspense fallback={null}>
+          <Chatbot />
+        </Suspense>
         <Footer />
       </div>
     </LanguageProvider>

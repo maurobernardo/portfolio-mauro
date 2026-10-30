@@ -14,17 +14,26 @@ export default function LanyardCard() {
   useEffect(() => {
     if (prefersReducedMotion()) return;
     let raf = 0;
+    let visible = true;
+    const root = swingRef.current;
+    // Só corre a física quando o cartão está no ecrã.
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { rootMargin: '100px' });
+    if (root) io.observe(root);
     const tick = (time: number) => {
+      raf = requestAnimationFrame(tick);
+      if (!visible) return;
       const s = state.current;
       const idle = Math.sin(time / 1700) * 1.1; // balanço suave em repouso
       s.vel += (idle - s.angle) * 0.012;      // mola
       s.vel *= 0.965;                          // amortecimento
       s.angle += s.vel;
       if (swingRef.current) swingRef.current.style.transform = `rotate(${s.angle}deg)`;
-      raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+    };
   }, []);
 
   const onMove = (e: React.PointerEvent) => {

@@ -112,10 +112,12 @@ export default function ReelPlayer({ scenes, label, tone = 'dark', mood = 'beat'
     let raf = 0;
     let last = performance.now();
     const tick = (now: number) => {
+      raf = requestAnimationFrame(tick);
+      // ~30 fps: metade das re-renderizações, sem diferença visível.
+      if (now - last < 32) return;
       const dt = Math.min(0.1, (now - last) / 1000);
       last = now;
       setTime((v) => (v + dt) % total);
-      raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);

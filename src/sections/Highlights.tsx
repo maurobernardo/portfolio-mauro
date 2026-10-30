@@ -57,7 +57,7 @@ function PhotoStack({ photos, index, className, fit = 'cover' }: { photos: strin
   return (
     <div className={`relative overflow-hidden ${className ?? ''}`}>
       {photos.map((src, i) => (
-        <img
+        <img loading="lazy" decoding="async"
           key={src}
           src={src}
           alt=""
@@ -478,7 +478,7 @@ function HighlightModal({
                     i === photoIndex ? 'ring-2 ring-foreground ring-offset-2 ring-offset-secondary' : 'opacity-50 hover:opacity-100'
                   }`}
                 >
-                  <img src={src} alt="" className="h-full w-full object-cover" />
+                  <img loading="lazy" decoding="async" src={src} alt="" className="h-full w-full object-cover" />
                 </button>
               ))}
             </div>

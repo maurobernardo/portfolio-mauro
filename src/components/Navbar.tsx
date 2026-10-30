@@ -39,7 +39,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string>('');
-  const [progress, setProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement | null>(null);
   const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
   const { language, setLanguage, t } = useLanguage();
@@ -53,9 +53,10 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 40);
+      const sc = window.scrollY > 40;
+      setScrolled((prev) => (prev === sc ? prev : sc));
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(max > 0 ? window.scrollY / max : 0);
+      if (barRef.current) barRef.current.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
     };
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -108,7 +109,7 @@ export default function Navbar() {
   return (
     <>
       <div className="fixed inset-x-0 top-0 z-[60] h-[2px]">
-        <div className="h-full origin-left bg-foreground" style={{ transform: `scaleX(${progress})` }} />
+        <div ref={barRef} className="h-full origin-left bg-foreground will-change-transform" style={{ transform: 'scaleX(0)' }} />
       </div>
 
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-4">
