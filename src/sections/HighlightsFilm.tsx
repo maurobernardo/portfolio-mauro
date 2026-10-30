@@ -367,7 +367,7 @@ export default function HighlightsFilm() {
         a={t('film.bridgeA')}
         b={t('film.bridgeB')}
         back={{ items: allPhotos.map((src) => ({ kind: 'photo', src })), a: t('bridge.backFilmA'), b: t('bridge.backFilmB') }}
-        height="220svh"
+        height="140svh"
       />
     </section>
   );

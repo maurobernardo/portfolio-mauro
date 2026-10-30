@@ -10,7 +10,7 @@ export type BridgeItem = { kind: 'photo'; src: string } | { kind: 'icon'; src: s
  */
 type Content = { items: BridgeItem[]; a: string; b: string };
 
-export default function SectionBridge({ items, a, b, back, height = '170svh' }: Content & { back?: Content; height?: string }) {
+export default function SectionBridge({ items, a, b, back, height = '135svh' }: Content & { back?: Content; height?: string }) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [p, setP] = useState(0);
   // Sentido da passagem: decidido quando se entra pela ponta de cima (a descer) ou de baixo (a subir).
@@ -54,23 +54,23 @@ export default function SectionBridge({ items, a, b, back, height = '170svh' }: 
 
   // A subir, mostra a secção de cima (para onde se vai), com a mesma coreografia ao contrário.
   const show = up && back ? back : { items, a, b };
-  const burst = out(seg(p, 0.05, 0.55));
-  const through = inOut(seg(p, 0.6, 1));
-  const n = show.items.length;
+  const burst = out(seg(p, 0.0, 0.4));
+  const through = inOut(seg(p, 0.45, 0.9));
+  const n = Math.min(14, show.items.length);
 
   return (
     // A margem negativa sobrepõe o último ecrã da ponte ao início da secção seguinte:
     // quando a câmara atravessa as letras, o fundo fica transparente e a secção já está lá por baixo.
     <div ref={ref} className="pointer-events-none relative z-30" style={{ height, marginBottom: '-100svh' }} aria-hidden="true">
-      <div className="sticky top-0 h-[100svh] overflow-hidden" style={{ background: `hsl(var(--background) / ${1 - seg(p, 0.55, 0.92)})` }}>
-        {show.items.map((it, i) => {
+      <div className="sticky top-0 h-[100svh] overflow-hidden" style={{ background: `hsl(var(--background) / ${0.55 * Math.min(seg(p, 0, 0.2), 1 - seg(p, 0.5, 0.85))})` }}>
+        {show.items.slice(0, 14).map((it, i) => {
           // Ângulo de ouro: espalha os elementos de forma uniforme sem parecer grelha.
           const ang = i * 2.39996;
           const dist = (0.25 + ((i * 37) % 10) / 14) * burst;
           const depth = 0.7 + ((i * 53) % 7) / 10;
           const style = {
-            transform: `translate(-50%, -50%) translate(${Math.cos(ang) * dist * 55}vw, ${Math.sin(ang) * dist * 48}svh) rotate(${(1 - burst) * (i % 2 ? 25 : -25) + Math.sin(ang) * 8}deg) scale(${(0.3 + burst * 0.7) * (1 + through * 3 * depth)})`,
-            opacity: seg(p, 0.02 + (i / n) * 0.08, 0.1 + (i / n) * 0.08) * (1 - seg(p, 0.75, 0.95)),
+            transform: `translate(-50%, -50%) translate(${Math.cos(ang) * dist * 55}vw, ${Math.sin(ang) * dist * 48}svh) rotate(${(1 - burst) * (i % 2 ? 25 : -25) + Math.sin(ang) * 8}deg) scale(${(0.3 + burst * 0.7) * (1 + through * 1.6 * depth)})`,
+            opacity: 0.9 * seg(p, 0.0 + (i / n) * 0.05, 0.08 + (i / n) * 0.05) * (1 - seg(p, 0.6, 0.85)),
             zIndex: Math.round(depth * 10),
           };
           const base = 'absolute left-1/2 top-1/2';
@@ -95,11 +95,11 @@ export default function SectionBridge({ items, a, b, back, height = '170svh' }: 
         })}
         <div className="absolute inset-0 z-20 grid place-items-center px-[var(--gutter)]">
           <p
-            className="text-center text-[clamp(44px,9vw,150px)] font-bold leading-[0.9] tracking-[-0.06em] text-foreground"
+            className="text-center text-[clamp(36px,7vw,110px)] font-bold leading-[0.9] tracking-[-0.06em] text-foreground"
             style={{
               textShadow: '0 0 40px hsl(var(--background)), 0 0 12px hsl(var(--background))',
-              transform: `scale(${0.75 + burst * 0.25 + through * through * 14})`,
-              opacity: seg(p, 0.08, 0.3) * (1 - seg(p, 0.8, 0.97)),
+              transform: `scale(${0.75 + burst * 0.25 + through * through * 4})`,
+              opacity: seg(p, 0.04, 0.2) * (1 - seg(p, 0.6, 0.85)),
             }}
           >
             {show.a}
