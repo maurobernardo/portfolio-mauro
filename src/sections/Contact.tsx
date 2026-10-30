@@ -13,7 +13,7 @@ type SubmitStatus = 'idle' | 'loading' | 'success' | 'error';
 function Field({ n, label, error, children }: { n: string; label: string; error?: string; children: React.ReactNode }) {
   return (
     <label className="block">
-      <span className="mz-tag">{n} — {label}</span>
+      <span className="mz-tag">{n} · {label}</span>
       <span className="relative mt-1 block">
         {children}
         <span className="absolute bottom-0 left-0 h-px w-full bg-foreground/15" />
@@ -207,7 +207,7 @@ ${t('contact.phone')}: ${phone.trim()}` : message.trim(),
             </div>
 
             <fieldset className="mt-8">
-              <legend className="mz-tag mb-3">01 — {t('contact.topicTitle')}</legend>
+              <legend className="mz-tag mb-3">01 · {t('contact.topicTitle')}</legend>
               <div className="flex flex-wrap gap-2">
                 {(['project', 'collab', 'opportunity', 'other'] as const).map((k) => {
                   const label = t(`contact.topic.${k}`);

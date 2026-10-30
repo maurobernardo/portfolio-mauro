@@ -1,5 +1,16 @@
 import Reveal from './Reveal';
 
+/** Etiqueta de secção: cartão arredondado com ponto, como a do hero. Sem travessões. */
+export function SectionTag({ no, children }: { no?: string; children: string }) {
+  return (
+    <span className="inline-flex items-center gap-2.5 rounded-full border border-foreground/15 bg-card/60 px-5 py-2.5 font-mono text-[13px] font-medium uppercase tracking-[0.2em] text-muted-foreground backdrop-blur-sm">
+      <span className="h-2 w-2 rounded-full bg-foreground" aria-hidden="true" />
+      {no && <span className="tabular-nums text-foreground">{no}</span>}
+      {children}
+    </span>
+  );
+}
+
 type SectionHeaderProps = {
   no: string;
   eyebrow: string;
@@ -18,7 +29,7 @@ export default function SectionHeader({ no, eyebrow, title, subtitle, align = 'l
   return (
     <div className={`mb-12 flex flex-col gap-4 lg:mb-16 ${alignCls}`}>
       <Reveal>
-        <span className="mz-tag">{no} — {eyebrow}</span>
+        <SectionTag no={no}>{eyebrow}</SectionTag>
       </Reveal>
 
       <Reveal delayMs={60}>

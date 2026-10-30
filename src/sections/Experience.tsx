@@ -119,7 +119,7 @@ export default function Experience() {
             </Reveal>
             <Reveal delayMs={80}>
               <a href="#contato" className="block rounded-[24px] border border-dashed border-foreground/25 p-6 transition-colors duration-500 hover:border-foreground hover:bg-card sm:ml-12">
-                <p className="mz-tag">{t('experience.next')} —</p>
+                <p className="mz-tag">{t('experience.next')}</p>
                 <p className="mt-2 text-2xl font-bold sm:text-3xl">
                   <span className="font-serif font-normal italic text-muted-foreground">{t('experience.nextTitle')}</span>
                 </p>

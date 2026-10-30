@@ -4,6 +4,7 @@ import { RotateCcw } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { scrollToTarget } from '../lib/scroll';
 import Reveal from '../components/Reveal';
+import { SectionTag } from '../components/SectionHeader';
 import ReelPlayer, { inOut, out, pad, Rise, Scene, seg, useWide } from '../components/ReelPlayer';
 import { highlightsData, TYPE_ICONS } from './Highlights';
 
@@ -38,7 +39,7 @@ export default function HighlightsFilm() {
   const scenes: Scene[] = useMemo(() => {
     const z = (w: number, tall: number) => `${wide ? w : tall}cqw`;
     const years = highlightsData.map((_, i) => Number((t(`highlights.${i}.date`).match(/\d{4}/g) || ['0']).pop()));
-    const span = `${Math.min(...years)} — ${Math.max(...years)}`;
+    const span = `${Math.min(...years)} · ${Math.max(...years)}`;
 
     /** Carimbo de tinta com a data. */
     const stamp = (s: number, at: number, i: number, style: CSSProperties) => {
@@ -329,7 +330,7 @@ export default function HighlightsFilm() {
         <div className="mb-10 flex flex-col gap-4 lg:mb-14 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <Reveal>
-              <span className="mz-tag">{t('film.eyebrow')}</span>
+              <SectionTag>{t('film.eyebrow')}</SectionTag>
             </Reveal>
             <Reveal delayMs={60}>
               <h2 className="mt-4 text-5xl font-bold leading-[0.9] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-8xl">

@@ -394,7 +394,7 @@ function Panel({ project, enter, isOpen, onOpen, onCaseStudy }: { project: Proje
 
         <div className="grid min-w-0 flex-1 gap-6 lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)]">
           <div className="min-w-0">
-            <p className="mz-tag">{pad(n)} — {t(`${k}.category`)}</p>
+            <p className="mz-tag">{pad(n)} · {t(`${k}.category`)}</p>
             <h3 className="mt-3 text-3xl font-bold leading-[1.02] lg:text-4xl">{title}</h3>
             <span className="mz-tag mt-3 inline-flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-foreground" />
@@ -515,7 +515,7 @@ function CaseStudyModal({ project, onClose, onNav }: { project: ProjectMeta; onC
         <div className="flex flex-col lg:min-h-0">
           <div className="flex items-start justify-between gap-4 p-6 pb-0 sm:p-8 sm:pb-0">
             <p className="mz-tag">
-              {String(pos + 1).padStart(2, '0')} / {String(caseList.length).padStart(2, '0')} — {t(`${k}.category`)}
+              {String(pos + 1).padStart(2, '0')} / {String(caseList.length).padStart(2, '0')} · {t(`${k}.category`)}
             </p>
             <button onClick={onClose} aria-label="Fechar" className={`${circle} flex-shrink-0 hover:rotate-90`}>
               <X size={18} />

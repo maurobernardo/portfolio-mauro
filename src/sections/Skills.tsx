@@ -13,19 +13,16 @@ type Skill = { name: string; symbol: string; svg: string; family: Family; match:
 export const SKILLS: Skill[] = [
   { name: 'Next.js', symbol: 'Nx', svg: '/icons/nextjs.svg', family: 'frontend', match: 'next' },
   { name: 'React Native', symbol: 'Rn', svg: '/icons/react.svg', family: 'frontend', match: 'react native' },
-  { name: 'Angular', symbol: 'An', svg: '/icons/tech/angular.svg', family: 'frontend', match: 'angular' },
   { name: 'Flutter', symbol: 'Fl', svg: '/icons/flutter.svg', family: 'frontend', match: 'flutter' },
   { name: 'Java', symbol: 'Jv', svg: '/icons/java.svg', family: 'backend', match: 'java' },
   { name: 'Node.js', symbol: 'No', svg: '/icons/nodejs.svg', family: 'backend', match: 'node' },
-  { name: 'Golang', symbol: 'Go', svg: '/icons/golang.svg', family: 'backend', match: 'golang' },
   { name: 'MySQL', symbol: 'My', svg: '/icons/mysql.svg', family: 'backend', match: 'mysql' },
   { name: 'Python', symbol: 'Py', svg: '/icons/python.svg', family: 'fullstack', match: 'python' },
-  { name: 'PHP', symbol: 'Ph', svg: '/icons/php.svg', family: 'fullstack', match: 'php' },
-  { name: 'JavaScript', symbol: 'Js', svg: '/icons/tech/js.svg', family: 'fullstack', match: 'javascript' },
+  { name: 'TypeScript', symbol: 'Ts', svg: '/icons/typescript.svg', family: 'fullstack', match: 'typescript' },
   { name: 'Dart', symbol: 'Da', svg: '/icons/dart.svg', family: 'fullstack', match: 'dart' },
-  { name: 'PostgreSQL / PostGIS', symbol: 'Pg', svg: '/icons/postgresql.svg', family: 'gis', match: 'postgres' },
+  { name: 'PostGIS', symbol: 'Pg', svg: '/icons/postgresql.svg', family: 'gis', match: 'postgis' },
+  { name: 'PostgreSQL', symbol: 'Pq', svg: '/icons/postgresql.svg', family: 'gis', match: 'postgres' },
   { name: 'QGIS', symbol: 'Qg', svg: '/icons/qgis.svg', family: 'gis', match: 'qgis' },
-  { name: 'Leaflet', symbol: 'Lf', svg: '/icons/leaflet.svg', family: 'gis', match: 'leaflet' },
   { name: 'Power BI', symbol: 'Pb', svg: '/icons/powerbi.svg', family: 'gis', match: 'power bi' },
 ];
 

@@ -193,7 +193,7 @@ export default function ReelPlayer({ scenes, label, tone = 'dark', mood = 'beat'
       <div className={`pointer-events-none absolute inset-0 ${c.vignette}`} />
       <div className={`pointer-events-none absolute inset-0 ${c.flash}`} style={{ opacity: flash * 0.18 }} />
       <div className={`pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-[3cqw] py-[2cqw] font-mono text-[max(9px,1.1cqw)] uppercase tracking-[0.3em] ${c.label}`}>
-        <span>MZ — {label}</span>
+        <span>MZ · {label}</span>
         <span>{pad(idx + 1)} / {pad(scenes.length)}</span>
       </div>
 

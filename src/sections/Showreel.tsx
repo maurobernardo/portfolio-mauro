@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { iconMap, pk, projectsMeta } from '../lib/projects';
 import { scrollToTarget } from '../lib/scroll';
 import Reveal from '../components/Reveal';
+import { SectionTag } from '../components/SectionHeader';
 import ReelPlayer, { inOut, out, pad, Rise, Scene, seg, useWide } from '../components/ReelPlayer';
 
 const projects = projectsMeta.filter((p) => p.image);
@@ -328,7 +329,7 @@ export default function Showreel() {
         <div className="mb-10 flex flex-col gap-4 lg:mb-14 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <Reveal>
-              <span className="mz-tag">{t('reel.eyebrow')}</span>
+              <SectionTag>{t('reel.eyebrow')}</SectionTag>
             </Reveal>
             <Reveal delayMs={60}>
               <h2 className="mt-4 text-5xl font-bold leading-[0.9] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-8xl">
