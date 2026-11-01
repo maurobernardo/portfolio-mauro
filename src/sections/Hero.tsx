@@ -38,7 +38,7 @@ export default function Hero() {
               <img
                 src="/perfil.webp"
                 alt={t('hero.photoAlt')}
-                className="h-full w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105"
+                className="h-full w-full object-contain object-bottom px-[6%] pt-[5%] transition-transform duration-[1200ms] group-hover:scale-105"
                 style={{ transitionTimingFunction: 'var(--ease)' }}
               />
             </span>

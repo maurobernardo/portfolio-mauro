@@ -124,7 +124,7 @@ export default function Navbar() {
         >
           <a href="#inicio" className="group flex items-center gap-3 pl-1 pr-2" aria-label="Mauro Zibane">
             <span className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-full border border-foreground/20 transition-transform duration-700 group-hover:rotate-[360deg]" style={{ transitionTimingFunction: 'var(--ease)' }}>
-              <img src="/perfil.webp" alt="" className="h-full w-full object-cover object-top" />
+              <img src="/perfil.webp" alt="" className="h-full w-full object-contain object-bottom" />
             </span>
             <span className="hidden leading-tight sm:block">
               <span className="block text-sm font-bold tracking-tight">Mauro Zibane</span>

@@ -97,7 +97,7 @@ export default function LanyardCard() {
               </div>
               <div className="flex flex-1 flex-col items-center px-6 pt-5">
                 <div className="grid h-[148px] w-[124px] place-items-center rounded-full border border-foreground/15 bg-secondary p-1 shadow-[0_0_0_6px_hsl(var(--secondary))]">
-                  <img src="/perfil.webp" alt={t('about.name')} className="h-[140px] w-[116px] rounded-full object-cover transition-transform duration-700 hover:scale-105" />
+                  <img src="/perfil.webp" alt={t('about.name')} className="h-[140px] w-[116px] rounded-full object-contain object-bottom transition-transform duration-700 hover:scale-105" />
                 </div>
                 <p className="mt-4 text-center text-xl font-bold leading-tight tracking-tight">{t('about.name')}</p>
                 <p className="mt-1 text-center text-[11px] leading-snug text-muted-foreground">{t('about.role')}</p>

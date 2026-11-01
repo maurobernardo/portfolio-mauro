@@ -56,7 +56,7 @@ export default function Chatbot() {
 
             <div className="flex items-center gap-3">
               <span className="relative">
-                <img src="/perfil.webp" alt="" className="h-12 w-12 rounded-full border border-foreground/15 object-cover object-top" />
+                <img src="/perfil.webp" alt="" className="h-12 w-12 rounded-full border border-foreground/15 object-contain object-bottom" />
                 <span className="absolute -bottom-0.5 -right-0.5 h-3.5 w-3.5 rounded-full border-2 border-card bg-foreground" />
               </span>
               <p className="mz-tag">{t('popup.eyebrow')}</p>
