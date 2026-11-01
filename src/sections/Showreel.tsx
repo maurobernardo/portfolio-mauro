@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw } from '../components/icons';
 import { useLanguage } from '../contexts/LanguageContext';
 import { iconMap, pk, projectsMeta } from '../lib/projects';
 import { scrollToTarget } from '../lib/scroll';

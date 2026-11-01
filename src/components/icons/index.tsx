@@ -1,0 +1,68 @@
+/* Ícones animados (lucide-animated, MIT). Mesma API do lucide-react: size, className; strokeWidth é ignorado. */
+import type { ComponentType } from 'react';
+import { XIcon as XRaw } from './x';
+import { GithubIcon as GithubRaw } from './github';
+import { MapPinIcon as MapPinRaw } from './map-pin';
+import { LinkedinIcon as LinkedinRaw } from './linkedin';
+import { FacebookIcon as FacebookRaw } from './facebook';
+import { InstagramIcon as InstagramRaw } from './instagram';
+import { ChevronRightIcon as ChevronRightRaw } from './chevron-right';
+import { ChevronLeftIcon as ChevronLeftRaw } from './chevron-left';
+import { ChevronDownIcon as ChevronDownRaw } from './chevron-down';
+import { ArrowUpRightIcon as ArrowUpRightRaw } from './arrow-up-right';
+import { ArrowUpIcon as ArrowUpRaw } from './arrow-up';
+import { ArrowRightIcon as ArrowRightRaw } from './arrow-right';
+import { ArrowDownIcon as ArrowDownRaw } from './arrow-down';
+import { RotateCCWIcon as RotateCcwRaw } from './rotate-ccw';
+import { PhoneIcon as PhoneRaw } from './phone';
+import { SunIcon as SunRaw } from './sun';
+import { MoonIcon as MoonRaw } from './moon';
+import { ServerIcon as ServerRaw } from './server';
+import { SendIcon as SendRaw } from './send';
+import { PlusIcon as PlusRaw } from './plus';
+import { PlayIcon as PlayRaw } from './play';
+import { PauseIcon as PauseRaw } from './pause';
+import { MicIcon as MicRaw } from './mic';
+import { Maximize2Icon as Maximize2Raw } from './maximize-2';
+import { LoaderCircleIcon as Loader2Raw } from './loader-circle';
+import { LanguagesIcon as LanguagesRaw } from './languages';
+import { GraduationCapIcon as GraduationCapRaw } from './graduation-cap';
+import { ExternalLinkIcon as ExternalLinkRaw } from './external-link';
+import { CircleCheckIcon as CheckCircle2Raw } from './circle-check';
+import { VolumeIcon as Volume2Raw } from './volume';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type Any = ComponentType<any>;
+// Aceita as props do lucide (strokeWidth, size…) e ignora o que não existe.
+const wrap = (C: Any) => ({ strokeWidth: _s, ...p }: { size?: number; strokeWidth?: number | string; className?: string; [k: string]: unknown }) => <C {...p} />;
+
+export const X = wrap(XRaw);
+export const Github = wrap(GithubRaw);
+export const MapPin = wrap(MapPinRaw);
+export const Linkedin = wrap(LinkedinRaw);
+export const Facebook = wrap(FacebookRaw);
+export const Instagram = wrap(InstagramRaw);
+export const ChevronRight = wrap(ChevronRightRaw);
+export const ChevronLeft = wrap(ChevronLeftRaw);
+export const ChevronDown = wrap(ChevronDownRaw);
+export const ArrowUpRight = wrap(ArrowUpRightRaw);
+export const ArrowUp = wrap(ArrowUpRaw);
+export const ArrowRight = wrap(ArrowRightRaw);
+export const ArrowDown = wrap(ArrowDownRaw);
+export const RotateCcw = wrap(RotateCcwRaw);
+export const Phone = wrap(PhoneRaw);
+export const Sun = wrap(SunRaw);
+export const Moon = wrap(MoonRaw);
+export const Server = wrap(ServerRaw);
+export const Send = wrap(SendRaw);
+export const Plus = wrap(PlusRaw);
+export const Play = wrap(PlayRaw);
+export const Pause = wrap(PauseRaw);
+export const Mic = wrap(MicRaw);
+export const Maximize2 = wrap(Maximize2Raw);
+export const Loader2 = wrap(Loader2Raw);
+export const Languages = wrap(LanguagesRaw);
+export const GraduationCap = wrap(GraduationCapRaw);
+export const ExternalLink = wrap(ExternalLinkRaw);
+export const CheckCircle2 = wrap(CheckCircle2Raw);
+export const Volume2 = wrap(Volume2Raw);

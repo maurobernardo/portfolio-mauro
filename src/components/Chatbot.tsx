@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight, X } from './icons';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
 

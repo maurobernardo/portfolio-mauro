@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  Search, Home, User2, Wrench, Briefcase, Award, Mail, Download,
-  Github, Sun, Moon, ArrowRight,
-} from 'lucide-react';
+import { Search, Home, User2, Wrench, Briefcase, Award, Mail, Download } from 'lucide-react';
+import { Github, Sun, Moon, ArrowRight } from './icons';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
 import { pk, projectsMeta } from '../lib/projects';

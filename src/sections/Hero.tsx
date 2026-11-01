@@ -1,6 +1,6 @@
 import Reveal from '../components/Reveal';
 import SectionPattern from '../components/SectionPattern';
-import { Facebook, Linkedin, Github, ArrowDown } from 'lucide-react';
+import { Facebook, Linkedin, Github, ArrowDown } from '../components/icons';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useWelcomeVoice } from '../lib/voice';
 

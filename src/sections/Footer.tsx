@@ -1,4 +1,5 @@
-import { Facebook, Github, Linkedin, Instagram, Mail, Phone, MapPin, ArrowUp } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import { Facebook, Github, Linkedin, Instagram, Phone, MapPin, ArrowUp } from '../components/icons';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const quickLinks = [

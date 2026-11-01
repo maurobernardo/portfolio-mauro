@@ -1,6 +1,6 @@
 import { CSSProperties, useMemo } from 'react';
 import SectionBridge from '../components/SectionBridge';
-import { RotateCcw } from 'lucide-react';
+import { RotateCcw } from '../components/icons';
 import { useLanguage } from '../contexts/LanguageContext';
 import { scrollToTarget } from '../lib/scroll';
 import Reveal from '../components/Reveal';

@@ -3,7 +3,8 @@ import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
 import SectionPattern from '../components/SectionPattern';
 import emailjs from '@emailjs/browser';
-import { Send, Loader2, CheckCircle2, AlertCircle, Phone, Mail, MapPin, Linkedin, Github, Facebook, Instagram, Crosshair, ArrowUpRight } from 'lucide-react';
+import { AlertCircle, Mail, Crosshair } from 'lucide-react';
+import { Send, Loader2, CheckCircle2, Phone, MapPin, Linkedin, Github, Facebook, Instagram, ArrowUpRight } from '../components/icons';
 import { FaWhatsapp } from 'react-icons/fa';
 import { useLanguage } from '../contexts/LanguageContext';
 

@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
+import { LazyMotion } from 'motion/react';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import Navbar from './components/Navbar';
 const Chatbot = lazy(() => import('./components/Chatbot'));
@@ -34,6 +35,7 @@ function App() {
   }, []);
 
   return (
+    <LazyMotion features={() => import('./lib/motionFeatures').then((m) => m.default)}>
     <LanguageProvider>
       <div className="min-h-screen bg-background text-foreground">
         <Splash />
@@ -66,6 +68,7 @@ function App() {
         <Footer />
       </div>
     </LanguageProvider>
+    </LazyMotion>
   );
 }
 

@@ -1,5 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Code2, Mic, Store, Trophy, Award, ImagePlus, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { Code2, Store, Trophy, Award, ImagePlus } from 'lucide-react';
+import { Mic, X, ChevronLeft, ChevronRight, Maximize2 } from '../components/icons';
 import SectionHeader from '../components/SectionHeader';
 import SectionPattern from '../components/SectionPattern';
 import { prefersReducedMotion } from '../lib/hooks';

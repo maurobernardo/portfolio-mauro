@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X } from '../components/icons';
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
 import { lockScroll } from '../lib/scroll';

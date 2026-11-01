@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Moon, Sun, ArrowUpRight } from 'lucide-react';
+import { Moon, Sun, ArrowUpRight } from './icons';
 import { useLanguage } from '../contexts/LanguageContext';
 import { lockScroll } from '../lib/scroll';
 import CommandPalette from './CommandPalette';

@@ -1,5 +1,6 @@
 import { CSSProperties, ReactNode, useEffect, useMemo, useRef, useState } from 'react';
-import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
+import { VolumeX } from 'lucide-react';
+import { Pause, Play, Volume2 } from './icons';
 import { createReelAudio, Mood, ReelAudio } from '../lib/reelAudio';
 import { useLanguage } from '../contexts/LanguageContext';
 import { prefersReducedMotion } from '../lib/hooks';

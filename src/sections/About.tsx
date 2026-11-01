@@ -2,7 +2,8 @@ import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
 import SectionPattern from '../components/SectionPattern';
 import LanyardCard from '../components/LanyardCard';
-import { MapPin, GraduationCap, Languages, Mail, BookOpen, ArrowRight } from 'lucide-react';
+import { Mail, BookOpen } from 'lucide-react';
+import { MapPin, GraduationCap, Languages, ArrowRight } from '../components/icons';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function About() {

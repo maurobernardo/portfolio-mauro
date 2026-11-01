@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Github, ExternalLink, X, Target, Lightbulb, Plus, Quote, ChevronLeft, ChevronRight, ChevronDown, Smartphone, Monitor, Server } from 'lucide-react';
+import { Target, Lightbulb, Quote, Smartphone, Monitor } from 'lucide-react';
+import { Github, ExternalLink, X, Plus, ChevronLeft, ChevronRight, ChevronDown, Server } from '../components/icons';
 import Reveal from '../components/Reveal';
 import SectionHeader from '../components/SectionHeader';
 import SectionPattern from '../components/SectionPattern';
