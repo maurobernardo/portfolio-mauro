@@ -30,7 +30,7 @@ export default function Footer() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,3fr)_minmax(0,4fr)]">
           <div>
             <a href="#inicio" className="inline-flex items-center gap-3">
-              <img src="/profile10.png" alt="" className="h-12 w-12 rounded-full border border-foreground/15 object-cover" />
+              <img src="/perfil.webp" alt="" className="h-12 w-12 rounded-full border border-foreground/15 object-cover object-top" />
               <span className="text-lg font-bold tracking-tight">Mauro Zibane</span>
             </a>
             <p className="mt-6 max-w-sm text-2xl leading-snug tracking-tight">

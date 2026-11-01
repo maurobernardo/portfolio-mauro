@@ -36,7 +36,7 @@ export default function Hero() {
             <span aria-hidden="true" className="absolute -inset-[6%] rounded-full border border-dashed border-foreground/20" />
             <span className="absolute inset-0 overflow-hidden rounded-full border border-foreground/25 bg-card shadow-[0_40px_100px_-40px_rgba(0,0,0,0.5)]">
               <img
-                src="/profile10.png"
+                src="/perfil.webp"
                 alt={t('hero.photoAlt')}
                 className="h-full w-full object-cover object-top transition-transform duration-[1200ms] group-hover:scale-105"
                 style={{ transitionTimingFunction: 'var(--ease)' }}

@@ -25,7 +25,7 @@ export function ToSkills() {
       items={skills}
       a={t('bridge.skillsA')}
       b={t('bridge.skillsB')}
-      back={{ items: [{ kind: 'photo', src: '/profile10.png' }, ...about, ...about], a: t('bridge.backAboutA'), b: t('bridge.backAboutB') }}
+      back={{ items: [{ kind: 'photo', src: '/perfil.webp' }, ...about, ...about], a: t('bridge.backAboutA'), b: t('bridge.backAboutB') }}
     />
   );
 }
