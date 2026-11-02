@@ -4,10 +4,11 @@ import SectionPattern from '../components/SectionPattern';
 import LanyardCard from '../components/LanyardCard';
 import { Mail, BookOpen } from 'lucide-react';
 import { MapPin, GraduationCap, Languages, ArrowRight } from '../components/icons';
+import { cvFor } from '../lib/cv';
 import { useLanguage } from '../contexts/LanguageContext';
 
 export default function About() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const facts = [
     { Icon: MapPin, k: t('about.location'), v: t('about.locationValue') },
@@ -43,7 +44,7 @@ export default function About() {
                   {t('about.viewSkills')}
                   <ArrowRight size={16} />
                 </a>
-                <a href="/Mauro%20Zibane.pdf" download className="mz-btn mz-btn-ghost">{t('hero.downloadCV')} ↓</a>
+                <a href={cvFor(language).href} download={cvFor(language).file} className="mz-btn mz-btn-ghost">{t('hero.downloadCV')} ↓</a>
                 <a href="https://github.com/maurobernardo?tab=repositories" target="_blank" rel="noreferrer" className="mz-btn mz-btn-ghost">GitHub</a>
                 <a href="https://www.linkedin.com/in/mauro-bernardo-zibane-5619b427a/" target="_blank" rel="noreferrer" className="mz-btn mz-btn-ghost">LinkedIn</a>
               </div>

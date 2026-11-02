@@ -1,6 +1,7 @@
 import Reveal from '../components/Reveal';
 import SectionPattern from '../components/SectionPattern';
 import { Facebook, Linkedin, Github, ArrowDown } from '../components/icons';
+import { cvFor } from '../lib/cv';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useWelcomeVoice } from '../lib/voice';
 
@@ -84,7 +85,7 @@ export default function Hero() {
               <a href="#contato" className="mz-btn mz-btn-ghost px-7 py-3.5">
                 {t('nav.contact')}
               </a>
-              <a href="/Mauro%20Zibane.pdf" download className="mz-btn mz-btn-ghost px-7 py-3.5">
+              <a href={cvFor(language).href} download={cvFor(language).file} className="mz-btn mz-btn-ghost px-7 py-3.5">
                 {t('hero.downloadCV')} ↓
               </a>
             </div>

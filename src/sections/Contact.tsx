@@ -6,6 +6,7 @@ import emailjs from '@emailjs/browser';
 import { AlertCircle, Mail, Crosshair } from 'lucide-react';
 import { Send, Loader2, CheckCircle2, Phone, MapPin, Linkedin, Github, Facebook, Instagram, ArrowUpRight } from '../components/icons';
 import { FaWhatsapp } from 'react-icons/fa';
+import { cvFor } from '../lib/cv';
 import { useLanguage } from '../contexts/LanguageContext';
 
 type SubmitStatus = 'idle' | 'loading' | 'success' | 'error';
@@ -46,7 +47,7 @@ function LocalTime({ label }: { label: string }) {
 }
 
 export default function Contact() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -346,7 +347,7 @@ ${t('contact.phone')}: ${phone.trim()}` : message.trim(),
             </div>
           </div>
             <LocalTime label={t("contact.localTime")} />
-            <a href="/Mauro%20Zibane.pdf" download className="group flex items-center justify-between gap-4 rounded-[28px] border border-foreground/10 bg-card p-6 transition-all duration-500 hover:border-foreground">
+            <a href={cvFor(language).href} download={cvFor(language).file} className="group flex items-center justify-between gap-4 rounded-[28px] border border-foreground/10 bg-card p-6 transition-all duration-500 hover:border-foreground">
               <span>
                 <span className="mz-tag block">{t("contact.cvTag")}</span>
                 <span className="mt-1 block text-xl font-bold">{t("hero.downloadCV")}</span>
